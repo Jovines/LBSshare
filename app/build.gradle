@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "com.jovines.lbsshare"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+
+    // copy if need Unit Testing
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+
+    //上线之前如果需要检测是否有内存泄漏，直接解除注释，然后安装debug版本的掌邮
+    // 就会附带一个LeakCanary的app来检测是否有内存泄漏
+    //debugApi 'com.squareup.leakcanary:leakcanary-android:2.2'
+
+    //kotlin
+    api deps.kotlin.runtime
+    api deps.kotlin.anko
+    api deps.kotlin.core
+    //official ui and support library
+    api deps.support.constraint
+    api deps.support.app_compat
+    api deps.support.recyclerview
+    api deps.support.cardview
+    api deps.support.design
+    api deps.support.v4
+    api deps.support.multidex
+
+    api deps.eventbus.runtime
+
+    //network
+    api deps.glide.runtime
+    api deps.glide.okhttp_integration
+    api deps.okhttp.okhttp3
+    api deps.okhttp.logging_interceptor
+    api deps.retrofit.rxjava2
+    api deps.retrofit.gson
+    api deps.retrofit.runtime
+    api deps.rxjava.runtime
+    api deps.rxjava.rxandroid
+    api deps.rxjava.rxkotlin
+    api deps.gson.runtime
+
+    api('com.squareup.retrofit2:converter-simplexml:2.7.2') {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+
+    //architecture
+    api deps.lifecycle.extensions
+    api deps.lifecycle.viewmodel_ktx
+    api deps.lifecycle.java8
+    api deps.lifecycle.reactivestrean
+    kapt deps.lifecycle.compiler
+    api deps.room.runtime
+    api deps.room.rxjava
+    kapt deps.room.compiler
+    api deps.paging.runtime
+    api deps.paging.rxjava
+    api deps.workmanager.runtime
+
+    //permission
+    api deps.rxpermissions.runtime
+}
