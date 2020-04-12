@@ -1,68 +1,88 @@
 package com.jovines.lbsshare.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import android.util.Patterns
-import com.jovines.lbsshare.R
+import androidx.core.content.edit
+import com.jovines.lbsshare.APP
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
-import com.jovines.lbsshare.ui.data.LoginRepository
-import com.jovines.lbsshare.ui.data.Result
-
-import com.jovines.lbsshare.ui.login.LoggedInUserView
-import com.jovines.lbsshare.ui.login.LoginFormState
-import com.jovines.lbsshare.ui.login.LoginResult
+import com.jovines.lbsshare.config.PASSWORD
+import com.jovines.lbsshare.config.USER_NAME
+import com.jovines.lbsshare.network.ApiGenerator
+import com.jovines.lbsshare.network.UserApiService
+import com.jovines.lbsshare.utils.ExecuteOnceObserver
+import com.jovines.lbsshare.utils.extensions.setSchedulers
+import org.jetbrains.anko.defaultSharedPreferences
+import java.util.regex.Pattern
 
 class LoginViewModel : BaseViewModel() {
 
-//    private val loginRepository: LoginRepository
-//
-//    private val _loginForm = MutableLiveData<LoginFormState>()
-//    val loginFormState: LiveData<LoginFormState> = _loginForm
-//
-//    private val _loginResult = MutableLiveData<LoginResult>()
-//    val loginResult: LiveData<LoginResult> = _loginResult
-//
-//    fun login(username: String, password: String) {
-//        // can be launched in a separate asynchronous job
-//        val result = loginRepository.login(username, password)
-//
-//        if (result is Result.Success) {
-//            _loginResult.value =
-//                LoginResult(
-//                    success = LoggedInUserView(
-//                        displayName = result.data.displayName
-//                    )
-//                )
-//        } else {
-//            _loginResult.value =
-//                LoginResult(error = R.string.login_failed)
-//        }
-//    }
-//
-//    fun loginDataChanged(username: String, password: String) {
-//        if (!isUserNameValid(username)) {
-//            _loginForm.value =
-//                LoginFormState(usernameError = R.string.invalid_username)
-//        } else if (!isPasswordValid(password)) {
-//            _loginForm.value =
-//                LoginFormState(passwordError = R.string.invalid_password)
-//        } else {
-//            _loginForm.value =
-//                LoginFormState(isDataValid = true)
-//        }
-//    }
-//
-//    // A placeholder username validation check
-//    private fun isUserNameValid(username: String): Boolean {
-//        return if (username.contains('@')) {
-//            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-//        } else {
-//            username.isNotBlank()
-//        }
-//    }
-//
-//    // A placeholder password validation check
-//    private fun isPasswordValid(password: String): Boolean {
-//        return password.length > 5
-//    }
+    private val userApiService: UserApiService = ApiGenerator.getApiService(UserApiService::class.java)
+
+    /**
+     * 登陆
+     * @param password 密码
+     * @param phone 手机号码
+     * @param successCallBack 登陆成功后回调
+     * @param failedCallback 登陆失败回调
+     */
+    fun land(password: String, phone: Long,successCallBack:()->Unit,failedCallback:(Int)->Unit) {
+        userApiService
+            .land(phone, password)
+            .setSchedulers()
+            .subscribe(ExecuteOnceObserver(onExecuteOnceNext = {
+                if (it.code == 1000) {
+                    APP.context.defaultSharedPreferences.edit {
+                        putLong(USER_NAME,phone)
+                        putString(PASSWORD, password)
+                    }
+                    APP.user = it.data
+                    successCallBack.invoke()
+                }else{
+                    failedCallback(it.code)
+                }
+            },onExecuteOnceError = {
+                print("")
+            }))
+    }
+
+    fun register(nickname: String, phone: Long, password: String,successCallBack:()->Unit,failedCallback:(Int)->Unit) {
+        userApiService.register(phone, password, nickname)
+            .setSchedulers()
+            .subscribe(ExecuteOnceObserver(
+                onExecuteOnceNext = {
+                    if (it.code == 1000) {
+                        APP.context.defaultSharedPreferences.edit {
+                            putLong(USER_NAME,phone)
+                            putString(PASSWORD, password)
+                        }
+                        APP.user = it.data
+                        successCallBack.invoke()
+                    }else{
+                        failedCallback(it.code)
+                    }
+                }
+            ))
+    }
+
+    /**
+     * 检查手机号是否正确
+     */
+    fun checkPhone(phone: String): Boolean {
+        val matcher = Pattern.compile("1[0-9]{10}").matcher(phone)
+        return matcher.matches()
+    }
+
+    /**
+     * 检查密码是否正确
+     */
+    fun checkPassword(password: String): Boolean {
+        val matcher = Pattern.compile("[\\w\\S]{6,16}").matcher(password)
+        return matcher.matches()
+    }
+
+    /**
+     * 检查昵称是否正确
+     */
+    fun checkNickname(nickname: String): Boolean {
+        val matcher = Pattern.compile("[\\u2E80-\\u9FFF\\w]{1,12}").matcher(nickname)
+        return matcher.matches()
+    }
 }

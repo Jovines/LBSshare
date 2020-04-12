@@ -13,4 +13,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
         setContentView(R.layout.activity_main)
     }
 
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
 }

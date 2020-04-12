@@ -1,17 +1,14 @@
 package com.jovines.lbsshare.ui.login
 
-import android.app.Activity
-import androidx.lifecycle.Observer
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import androidx.annotation.StringRes
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.EditText
+import androidx.core.content.ContextCompat
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseViewModelActivity
-
+import com.jovines.lbsshare.ui.MainActivity
 import com.jovines.lbsshare.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -27,27 +24,56 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
     }
 
     private fun initActivity() {
-        login_button.setOnClickListener {
-            username_content.error = "无效手机号"
-            password_content.error = "验证码错误"
+        tv_login_button.setOnClickListener {
+            val password = login_password.editableText.toString()
+            val phone = login_username.editableText.toString()
+            if (!viewModel.checkPhone(phone)) {
+                username_content.error = getString(R.string.invalid_phone_number)
+                return@setOnClickListener
+            } else {
+                if (!viewModel.checkPassword(password)) {
+                    password_content.error = getString(R.string.password_format_error)
+                }
+            }
+            viewModel.land(password,phone.toLong(),successCallBack = {
+                startActivity<MainActivity>()
+            },failedCallback = {
+                if (it == 1001) {
+                    username_content.error = "手机号未注册"
+                }else if (it==1002){
+                    login_password.editableText.clear()
+                    password_content.error = "密码输入错误"
+
+                }
+            })
+        }
+        val gradientDrawable = tv_login_button.background as GradientDrawable
+        login_username.afterTextChanged {
+            if (it.length < 11)
+                username_content.error = null
+            checkHasContent(gradientDrawable)
+        }
+        login_password.afterTextChanged {
+            password_content.error = null
+            checkHasContent(gradientDrawable)
+        }
+
+        tv_immediate_registration.setOnClickListener {
+            startActivity<RegisterActivity>()
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+    private fun checkHasContent(gradientDrawable: GradientDrawable) {
+        if (login_password.editableText.isNotEmpty() && login_username.editableText.isNotEmpty())
+            gradientDrawable.setColor(ContextCompat.getColor(this, R.color.login_button_activated))
+        else
+            gradientDrawable.setColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.login_button_not_activated
+                )
+            )
     }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
-
 }
 
 /**

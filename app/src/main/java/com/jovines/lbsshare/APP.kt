@@ -3,8 +3,7 @@ package com.jovines.lbsshare
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import androidx.core.content.edit
-import com.jovines.lbsshare.bean.UserBean
+import com.jovines.lbs_server.entity.UserBean
 import com.jovines.lbsshare.config.PASSWORD
 import com.jovines.lbsshare.config.USER_NAME
 import org.jetbrains.anko.defaultSharedPreferences
@@ -21,15 +20,15 @@ class APP : Application() {
     companion object {
         lateinit var context: Context
             private set
-        var user:UserBean = UserBean("","")
+        var user: UserBean = UserBean(0,"")
 
-        fun isLogin()= user.id.isNotEmpty()&& user.password.isNotEmpty()
+        fun isLogin()= user.phone!= 0L && user.password.isNotEmpty()
     }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         context = base
-        user.id = context.defaultSharedPreferences.getString(USER_NAME, "")!!
+        user.phone = context.defaultSharedPreferences.getString(USER_NAME, "0")!!.toLong()
         user.password = context.defaultSharedPreferences.getString(PASSWORD, "")!!
     }
 }

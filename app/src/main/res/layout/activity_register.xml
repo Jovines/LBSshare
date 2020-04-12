@@ -69,10 +69,10 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username_content"
+            android:id="@+id/register_nickname_content"
             android:layout_width="0dp"
-            app:errorEnabled="true"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.551"
@@ -81,6 +81,7 @@
             app:layout_constraintVertical_bias="0.111">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_register_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="昵称"
@@ -95,15 +96,18 @@
             android:id="@+id/cell_phone_number_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="11"
             app:errorEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username_content"
+            app:layout_constraintTop_toBottomOf="@+id/register_nickname_content"
             app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_register_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="手机号"
@@ -112,15 +116,16 @@
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
                 android:textColor="#000000" />
-
+x
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/verification_code_content"
+            android:id="@+id/register_password_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
+            app:passwordToggleEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.551"
@@ -129,9 +134,10 @@
             app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_register_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="验证码"
+                android:hint="密码"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
@@ -144,17 +150,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/login_button"
+        android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="start"
         android:layout_marginTop="275dp"
         android:background="@drawable/login_button"
         android:elevation="5dp"
-        android:enabled="false"
         android:gravity="center"
         android:paddingHorizontal="80dp"
-        android:text="@string/action_sign_in"
+        android:text="@string/action_register"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -163,8 +168,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.0" />
-
-
 
 
     <TextView
@@ -177,11 +180,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button"
+        app:layout_constraintTop_toBottomOf="@+id/register_button"
         app:layout_constraintVertical_bias="0.737" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_immediate_land"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="立即注册"

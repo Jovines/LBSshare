@@ -67,6 +67,8 @@
             android:layout_height="wrap_content"
             app:errorEnabled="true"
             app:errorTextColor="#ff0000"
+            app:counterMaxLength="11"
+            app:counterEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.551"
@@ -75,11 +77,11 @@
             app:layout_constraintVertical_bias="0.111">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
+                android:id="@+id/login_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="手机号"
-                android:inputType="textEmailAddress"
+                android:inputType="phone"
                 android:selectAllOnFocus="true"
                 android:textColor="#000000" />
 
@@ -92,6 +94,7 @@
             android:layout_height="wrap_content"
             app:errorEnabled="true"
             app:errorTextColor="#ff0000"
+            app:passwordToggleEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.517"
@@ -100,7 +103,7 @@
             app:layout_constraintVertical_bias="0.194">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
+                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="密码"
@@ -110,21 +113,19 @@
                 android:selectAllOnFocus="true"
                 android:textColor="#000000" />
 
-
         </com.google.android.material.textfield.TextInputLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/login_button"
+        android:id="@+id/tv_login_button"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="start"
         android:layout_marginTop="175dp"
         android:background="@drawable/login_button"
+        android:clickable="true"
         android:elevation="5dp"
-        android:enabled="false"
         android:gravity="center"
         android:paddingHorizontal="80dp"
         android:text="@string/action_sign_in"
@@ -157,11 +158,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button"
+        app:layout_constraintTop_toBottomOf="@+id/tv_login_button"
         app:layout_constraintVertical_bias="0.737" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_immediate_registration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="立即注册"

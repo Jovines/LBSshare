@@ -1,12 +1,18 @@
-package com.jovines.lbsshare.bean
+package com.jovines.lbs_server.entity
 
-import javax.security.auth.callback.PasswordCallback
+import java.io.Serializable
 
 /**
- * @author jon
- * @create 2020-04-11 5:14 PM
+ * (User)实体类
  *
- * 描述:
- *   用户类
+ * @author Jovines
+ * @since 2020-04-11 21:24:09
  */
-data class UserBean(var id: String, var password: String)
+class UserBean(
+        var phone: Long = 0,
+        var nickname: String = "",
+        var password: String = "")
+    : Serializable {
+
+    private val serialVersionUID = -79397126901599023L
+}
