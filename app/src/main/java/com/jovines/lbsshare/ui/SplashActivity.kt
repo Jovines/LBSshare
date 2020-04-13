@@ -1,5 +1,5 @@
 package com.jovines.lbsshare.ui
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import com.jovines.lbsshare.APP
 import com.jovines.lbsshare.R
@@ -10,11 +10,11 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Thread{
+        Thread {
             Thread.sleep(2000)
             if (APP.isLogin()) {
                 startActivity<MainActivity>()
-            }else{
+            } else {
                 startActivity<StartUpActivity>()
             }
             finish()

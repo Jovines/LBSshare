@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import androidx.core.content.ContextCompat
+import com.afollestad.materialdialogs.MaterialDialog
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.ui.MainActivity
@@ -24,6 +25,12 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
     }
 
     private fun initActivity() {
+        val materialDialog = MaterialDialog.Builder(this)
+            .progress(true, 100)
+            .content("登陆中...")
+            .autoDismiss(false)
+            .cancelable(false)
+            .build()
         tv_login_button.setOnClickListener {
             val password = login_password.editableText.toString()
             val phone = login_username.editableText.toString()
@@ -35,16 +42,19 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
                     password_content.error = getString(R.string.password_format_error)
                 }
             }
-            viewModel.land(password,phone.toLong(),successCallBack = {
+            materialDialog.show()
+            viewModel.land(password, phone.toLong(), successCallBack = {
                 startActivity<MainActivity>()
-            },failedCallback = {
+                finish()
+            }, failedCallback = {
                 if (it == 1001) {
                     username_content.error = "手机号未注册"
-                }else if (it==1002){
+                } else if (it == 1002) {
                     login_password.editableText.clear()
                     password_content.error = "密码输入错误"
 
                 }
+                materialDialog.dismiss()
             })
         }
         val gradientDrawable = tv_login_button.background as GradientDrawable
@@ -60,6 +70,7 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
 
         tv_immediate_registration.setOnClickListener {
             startActivity<RegisterActivity>()
+            finish()
         }
     }
 

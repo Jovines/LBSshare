@@ -1,7 +1,7 @@
 package com.jovines.lbsshare.network
 
 /**
- * @author jon
+ * @author Jovines
  * @create 2020-04-11 10:06 PM
  *
  * 描述:
@@ -10,7 +10,7 @@ package com.jovines.lbsshare.network
 
 object Api{
 
-    const val base_url = "http://192.168.0.103:8080"
+    const val base_url = "http://139.196.143.240:8080"
 
     const val land_url = "/user/login"
 

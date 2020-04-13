@@ -85,7 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="昵称"
-                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
                 android:selectAllOnFocus="true"
                 android:textColor="#000000" />
 
@@ -111,12 +112,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="手机号"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
                 android:selectAllOnFocus="true"
                 android:textColor="#000000" />
-x
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,13 +124,13 @@ x
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            app:passwordToggleEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.551"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cell_phone_number_content"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="0.0"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_register_password"
@@ -187,7 +186,7 @@ x
         android:id="@+id/tv_immediate_land"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="立即注册"
+        android:text="立即登陆"
         android:textColor="#0F1366"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"

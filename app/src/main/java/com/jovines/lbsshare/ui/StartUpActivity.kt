@@ -22,10 +22,10 @@ class StartUpActivity : BaseActivity() {
         if (APP.isLogin()) {
             tv_register.visibility = View.GONE
             tv_land.visibility = View.GONE
-            val constraintSet = ConstraintSet().apply{ clone(content)}
+            val constraintSet = ConstraintSet().apply { clone(content) }
             constraintSet.setVerticalBias(R.id.tip_word, 0f)
             constraintSet.applyTo(content)
-        }else{
+        } else {
             tv_register.setOnClickListener {
                 startActivity<RegisterActivity>()
             }

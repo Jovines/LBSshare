@@ -5,16 +5,21 @@ import com.jovines.lbsshare.APP
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.config.PASSWORD
 import com.jovines.lbsshare.config.USER_NAME
+import com.jovines.lbsshare.event.LoginStateChangeEvent
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.ExecuteOnceObserver
 import com.jovines.lbsshare.utils.extensions.setSchedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.defaultSharedPreferences
 import java.util.regex.Pattern
 
 class LoginViewModel : BaseViewModel() {
 
-    private val userApiService: UserApiService = ApiGenerator.getApiService(UserApiService::class.java)
+    private val userApiService: UserApiService =
+        ApiGenerator.getApiService(UserApiService::class.java)
 
     /**
      * 登陆
@@ -23,39 +28,64 @@ class LoginViewModel : BaseViewModel() {
      * @param successCallBack 登陆成功后回调
      * @param failedCallback 登陆失败回调
      */
-    fun land(password: String, phone: Long,successCallBack:()->Unit,failedCallback:(Int)->Unit) {
+    fun land(
+        password: String,
+        phone: Long,
+        successCallBack: () -> Unit,
+        failedCallback: (Int) -> Unit
+    ) {
+        val time = System.currentTimeMillis()
         userApiService
             .land(phone, password)
-            .setSchedulers()
+            .setSchedulers(observeOn = Schedulers.io())
+            .doOnNext {
+                val l = 2000 - (System.currentTimeMillis() - time)
+                Thread.sleep(if (l > 0) l else 0)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(ExecuteOnceObserver(onExecuteOnceNext = {
                 if (it.code == 1000) {
                     APP.context.defaultSharedPreferences.edit {
-                        putLong(USER_NAME,phone)
+                        putLong(USER_NAME, phone)
                         putString(PASSWORD, password)
                     }
                     APP.user = it.data
+                    EventBus.getDefault().post(LoginStateChangeEvent(true))
                     successCallBack.invoke()
-                }else{
+                } else {
                     failedCallback(it.code)
                 }
-            },onExecuteOnceError = {
-                print("")
+            }, onExecuteOnceError = {
+
             }))
     }
 
-    fun register(nickname: String, phone: Long, password: String,successCallBack:()->Unit,failedCallback:(Int)->Unit) {
+    fun register(
+        nickname: String,
+        phone: Long,
+        password: String,
+        successCallBack: () -> Unit,
+        failedCallback: (Int) -> Unit
+    ) {
+        val time = System.currentTimeMillis()
         userApiService.register(phone, password, nickname)
-            .setSchedulers()
+            .setSchedulers(observeOn = Schedulers.io())
+            .doOnNext {
+                val l = 2000 - (System.currentTimeMillis() - time)
+                Thread.sleep(if (l > 0) l else 0)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(ExecuteOnceObserver(
                 onExecuteOnceNext = {
                     if (it.code == 1000) {
                         APP.context.defaultSharedPreferences.edit {
-                            putLong(USER_NAME,phone)
+                            putLong(USER_NAME, phone)
                             putString(PASSWORD, password)
                         }
                         APP.user = it.data
+                        EventBus.getDefault().post(LoginStateChangeEvent(true))
                         successCallBack.invoke()
-                    }else{
+                    } else {
                         failedCallback(it.code)
                     }
                 }

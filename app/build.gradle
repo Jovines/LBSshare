@@ -102,9 +102,11 @@ dependencies {
     api deps.paging.rxjava
     api deps.workmanager.runtime
 
+    api 'com.afollestad.material-dialogs:commons:0.9.6.0'
+
     //permission
     api deps.rxpermissions.runtime
-    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.core:core-ktx:1.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
