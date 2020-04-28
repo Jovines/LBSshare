@@ -3,6 +3,10 @@
 buildscript {
     ext.kotlin_version = '1.3.71'
     apply from: 'versions.gradle'
+    apply from: 'secret.gradle'
+    ext{
+        LBSShareStore = "${rootDir}/LBSShareStore"
+    }
     repositories {
         // 以下两行代码相当于有了 google() jcenter() mavenCentral()，使用国内的阿里镜像
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
@@ -10,7 +14,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

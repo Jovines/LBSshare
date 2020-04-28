@@ -62,7 +62,11 @@
             android:name=".ui.StartUpActivity">
         </activity>
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.main.MainActivity" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="c86c1eebb4a68b9895f4fa364a883243"/>
     </application>
 
 </manifest>

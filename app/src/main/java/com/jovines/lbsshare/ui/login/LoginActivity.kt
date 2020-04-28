@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseViewModelActivity
-import com.jovines.lbsshare.ui.MainActivity
+import com.jovines.lbsshare.ui.main.MainActivity
 import com.jovines.lbsshare.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 

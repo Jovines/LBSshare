@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.jovines.lbsshare.APP
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseActivity
+import com.jovines.lbsshare.ui.main.MainActivity
 
 class SplashActivity : BaseActivity() {
 

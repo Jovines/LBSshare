@@ -42,7 +42,7 @@ abstract class BaseActivity : AppCompatActivity() {
             Build.VERSION.SDK_INT >= 23 -> {
                 window.decorView.systemUiVisibility =
                         //亮色模式状态栏
-//                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
                         //设置decorView的布局设置为全屏
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                             //维持布局稳定，不会因为statusBar和虚拟按键的消失而移动view位置

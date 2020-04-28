@@ -14,4 +14,7 @@
     <string name="invalid_phone_number">无效手机号</string>
     <string name="bad_nickname_format">格式错误，只能存在中文或者字母</string>
     <string name="mobile_number_has_been_registered">该手机号已被注册</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

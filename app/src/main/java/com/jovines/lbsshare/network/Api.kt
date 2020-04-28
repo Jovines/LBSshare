@@ -10,7 +10,7 @@ package com.jovines.lbsshare.network
 
 object Api{
 
-    const val base_url = "http://139.196.143.240:8080"
+    const val base_url = "http://192.168.0.102:8080"
 
     const val land_url = "/user/login"
 

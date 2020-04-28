@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/main_find"
+        android:icon="@drawable/ic_found"
+        android:title="" />
+
+     <item android:id="@+id/main_square"
+        android:icon="@drawable/ic_square"
+        android:title="" />
+
+     <item android:id="@+id/main_mine"
+        android:icon="@drawable/ic_mine"
+        android:title="" />
+</menu>
