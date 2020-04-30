@@ -13,6 +13,7 @@ import com.jovines.lbsshare.databinding.FragmentSquareBindingImpl
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
 import com.jovines.lbsshare.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_found.*
+import kotlinx.android.synthetic.main.fragment_square.*
 import org.jetbrains.anko.topPadding
 
 class SquareFragment : Fragment() {

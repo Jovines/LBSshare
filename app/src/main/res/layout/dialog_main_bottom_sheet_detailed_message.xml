@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/shape_foud_detail_message_backgroud"
+    android:paddingBottom="10dp"
+    android:paddingHorizontal="20dp">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_expand_more_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_detail_message_user"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/user_default_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="重庆邮电大学"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_detail_message_user"
+        app:layout_constraintTop_toTopOf="@+id/iv_detail_message_user" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="欢迎报考重庆邮电大学"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="重庆最新开学通知！！！"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/iv_detail_message_user"
+        app:layout_constraintTop_toBottomOf="@+id/iv_detail_message_user" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="这里是正文这里是正文这里是正文这里是正文这里是
+正文这里是正文这里是正文这里是正文这里是正文这
+里是正文这里是正文这里是正文这里是正文这里是正
+文这里是正文这里是正文。"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
+        tools:itemCount="5"
+        tools:listitem="@layout/recycle_detail_message" />
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/dialog_detail_mapView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:background="@drawable/shape_white_gradient_above"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_detail_mapView"
+        app:layout_constraintStart_toStartOf="@+id/dialog_detail_mapView"
+        app:layout_constraintTop_toTopOf="@+id/dialog_detail_mapView" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:background="@drawable/shape_white_gradient_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_detail_mapView"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_detail_mapView"
+        app:layout_constraintStart_toStartOf="@+id/dialog_detail_mapView" />
+
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/ic_distance"
+        android:drawablePadding="10dp"
+        android:gravity="bottom"
+        android:text="22m"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView17"
+        app:layout_constraintStart_toEndOf="@+id/textView17" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@ package com.jovines.lbsshare.utils.extensions
 import android.net.Uri
 import android.os.Build
 import androidx.core.content.FileProvider
-import com.jovines.lbsshare.APP
+import com.jovines.lbsshare.App
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import java.io.File
@@ -13,7 +13,7 @@ import java.io.File
  */
 val File.uri: Uri
     get() = if (Build.VERSION.SDK_INT >= 24) {
-        FileProvider.getUriForFile(APP.context, "com.mredrock.cyxbs.fileProvider", this)
+        FileProvider.getUriForFile(App.context, "com.mredrock.cyxbs.fileProvider", this)
     } else {
         Uri.fromFile(this)
     }

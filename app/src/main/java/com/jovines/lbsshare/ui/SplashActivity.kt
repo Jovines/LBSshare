@@ -1,7 +1,7 @@
 package com.jovines.lbsshare.ui
 
 import android.os.Bundle
-import com.jovines.lbsshare.APP
+import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseActivity
 import com.jovines.lbsshare.ui.main.MainActivity
@@ -13,11 +13,11 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
         Thread {
             Thread.sleep(2000)
-            if (APP.isLogin()) {
+//            if (App.isLogin()) {
                 startActivity<MainActivity>()
-            } else {
-                startActivity<StartUpActivity>()
-            }
+//            } else {
+//                startActivity<StartUpActivity>()
+//            }
             finish()
         }.start()
     }

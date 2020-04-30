@@ -10,7 +10,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import com.jovines.lbs_server.entity.UserBean
-import com.jovines.lbsshare.APP
+import com.jovines.lbsshare.App
 import com.jovines.lbsshare.config.PASSWORD
 import com.jovines.lbsshare.config.USER_NAME
 import com.jovines.lbsshare.event.LoginEvent
@@ -60,8 +60,8 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun signOut() {
-        APP.user = UserBean(0, "")
-        APP.context.defaultSharedPreferences.edit {
+        App.user = UserBean(0, "")
+        App.context.defaultSharedPreferences.edit {
             putLong(USER_NAME, 0)
             putString(PASSWORD, "")
         }

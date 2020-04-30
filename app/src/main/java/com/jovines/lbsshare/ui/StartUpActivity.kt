@@ -3,7 +3,7 @@ package com.jovines.lbsshare.ui
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
-import com.jovines.lbsshare.APP
+import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseActivity
 import com.jovines.lbsshare.ui.login.LoginActivity
@@ -19,7 +19,7 @@ class StartUpActivity : BaseActivity() {
     }
 
     private fun initActivity() {
-        if (APP.isLogin()) {
+        if (App.isLogin()) {
             tv_register.visibility = View.GONE
             tv_land.visibility = View.GONE
             val constraintSet = ConstraintSet().apply { clone(content) }

@@ -14,7 +14,7 @@ import org.jetbrains.anko.defaultSharedPreferences
  * 描述:启动类
  *
  */
-class APP : Application() {
+class App : Application() {
 
     companion object {
         lateinit var context: Context

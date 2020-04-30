@@ -139,12 +139,12 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 //    //高德地图
-//    //2d地图
-//    implementation 'com.amap.api:map2d:6.0.0'
-//    //搜索
-//    implementation 'com.amap.api:search:7.3.0'
-//    //定位
-//    implementation 'com.amap.api:location:4.9.0'
+    //3d地图
+    implementation 'com.amap.api:3dmap:7.4.0'
+    //搜索
+    implementation 'com.amap.api:search:7.3.0'
+    //定位
+    implementation 'com.amap.api:location:4.9.0'
 
 }
 repositories {

@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
 import kotlinx.android.synthetic.main.fragment_found.*
+import kotlinx.android.synthetic.main.fragment_mine.*
 import org.jetbrains.anko.topPadding
 
 class MineFragment : Fragment() {

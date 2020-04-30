@@ -1,7 +1,7 @@
 package com.jovines.lbsshare.viewmodel
 
 import androidx.core.content.edit
-import com.jovines.lbsshare.APP
+import com.jovines.lbsshare.App
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.config.PASSWORD
 import com.jovines.lbsshare.config.USER_NAME
@@ -45,11 +45,11 @@ class LoginViewModel : BaseViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(ExecuteOnceObserver(onExecuteOnceNext = {
                 if (it.code == 1000) {
-                    APP.context.defaultSharedPreferences.edit {
+                    App.context.defaultSharedPreferences.edit {
                         putLong(USER_NAME, phone)
                         putString(PASSWORD, password)
                     }
-                    APP.user = it.data
+                    App.user = it.data
                     EventBus.getDefault().post(LoginStateChangeEvent(true))
                     successCallBack.invoke()
                 } else {
@@ -78,11 +78,11 @@ class LoginViewModel : BaseViewModel() {
             .subscribe(ExecuteOnceObserver(
                 onExecuteOnceNext = {
                     if (it.code == 1000) {
-                        APP.context.defaultSharedPreferences.edit {
+                        App.context.defaultSharedPreferences.edit {
                             putLong(USER_NAME, phone)
                             putString(PASSWORD, password)
                         }
-                        APP.user = it.data
+                        App.user = it.data
                         EventBus.getDefault().post(LoginStateChangeEvent(true))
                         successCallBack.invoke()
                     } else {

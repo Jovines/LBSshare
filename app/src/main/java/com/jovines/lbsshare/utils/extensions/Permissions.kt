@@ -3,6 +3,7 @@ package com.jovines.lbsshare.utils.extensions
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -106,15 +107,15 @@ private fun performRequestPermission(context: Context,
     }
 }
 
-fun AppCompatActivity.doPermissionAction(vararg permissionsRequired: String,
-                                         actionBuilder: PermissionActionBuilder.() -> Unit) {
+fun FragmentActivity.doPermissionAction(vararg permissionsRequired: String,
+                                        actionBuilder: PermissionActionBuilder.() -> Unit) {
     performRequestPermission(this, RxPermissions(this), *permissionsRequired, actionBuilder = actionBuilder)
 }
 
 fun Fragment.doPermissionAction(vararg permissionsRequired: String,
                                 actionBuilder: PermissionActionBuilder.() -> Unit) {
-    performRequestPermission(activity!!, RxPermissions(this), *permissionsRequired, actionBuilder = actionBuilder)
+    performRequestPermission(requireActivity(), RxPermissions(this), *permissionsRequired, actionBuilder = actionBuilder)
 }
 
-fun AppCompatActivity.isPermissionGranted(permissions: String) = RxPermissions(this).isGranted(permissions)
+fun FragmentActivity.isPermissionGranted(permissions: String) = RxPermissions(this).isGranted(permissions)
 fun Fragment.isPermissionGranted(permissions: String) = RxPermissions(this).isGranted(permissions)
