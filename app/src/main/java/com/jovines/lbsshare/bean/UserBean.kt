@@ -9,10 +9,16 @@ import java.io.Serializable
  * @since 2020-04-11 21:24:09
  */
 class UserBean(
-        var phone: Long = 0,
-        var nickname: String = "",
-        var password: String = "")
-    : Serializable {
+    var phone: Long = 0,
+    var nickname: String = "",
+    var password: String = "",
+    var description: String? = null,
+    var avatar: String? = null,
+    var lon: Double? = null,
+    var lat: Double? = null
+) : Serializable {
 
-    private val serialVersionUID = -79397126901599023L
+    companion object {
+        private const val serialVersionUID = -87868821129653017L
+    }
 }

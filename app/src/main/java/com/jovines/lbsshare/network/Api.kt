@@ -10,10 +10,22 @@ package com.jovines.lbsshare.network
 
 object Api{
 
-    const val base_url = "http://192.168.0.102:8080"
+    const val BASE_URL = "http://192.168.0.106:9899"
 
-    const val land_url = "/user/login"
+    const val LAND_URL = "/user/login"
 
-    const val register_url = "/user/register"
+    const val REGISTER_URL = "/user/register"
+
+    const val CHANGE_AVATAR_URL = "/user/changeAvatar"
+
+    const val BASE_PICTURE_URI = "$BASE_URL/image"
+
+    const val FIND_NEARBY_URI = "/user/findNearby"
+
+    const val UPDATE_LOCATION_URI = "/user/updateLocation"
+
+    const val QUERY_SOMEONE_MESSAGE = "/lifecirclemessageitem/checkPersonMessage"
+
+    const val FIND_NEARBY_MESSAGES = "/lifecirclemessageitem/findLatestNewsNearby"
 
 }

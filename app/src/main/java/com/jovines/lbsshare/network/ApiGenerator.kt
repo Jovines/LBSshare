@@ -20,7 +20,7 @@ object ApiGenerator {
     init {
         okHttpClient = configureOkHttp(OkHttpClient.Builder())
         retrofit = Retrofit.Builder()
-            .baseUrl(Api.base_url)
+            .baseUrl(Api.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

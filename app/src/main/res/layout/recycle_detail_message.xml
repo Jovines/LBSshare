@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <de.hdodenhof.circleimageview.CircleImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:adjustViewBounds="true"
-    android:src="@drawable/user_default_avatar"
+    android:layout_width="@dimen/detailed_information_attention_personnel_height"
+    android:layout_height="@dimen/detailed_information_attention_personnel_height"
+    android:src="@drawable/user_default_avatar_black"
     app:civ_border_color="#ffffff"
-    app:civ_border_width="10dp">
-
+    app:civ_border_width="1dp">
 
 </de.hdodenhof.circleimageview.CircleImageView>

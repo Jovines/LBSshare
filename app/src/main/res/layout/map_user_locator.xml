@@ -5,11 +5,10 @@
     android:layout_height="@dimen/user_mark_height"
     android:background="@drawable/ic_user_locator">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_map_user_portrait"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
+        android:layout_height="0dp"
         android:src="@drawable/user_default_avatar"
         app:layout_constraintBottom_toTopOf="@+id/tv_map_user_nickname"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"

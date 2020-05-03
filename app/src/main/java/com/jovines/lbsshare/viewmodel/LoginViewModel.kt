@@ -43,7 +43,9 @@ class LoginViewModel : BaseViewModel() {
                 Thread.sleep(if (l > 0) l else 0)
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(ExecuteOnceObserver(onExecuteOnceNext = {
+            .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
+
+            }, onExecuteOnceNext = {
                 if (it.code == 1000) {
                     App.context.defaultSharedPreferences.edit {
                         putLong(USER_NAME, phone)
@@ -55,8 +57,6 @@ class LoginViewModel : BaseViewModel() {
                 } else {
                     failedCallback(it.code)
                 }
-            }, onExecuteOnceError = {
-
             }))
     }
 

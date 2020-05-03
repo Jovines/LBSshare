@@ -1,12 +1,16 @@
 package com.jovines.lbsshare.network
 
 import com.jovines.lbs_server.entity.UserBean
+import com.jovines.lbsshare.App
+import com.jovines.lbsshare.bean.CardMessageReturn
+import com.jovines.lbsshare.bean.LifecircleMessageItem
 import com.jovines.lbsshare.bean.StatusWarp
+import com.jovines.lbsshare.config.DEFAULT_LATITUDE
+import com.jovines.lbsshare.config.DEFAULT_LONGITUDE
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
 
 /**
  * @author Jovines
@@ -17,14 +21,88 @@ import retrofit2.http.POST
  */
 interface UserApiService {
 
+    /**
+     * 注册
+     */
     @FormUrlEncoded
-    @POST(Api.register_url)
-    fun register(@Field("phone") phone: Long,
-                 @Field("password") password: String,
-                 @Field("nickname") nickname: String): Observable<StatusWarp<UserBean>>
+    @POST(Api.REGISTER_URL)
+    fun register(
+        @Field("phone") phone: Long,
+        @Field("password") password: String,
+        @Field("nickname") nickname: String
+    ): Observable<StatusWarp<UserBean>>
 
+    /**
+     * 登陆
+     */
     @FormUrlEncoded
-    @POST(Api.land_url)
-    fun land(@Field("phone") phone: Long,
-             @Field("password") password: String):Observable<StatusWarp<UserBean>>
+    @POST(Api.LAND_URL)
+    fun land(
+        @Field("phone") phone: Long,
+        @Field("password") password: String
+    ): Observable<StatusWarp<UserBean>>
+
+
+    /**
+     * 寻找附近
+     */
+    @FormUrlEncoded
+    @POST(Api.FIND_NEARBY_URI)
+    fun findNearby(
+        @Field("range") range: Int,
+        @Field("lat") lat: Double = App.user.lat ?: DEFAULT_LATITUDE,
+        @Field("lon") lon: Double = App.user.lon ?: DEFAULT_LONGITUDE,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<List<UserBean>>>
+
+
+    /**
+     * 更新位置信息
+     */
+    @FormUrlEncoded
+    @POST(Api.UPDATE_LOCATION_URI)
+    fun updateLocation(
+        @Field("lon") lon: Double,
+        @Field("lat") lat: Double,
+        @Field("phone") phone: Long = App.user.phone,
+        @Field("password") password: String = App.user.password
+    ): Observable<StatusWarp<UserBean>>
+
+
+    /**
+     * 改头像
+     */
+    @Multipart
+    @POST(Api.CHANGE_AVATAR_URL)
+    fun changeAvatar(
+        @Part file: MultipartBody.Part,
+        @PartMap map: Map<String, RequestBody>
+    ): Observable<StatusWarp<UserBean>>
+
+
+    /**
+     * 获取某人所发消息
+     */
+    @FormUrlEncoded
+    @POST(Api.QUERY_SOMEONE_MESSAGE)
+    fun querySomeoneMessage(
+        @Field("checkUser") checkUser: Long,
+        @Field("userOwner") userOwner: Long = App.user.phone
+    ): Observable<StatusWarp<List<LifecircleMessageItem>>>
+
+
+    /**
+     * 获取某人所发消息
+     */
+    @FormUrlEncoded
+    @POST(Api.FIND_NEARBY_MESSAGES)
+    fun findLatestNewsNearby(
+        @Field("range") range: Int,
+        @Field("time") time: Int,
+        @Field("lon") lon: Double = App.user.lon ?: 0.0,
+        @Field("phone") phone: Long = App.user.phone,
+        @Field("lat") lat: Double = App.user.lat ?: 0.0
+    ): Observable<StatusWarp<List<CardMessageReturn>>>
+
+
 }

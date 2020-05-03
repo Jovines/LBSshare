@@ -14,10 +14,12 @@ import io.reactivex.disposables.Disposable
  *
  * Created by anriku on 2018/9/18.
  */
-class ExecuteOnceObserver<T>(val onExecuteOnceNext: (T) -> Unit = {},
-                             val onExecuteOnceComplete: () -> Unit = {},
-                             val onExecuteOnceError: (Throwable) -> Unit = {},
-                             val onExecuteOnFinal:()->Unit={}) : Observer<T> {
+class ExecuteOnceObserver<T>(
+    val onExecuteOnFinal: () -> Unit = {},
+    val onExecuteOnceComplete: () -> Unit = {},
+    val onExecuteOnceError: (Throwable) -> Unit = {},
+    val onExecuteOnceNext: (T) -> Unit = {}
+) : Observer<T> {
 
     private var mDisposable: Disposable? = null
 
