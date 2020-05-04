@@ -8,7 +8,7 @@ package com.jovines.lbsshare.network
  *   网络接口
  */
 
-object Api{
+object Api {
 
     const val BASE_URL = "http://192.168.0.106:9899"
 
@@ -27,5 +27,7 @@ object Api{
     const val QUERY_SOMEONE_MESSAGE = "/lifecirclemessageitem/checkPersonMessage"
 
     const val FIND_NEARBY_MESSAGES = "/lifecirclemessageitem/findLatestNewsNearby"
+
+    const val POST_A_MESSAGE = "/lifecirclemessageitem/postAMessage"
 
 }

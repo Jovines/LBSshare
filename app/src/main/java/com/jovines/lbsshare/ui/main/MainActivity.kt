@@ -1,6 +1,8 @@
 package com.jovines.lbsshare.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -15,10 +17,14 @@ import com.jovines.lbsshare.databinding.ActivityMainBindingImpl
 import com.jovines.lbsshare.ui.EditActivity
 import com.jovines.lbsshare.ui.StartUpActivity
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
+import com.jovines.lbsshare.utils.getUriPath
 import com.jovines.lbsshare.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.topPadding
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 
 
 class MainActivity : BaseViewModelActivity<MainViewModel>() {
@@ -55,9 +61,28 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
         }
         iv_edit.setOnClickListener { startActivity<EditActivity>() }
 
+        user_profile.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = "android.intent.action.PICK"
+            intent.addCategory("android.intent.category.DEFAULT")
+            startActivityForResult(intent, EditActivity.PICTURE_SELECTION)
+        }
+
         viewModel.latestNewsFromNearby.observe(this, Observer {
             recentNewsAdapter.notifyDataSetChanged()
         })
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            EditActivity.PICTURE_SELECTION -> {
+                data?.data?.let { viewModel.changeHeadImage(it) }
+            }
+        }
+
     }
 
     override fun onBackPressed() {

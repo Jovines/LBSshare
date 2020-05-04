@@ -36,7 +36,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".ui.EditActivity"></activity>
+        <activity android:name=".ui.EditActivity">
+
+        </activity>
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">

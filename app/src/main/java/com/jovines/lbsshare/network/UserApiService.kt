@@ -8,8 +8,10 @@ import com.jovines.lbsshare.bean.StatusWarp
 import com.jovines.lbsshare.config.DEFAULT_LATITUDE
 import com.jovines.lbsshare.config.DEFAULT_LONGITUDE
 import io.reactivex.Observable
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.http.*
 
 /**
@@ -44,7 +46,7 @@ interface UserApiService {
 
 
     /**
-     * 寻找附近
+     * 寻找附近的人
      */
     @FormUrlEncoded
     @POST(Api.FIND_NEARBY_URI)
@@ -70,13 +72,12 @@ interface UserApiService {
 
 
     /**
-     * 改头像
+     * 更换头像
      */
     @Multipart
     @POST(Api.CHANGE_AVATAR_URL)
     fun changeAvatar(
-        @Part file: MultipartBody.Part,
-        @PartMap map: Map<String, RequestBody>
+        @Part partList: List<MultipartBody.Part>
     ): Observable<StatusWarp<UserBean>>
 
 
@@ -92,7 +93,7 @@ interface UserApiService {
 
 
     /**
-     * 获取某人所发消息
+     * 获取最新消息
      */
     @FormUrlEncoded
     @POST(Api.FIND_NEARBY_MESSAGES)
@@ -104,5 +105,19 @@ interface UserApiService {
         @Field("lat") lat: Double = App.user.lat ?: 0.0
     ): Observable<StatusWarp<List<CardMessageReturn>>>
 
+
+    /**
+     * 获取最新消息
+     */
+    @FormUrlEncoded
+    @POST(Api.POST_A_MESSAGE)
+    fun postAMessage(
+        @Field("phone") phone: Long = App.user.phone,
+        @Field("lat") lat: Double = App.user.lat ?: 0.0,
+        @Field("lon") lon: Double = App.user.lon ?: 0.0,
+        @Field("password") password: String = App.user.password,
+        @Field("title") title: String,
+        @Field("content") content: String
+    ): Observable<StatusWarp<List<CardMessageReturn>>>
 
 }

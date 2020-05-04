@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/user_profile"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -45,7 +45,7 @@
                 android:gravity="start"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/user_profile"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -68,8 +68,8 @@
                     android:text="@{mainViewModel.weatherData}"
                     android:textColor="#000000"
                     android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    app:layout_constraintBottom_toBottomOf="@+id/user_profile"
+                    app:layout_constraintStart_toEndOf="@+id/user_profile"
                     tools:ignore="SmallSp"
                     tools:text="晴 16℃" />
 

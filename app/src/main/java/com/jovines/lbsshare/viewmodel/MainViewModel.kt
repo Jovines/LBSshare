@@ -2,6 +2,8 @@ package com.jovines.lbsshare.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
+import android.os.ParcelFileDescriptor
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -26,6 +28,7 @@ import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.ExecuteOnceObserver
 import com.jovines.lbsshare.utils.extensions.setSchedulers
+import com.jovines.lbsshare.utils.getUriPath
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -33,9 +36,9 @@ import kotlinx.android.synthetic.main.map_user_locator.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.FileInputStream
 
 
 /**
@@ -71,6 +74,9 @@ class MainViewModel : BaseViewModel() {
         ApiGenerator.getApiService(UserApiService::class.java)
 
 
+    /**
+     * 请求现在的天气
+     */
     private fun requestWeather() {
         mWeatherSearch.setOnWeatherSearchListener(object : WeatherSearch.OnWeatherSearchListener {
             override fun onWeatherLiveSearched(liveResult: LocalWeatherLiveResult?, p1: Int) {
@@ -91,6 +97,9 @@ class MainViewModel : BaseViewModel() {
         mWeatherSearch.searchWeatherAsyn() //异步搜索
     }
 
+    /**
+     * 请求现在的位置
+     */
     fun requestLocation(aMap: AMap) {
         //初始化定位
         val locationClient = AMapLocationClient(App.context)
@@ -114,22 +123,32 @@ class MainViewModel : BaseViewModel() {
         locationClient.startLocation()
     }
 
-    fun changeHeadImage(file: File) {
-        val mapParams = mutableMapOf<String, RequestBody>()
-        mapParams["phone"] =
-            "${App.user.phone}".toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        mapParams["password"] =
-            App.user.password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val fileBody: RequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-        val createFormData = MultipartBody.Part.createFormData("image", file.name, fileBody)
-        userApiService.changeAvatar(createFormData, mapParams)
-            .setSchedulers()
-            .subscribe(ExecuteOnceObserver {
-                it?.data?.let { userBean ->
-                    App.user = userBean
-                    avatar.set(userBean.avatar)
-                }
-            })
+    /**
+     * 改变头像
+     */
+    fun changeHeadImage(uri: Uri) {
+        val fdd = File(getUriPath(uri) ?: "")
+        val pfd: ParcelFileDescriptor? = App.context.contentResolver.openFileDescriptor(uri, "r")
+        if (pfd != null) {
+            val inputStream = FileInputStream(pfd.fileDescriptor)
+            val builder = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+            builder.addFormDataPart("phone", App.user.phone.toString())
+            builder.addFormDataPart("password", App.user.password)
+            val fileBody: RequestBody =
+                inputStream.readBytes().toRequestBody("image/*".toMediaTypeOrNull())
+            builder.addFormDataPart("image", fdd.name, fileBody)
+            userApiService.changeAvatar(builder.build().parts)
+                .setSchedulers()
+                .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
+                    print("")
+                }) {
+                    it?.data?.let { userBean ->
+                        App.user = userBean
+                        avatar.set(userBean.avatar)
+                    }
+                })
+        }
     }
 
     /**
@@ -148,7 +167,7 @@ class MainViewModel : BaseViewModel() {
             })
     }
 
-    fun lookingForNewsNearby() {
+    private fun lookingForNewsNearby() {
         userApiService.findLatestNewsNearby(500000, 24)
             .setSchedulers()
             .subscribe(ExecuteOnceObserver {

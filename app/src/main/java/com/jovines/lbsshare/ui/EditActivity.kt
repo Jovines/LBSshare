@@ -11,6 +11,7 @@ import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.EditPictureSelectionAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
+import com.jovines.lbsshare.utils.getUriPath
 import com.jovines.lbsshare.viewmodel.EditViewModel
 import kotlinx.android.synthetic.main.activity_edit.*
 import org.jetbrains.anko.topPadding
@@ -52,33 +53,6 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
                 editPictureSelectionAdapter.notifyItemInserted(viewModel.imageUriList.size - 1)
             }
         }
-    }
-
-    private fun getUriPath(uri: Uri?): String? {
-        var data: String? = null
-        if (null == uri) return null
-        val scheme: String? = uri.scheme
-        if (scheme == null) data = uri.path else if (ContentResolver.SCHEME_FILE == scheme) {
-            data = uri.path
-        } else if (ContentResolver.SCHEME_CONTENT == scheme) {
-            val cursor: Cursor? = contentResolver.query(
-                uri,
-                arrayOf(MediaStore.Images.ImageColumns.DATA),
-                null,
-                null,
-                null
-            )
-            if (null != cursor) {
-                if (cursor.moveToFirst()) {
-                    val index: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-                    if (index > -1) {
-                        data = cursor.getString(index)
-                    }
-                }
-                cursor.close()
-            }
-        }
-        return data
     }
 
     override val viewModelClass = EditViewModel::class.java

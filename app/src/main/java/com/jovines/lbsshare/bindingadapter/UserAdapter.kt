@@ -16,8 +16,8 @@ object UserAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["imageUri"])
-    fun getImageUri(imageView: ImageView, uri: String) {
-        if (uri.isNotEmpty())
+    fun getImageUri(imageView: ImageView, uri: String?) {
+        if (uri != null && uri.isNotEmpty())
             Glide.with(imageView).load("${Api.BASE_PICTURE_URI}/$uri").into(imageView)
     }
 }
