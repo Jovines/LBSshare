@@ -1,15 +1,19 @@
 package com.jovines.lbsshare.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
 import com.jovines.lbsshare.ui.DialogHelper.foundDetailDialog
+import com.jovines.lbsshare.utils.LatLonUtil.getDistance
 import kotlinx.android.synthetic.main.viewpager_latest_news_item.view.*
+import java.text.DecimalFormat
 
 /**
  * @author Jovines
@@ -29,9 +33,6 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
     override fun getItemCount() = liveData.value?.size ?: 0
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.apply {
-            setOnClickListener {
-                foundDetailDialog(context).show()
-            }
             liveData.value?.get(position)?.let { messageReturn ->
                 if (messageReturn.avatar != null && messageReturn.avatar!!.isNotBlank())
                     Glide.with(holder.itemView.context)
@@ -41,6 +42,21 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                 tv_user_description.text = messageReturn.description
                 tv_article_title.text = messageReturn.title
                 tv_article_content.text = messageReturn.content
+                if (App.user.lon != null && App.user.lat != null && messageReturn.lon != null && messageReturn.lat != null) {
+                    tv_article_distance.visibility = View.VISIBLE
+                    val dis = getDistance(
+                        App.user.lon!!,
+                        App.user.lat!!,
+                        messageReturn.lon!!,
+                        messageReturn.lat!!
+                    ).toInt()
+                    tv_article_distance.text = if (dis < 1000) "${dis}m"
+                    else
+                        DecimalFormat("#.#E0").format(dis).replace(Regex("E.+"), "km")
+                } else tv_article_distance.visibility = View.GONE
+                setOnClickListener {
+                    foundDetailDialog(context,messageReturn).show()
+                }
             }
         }
     }

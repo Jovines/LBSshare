@@ -12,7 +12,7 @@ import com.jovines.lbsshare.R
  * description:
  *
  */
-class MainHighQualityUsersAdapter(val dataList: List<String>) : RecyclerView.Adapter<ViewHolder>() {
+class MainHighQualityUsersAdapter(private val dataList: List<String>) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             LayoutInflater.from(parent.context)

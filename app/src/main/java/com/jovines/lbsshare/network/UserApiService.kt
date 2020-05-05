@@ -8,10 +8,7 @@ import com.jovines.lbsshare.bean.StatusWarp
 import com.jovines.lbsshare.config.DEFAULT_LATITUDE
 import com.jovines.lbsshare.config.DEFAULT_LONGITUDE
 import io.reactivex.Observable
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.http.*
 
 /**
@@ -109,15 +106,10 @@ interface UserApiService {
     /**
      * 获取最新消息
      */
-    @FormUrlEncoded
+    @Multipart
     @POST(Api.POST_A_MESSAGE)
     fun postAMessage(
-        @Field("phone") phone: Long = App.user.phone,
-        @Field("lat") lat: Double = App.user.lat ?: 0.0,
-        @Field("lon") lon: Double = App.user.lon ?: 0.0,
-        @Field("password") password: String = App.user.password,
-        @Field("title") title: String,
-        @Field("content") content: String
-    ): Observable<StatusWarp<List<CardMessageReturn>>>
+        @Part partList: List<MultipartBody.Part>
+    ): Observable<StatusWarp<String>>
 
 }

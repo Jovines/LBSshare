@@ -2,6 +2,7 @@ package com.jovines.lbsshare.adapter
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.recycle_edit_picture_selection_item.view.*
  * 描述:
  *
  */
-class EditPictureSelectionAdapter(private val dataList: MutableList<String>) :
+class EditPictureSelectionAdapter(private val dataList: MutableList<Uri>) :
     RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -49,7 +50,10 @@ class EditPictureSelectionAdapter(private val dataList: MutableList<String>) :
                 intent.type = "image/*"
                 intent.action = "android.intent.action.PICK"
                 intent.addCategory("android.intent.category.DEFAULT")
-                (it.context as Activity).startActivityForResult(intent, EditActivity.PICTURE_SELECTION)
+                (it.context as Activity).startActivityForResult(
+                    intent,
+                    EditActivity.PICTURE_SELECTION
+                )
             }
         }
     }

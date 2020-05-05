@@ -1,21 +1,18 @@
 package com.jovines.lbsshare.ui
 
-import android.content.ContentResolver
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.EditPictureSelectionAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
+import com.jovines.lbsshare.databinding.ActivityEditBindingImpl
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
-import com.jovines.lbsshare.utils.getUriPath
 import com.jovines.lbsshare.viewmodel.EditViewModel
 import kotlinx.android.synthetic.main.activity_edit.*
 import org.jetbrains.anko.topPadding
-import java.io.File
 
 
 class EditActivity : BaseViewModelActivity<EditViewModel>() {
@@ -29,7 +26,8 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit)
+        val bindingImpl = DataBindingUtil.setContentView<ActivityEditBindingImpl>(this,R.layout.activity_edit)
+        bindingImpl.viewmodel = viewModel
         initActivity()
     }
 
@@ -40,16 +38,27 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
             ll_edit_toolbar.topPadding += getStatusBarHeight()
             height += getStatusBarHeight()
         }
+
+        tv_post_button.setOnClickListener {
+            val title = viewModel.title.get()
+            val content = viewModel.content.get()
+            if (title == null || title.isBlank()) {
+                Toast.makeText(this, "您还未输入标题", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (content == null || content.isBlank()) {
+                Toast.makeText(this, "您还未输入正文", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            viewModel.publishAnArticle()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             PICTURE_SELECTION -> {
-                val element = data?.data.toString()
-                viewModel.imageUriList.add(element)
-                val fdd = File(getUriPath(data?.data) ?: "")
-                val s = fdd.exists()
+                data?.data?.let { viewModel.imageUriList.add(it) }
                 editPictureSelectionAdapter.notifyItemInserted(viewModel.imageUriList.size - 1)
             }
         }

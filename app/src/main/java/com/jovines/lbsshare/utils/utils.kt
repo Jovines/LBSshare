@@ -1,12 +1,17 @@
 package com.jovines.lbsshare.utils
 
-import android.app.Activity
 import android.content.ContentResolver
-import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import com.jovines.lbsshare.App
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
+import java.io.FileInputStream
 
 /**
  * @author Jovines
@@ -41,4 +46,17 @@ fun getUriPath(uri: Uri?): String? {
         }
     }
     return data
+}
+
+fun MultipartBody.Builder.addImageToMultipartBodyBuilder(parameterName: String, imageUris: List<Uri>) {
+    imageUris.forEach {
+        val fdd = File(getUriPath(it) ?: "")
+        val pfd: ParcelFileDescriptor? = App.context.contentResolver.openFileDescriptor(it, "r")
+        if (pfd != null) {
+            val inputStream = FileInputStream(pfd.fileDescriptor)
+            val fileBody: RequestBody =
+                inputStream.readBytes().toRequestBody("image/*".toMediaTypeOrNull())
+            addFormDataPart(parameterName, fdd.name, fileBody)
+        }
+    }
 }

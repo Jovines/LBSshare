@@ -74,7 +74,7 @@ class FoundFragment : Fragment() {
                 }
                 //定位自己的位置
                 aMap.isMyLocationEnabled = true
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(13F))
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(12.5F))
                 mainViewModel.aMapLocation.observe(viewLifecycleOwner, Observer {
                     it?.apply {
 

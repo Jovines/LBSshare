@@ -11,8 +11,8 @@ import io.reactivex.disposables.Disposable
  * Created By jay68 on 2018/8/23.
  */
 open class BaseViewModel : ViewModel() {
-    val toastEvent: MutableLiveData<Int> by lazy { SingleLiveEvent<Int>() }
-    val longToastEvent: MutableLiveData<Int> by lazy { SingleLiveEvent<Int>() }
+    val toastEvent: MutableLiveData<String> by lazy { SingleLiveEvent<String>() }
+    val longToastEvent: MutableLiveData<String> by lazy { SingleLiveEvent<String>() }
     val progressDialogEvent: MutableLiveData<ProgressDialogEvent> by lazy { SingleLiveEvent<ProgressDialogEvent>() }
 
     private val disposables: MutableList<Disposable> = mutableListOf()

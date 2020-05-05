@@ -3,7 +3,6 @@ package com.jovines.lbsshare.viewmodel
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
-import android.os.ParcelFileDescriptor
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -27,18 +26,13 @@ import com.jovines.lbsshare.network.Api
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.ExecuteOnceObserver
+import com.jovines.lbsshare.utils.addImageToMultipartBodyBuilder
 import com.jovines.lbsshare.utils.extensions.setSchedulers
-import com.jovines.lbsshare.utils.getUriPath
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.map_user_locator.view.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
-import java.io.FileInputStream
 
 
 /**
@@ -127,28 +121,21 @@ class MainViewModel : BaseViewModel() {
      * 改变头像
      */
     fun changeHeadImage(uri: Uri) {
-        val fdd = File(getUriPath(uri) ?: "")
-        val pfd: ParcelFileDescriptor? = App.context.contentResolver.openFileDescriptor(uri, "r")
-        if (pfd != null) {
-            val inputStream = FileInputStream(pfd.fileDescriptor)
-            val builder = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-            builder.addFormDataPart("phone", App.user.phone.toString())
-            builder.addFormDataPart("password", App.user.password)
-            val fileBody: RequestBody =
-                inputStream.readBytes().toRequestBody("image/*".toMediaTypeOrNull())
-            builder.addFormDataPart("image", fdd.name, fileBody)
-            userApiService.changeAvatar(builder.build().parts)
-                .setSchedulers()
-                .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
-                    print("")
-                }) {
-                    it?.data?.let { userBean ->
-                        App.user = userBean
-                        avatar.set(userBean.avatar)
-                    }
-                })
-        }
+        val builder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+        builder.addFormDataPart("phone", App.user.phone.toString())
+        builder.addFormDataPart("password", App.user.password)
+        builder.addImageToMultipartBodyBuilder("image", listOf(uri))
+        userApiService.changeAvatar(builder.build().parts)
+            .setSchedulers()
+            .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
+                print("")
+            }) {
+                it?.data?.let { userBean ->
+                    App.user = userBean
+                    avatar.set(userBean.avatar)
+                }
+            })
     }
 
     /**
@@ -168,7 +155,7 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun lookingForNewsNearby() {
-        userApiService.findLatestNewsNearby(500000, 24)
+        userApiService.findLatestNewsNearby(5000, 24)
             .setSchedulers()
             .subscribe(ExecuteOnceObserver {
                 latestNewsFromNearby.value = it.data
@@ -180,7 +167,7 @@ class MainViewModel : BaseViewModel() {
      * 找附近的人并将他们显示到地图上
      */
     private fun findNearby(aMap: AMap) {
-        val subscribe = userApiService.findNearby(500000)
+        val subscribe = userApiService.findNearby(5000)
             .subscribeOn(Schedulers.io())
             .flatMap { data ->
                 Observable.create<Pair<UserBean, Bitmap?>> { observer ->
