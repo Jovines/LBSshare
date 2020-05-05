@@ -112,4 +112,21 @@ interface UserApiService {
         @Part partList: List<MultipartBody.Part>
     ): Observable<StatusWarp<String>>
 
+    @FormUrlEncoded
+    @POST(Api.ADD_TIME_VISITED)
+    fun addTimeVisited(
+        @Field("messageId") messageId: Long,
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<String>>
+
+
+    @FormUrlEncoded
+    @POST(Api.GET_NEWS_ACTIVE_USERS)
+    fun getNewsActiveUsers(
+        @Field("messageId") messageId: Long,
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<List<UserBean>>>
+
 }

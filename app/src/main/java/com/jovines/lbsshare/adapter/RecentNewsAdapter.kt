@@ -10,8 +10,11 @@ import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
+import com.jovines.lbsshare.network.ApiGenerator
+import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.ui.DialogHelper.foundDetailDialog
 import com.jovines.lbsshare.utils.LatLonUtil.getDistance
+import com.jovines.lbsshare.utils.extensions.setSchedulers
 import kotlinx.android.synthetic.main.viewpager_latest_news_item.view.*
 import java.text.DecimalFormat
 
@@ -55,7 +58,13 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                         DecimalFormat("#.#E0").format(dis).replace(Regex("E.+"), "km")
                 } else tv_article_distance.visibility = View.GONE
                 setOnClickListener {
-                    foundDetailDialog(context,messageReturn).show()
+                    foundDetailDialog(context, messageReturn).show()
+                    messageReturn.id?.apply {
+                        ApiGenerator.getApiService(UserApiService::class.java)
+                            .addTimeVisited(this)
+                            .setSchedulers()
+                            .subscribe()
+                    }
                 }
             }
         }

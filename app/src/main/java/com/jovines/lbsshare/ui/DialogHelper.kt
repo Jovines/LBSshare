@@ -1,11 +1,13 @@
 package com.jovines.lbsshare.ui
 
 import android.content.Context
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableInt
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,13 +20,21 @@ import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MarkerOptions
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
+import com.jovines.lbsshare.adapter.DetailedInformationAdapter
+import com.jovines.lbsshare.adapter.NewsActiveUsersAdapter
 import com.jovines.lbsshare.adapter.ViewHolder
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.databinding.DialogMainBottomSheetDetailedMessageBinding
 import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
+import com.jovines.lbsshare.network.ApiGenerator
+import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.LatLonUtil.getDistance
+import com.jovines.lbsshare.utils.extensions.setSchedulers
+import com.jovines.lbsshare.utils.extensions.visible
 import kotlinx.android.synthetic.main.dialog_main_bottom_sheet_detailed_message.*
 import org.jetbrains.anko.dip
 import java.text.DecimalFormat
@@ -96,13 +106,34 @@ object DialogHelper {
                     outRect.right = -view.dip(10)
                 }
             })
+            user_name_bottom.text = messageReturn.nickname
             detailed_user_name.text = messageReturn.nickname
             user_description.text = messageReturn.description
+            details_recycling_label.setOnClickListener {
+                dialog.dismiss()
+            }
+            if (messageReturn.images?.isNotBlank() == true) {
+                recycle_detailed_information.visible()
+                recycle_detailed_information.adapter = DetailedInformationAdapter(
+                    Gson().fromJson(
+                        messageReturn.images,
+                        object : TypeToken<List<String>>() {}.type
+                    )
+                )
+            }
             if (messageReturn.avatar?.isNotBlank() == true)
                 Glide.with(context).load("${BASE_PICTURE_URI}/${messageReturn.avatar}")
                     .into(iv_detail_message_user)
             details_title.text = messageReturn.title
             details_content.text = messageReturn.content
+            //获取用户活跃数据
+            messageReturn.id?.let {
+                ApiGenerator.getApiService(UserApiService::class.java).getNewsActiveUsers(
+                    it
+                ).setSchedulers().subscribe {
+                    dialog_detail_recycler_view.adapter = NewsActiveUsersAdapter(it.data)
+                }
+            }
             val dis = getDistance(
                 App.user.lon!!,
                 App.user.lat!!,
@@ -121,16 +152,30 @@ object DialogHelper {
                 )
                 dialog_detail_mapView.map.moveCamera(mCameraUpdate)
                 dialog_detail_mapView.map.addMarker(MarkerOptions().apply {
-                    icon(
-                        BitmapDescriptorFactory.fromBitmap(
-                            BitmapFactory.decodeResource(
-                                context.resources,
-                                R.drawable.location_of_details
+                    val value = context.resources.getDimension(R.dimen.detail_map_size).toInt()
+                    val bitmap = Bitmap.createBitmap(value, value, Bitmap.Config.ARGB_8888)
+                    //将view转为bitmap
+                    LayoutInflater.from(context)
+                        .inflate(R.layout.map_location_of_details, FrameLayout(context), true)
+                        .apply {
+                            val canvas = Canvas(bitmap)
+                            measure(
+                                View.MeasureSpec.makeMeasureSpec(value, View.MeasureSpec.EXACTLY),
+                                View.MeasureSpec.makeMeasureSpec(
+                                    dip(
+                                        value
+                                    ), View.MeasureSpec.EXACTLY
+                                )
                             )
-                        )
+                            layout(0, 0, value, value)
+                            draw(canvas)
+                        }
+                    //设置转换完成的bitmap
+                    icon(
+                        BitmapDescriptorFactory.fromBitmap(bitmap)
                     )
                     position(
-                        LatLng(App.user.lat!!, App.user.lon!!)
+                        LatLng(messageReturn.lat!!, messageReturn.lon!!)
                     )
                 })
             }

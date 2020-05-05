@@ -30,4 +30,8 @@ object Api {
 
     const val POST_A_MESSAGE = "/lifecirclemessageitem/postAMessage"
 
+    const val ADD_TIME_VISITED = "/lifecirclemessageitem/addTimeVisited"
+
+    const val GET_NEWS_ACTIVE_USERS = "/lifecirclemessageitem/getNewsActiveUsers"
+
 }

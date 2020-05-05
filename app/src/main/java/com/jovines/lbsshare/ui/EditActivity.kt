@@ -26,7 +26,8 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bindingImpl = DataBindingUtil.setContentView<ActivityEditBindingImpl>(this,R.layout.activity_edit)
+        val bindingImpl =
+            DataBindingUtil.setContentView<ActivityEditBindingImpl>(this, R.layout.activity_edit)
         bindingImpl.viewmodel = viewModel
         initActivity()
     }
@@ -51,6 +52,7 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
                 return@setOnClickListener
             }
             viewModel.publishAnArticle()
+            finish()
         }
     }
 
