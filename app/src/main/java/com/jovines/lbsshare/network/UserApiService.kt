@@ -4,6 +4,7 @@ import com.jovines.lbs_server.entity.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.bean.LifecircleMessageItem
+import com.jovines.lbsshare.bean.PersonalMessageDetailsBean
 import com.jovines.lbsshare.bean.StatusWarp
 import com.jovines.lbsshare.config.DEFAULT_LATITUDE
 import com.jovines.lbsshare.config.DEFAULT_LONGITUDE
@@ -128,5 +129,14 @@ interface UserApiService {
         @Field("password") password: String = App.user.password,
         @Field("phone") phone: Long = App.user.phone
     ): Observable<StatusWarp<List<UserBean>>>
+
+
+
+    @FormUrlEncoded
+    @POST(Api.QUERY_MESSAGE)
+    fun queryMessage(
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<List<PersonalMessageDetailsBean>>>
 
 }

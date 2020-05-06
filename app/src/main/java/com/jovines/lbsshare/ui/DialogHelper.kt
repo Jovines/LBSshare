@@ -33,6 +33,7 @@ import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.LatLonUtil.getDistance
+import com.jovines.lbsshare.utils.extensions.gone
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import com.jovines.lbsshare.utils.extensions.visible
 import kotlinx.android.synthetic.main.dialog_main_bottom_sheet_detailed_message.*
@@ -126,11 +127,13 @@ object DialogHelper {
                     .into(iv_detail_message_user)
             details_title.text = messageReturn.title
             details_content.text = messageReturn.content
+
             //获取用户活跃数据
             messageReturn.id?.let {
                 ApiGenerator.getApiService(UserApiService::class.java).getNewsActiveUsers(
                     it
                 ).setSchedulers().subscribe {
+                    if (it?.data?.isEmpty() == true) dialog_detail_recycler_view.gone()
                     dialog_detail_recycler_view.adapter = NewsActiveUsersAdapter(it.data)
                 }
             }

@@ -9,6 +9,10 @@
             name="mainViewModel"
             type="com.jovines.lbsshare.viewmodel.MainViewModel" />
 
+        <variable
+            name="appViewModel"
+            type="com.jovines.lbsshare.AppViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +37,7 @@
                 android:id="@+id/user_profile"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                imageUri="@{mainViewModel.avatar}"
+                imageUri="@{appViewModel.avatar}"
                 android:src="@drawable/user_default_avatar"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="parent"

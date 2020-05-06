@@ -16,7 +16,8 @@ class LifecircleMessageItem
     var content: String? = null,
     var time: Date? = null,
     var lon: Double? = null,
-    var lat: Double? = null): Serializable {
+    var lat: Double? = null,
+     var images:String? = null): Serializable {
 
     companion object {
         private const val serialVersionUID = -40812006033387974L

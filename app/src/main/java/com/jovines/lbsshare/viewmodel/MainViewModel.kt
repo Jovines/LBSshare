@@ -57,11 +57,6 @@ class MainViewModel : BaseViewModel() {
     //天气
     val weatherLive = MutableLiveData<LocalWeatherLive>()
 
-    /**
-     * 头像的链接
-     */
-    val avatar = ObservableField<String>(App.user.avatar)
-
     val latestNewsFromNearby = MutableLiveData<List<CardMessageReturn>>()
 
     private val userApiService: UserApiService =
@@ -117,26 +112,7 @@ class MainViewModel : BaseViewModel() {
         locationClient.startLocation()
     }
 
-    /**
-     * 改变头像
-     */
-    fun changeHeadImage(uri: Uri) {
-        val builder = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-        builder.addFormDataPart("phone", App.user.phone.toString())
-        builder.addFormDataPart("password", App.user.password)
-        builder.addImageToMultipartBodyBuilder("image", listOf(uri))
-        userApiService.changeAvatar(builder.build().parts)
-            .setSchedulers()
-            .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
-                print("")
-            }) {
-                it?.data?.let { userBean ->
-                    App.user = userBean
-                    avatar.set(userBean.avatar)
-                }
-            })
-    }
+
 
     /**
      * 更新当前用户位置
@@ -155,7 +131,7 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun lookingForNewsNearby() {
-        userApiService.findLatestNewsNearby(5000, 24)
+        userApiService.findLatestNewsNearby(5000, 5)
             .setSchedulers()
             .subscribe(ExecuteOnceObserver {
                 latestNewsFromNearby.value = it.data
@@ -167,7 +143,7 @@ class MainViewModel : BaseViewModel() {
      * 找附近的人并将他们显示到地图上
      */
     private fun findNearby(aMap: AMap) {
-        val subscribe = userApiService.findNearby(5000)
+        userApiService.findNearby(5000)
             .subscribeOn(Schedulers.io())
             .flatMap { data ->
                 Observable.create<Pair<UserBean, Bitmap?>> { observer ->
@@ -208,7 +184,7 @@ class MainViewModel : BaseViewModel() {
                     }
                 // 绑定 Marker 被点击事件
                 aMap.setOnMarkerClickListener(markerClickListener)
-            }
+            }.isDisposed
     }
 
     /**

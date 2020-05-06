@@ -34,4 +34,7 @@ object Api {
 
     const val GET_NEWS_ACTIVE_USERS = "/lifecirclemessageitem/getNewsActiveUsers"
 
+    const val QUERY_MESSAGE = "/lifecirclemessageitem/queryMessage"
+
+
 }

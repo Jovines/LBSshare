@@ -8,12 +8,15 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.amap.api.services.weather.WeatherSearch
+import com.jovines.lbsshare.App
+import com.jovines.lbsshare.AppViewModel
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.MainHighQualityUsersAdapter
 import com.jovines.lbsshare.adapter.RecentNewsAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.databinding.ActivityMainBindingImpl
 import com.jovines.lbsshare.ui.EditActivity
+import com.jovines.lbsshare.ui.MineActivity
 import com.jovines.lbsshare.ui.StartUpActivity
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
 import com.jovines.lbsshare.viewmodel.MainViewModel
@@ -30,6 +33,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
         val mainBinding =
             DataBindingUtil.setContentView<ActivityMainBindingImpl>(this, R.layout.activity_main)
         mainBinding.mainViewModel = viewModel
+        mainBinding.appViewModel = App.getAppViewModelProvider(this)[AppViewModel::class.java]
         initActivity()
     }
 
@@ -57,27 +61,12 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
         iv_edit.setOnClickListener { startActivity<EditActivity>() }
 
         user_profile.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = "android.intent.action.PICK"
-            intent.addCategory("android.intent.category.DEFAULT")
-            startActivityForResult(intent, EditActivity.PICTURE_SELECTION)
+            startActivity<MineActivity>()
         }
 
         viewModel.latestNewsFromNearby.observe(this, Observer {
             recentNewsAdapter.notifyDataSetChanged()
         })
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            EditActivity.PICTURE_SELECTION -> {
-                data?.data?.let { viewModel.changeHeadImage(it) }
-            }
-        }
-
     }
 
     override fun onBackPressed() {
