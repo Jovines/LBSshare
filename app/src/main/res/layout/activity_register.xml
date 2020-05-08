@@ -73,6 +73,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.551"

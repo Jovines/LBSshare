@@ -44,8 +44,10 @@ class NewsActiveUsersAdapter(private val dataList: List<UserBean>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (getItemViewType(position) == Type.Content.ordinal) {
-            Glide.with(holder.itemView).load("${Api.BASE_PICTURE_URI}/${dataList[position].avatar}")
-                .into(holder.itemView as ImageView)
+            if (dataList[position].avatar?.isNotBlank() == true) {
+                Glide.with(holder.itemView).load("${Api.BASE_PICTURE_URI}/${dataList[position].avatar}")
+                    .into(holder.itemView as ImageView)
+            }
         } else {
             (holder.itemView as TextView).apply {
                 val str = if (dataList.size>5) "+${dataList.size - 5} Friends was here"

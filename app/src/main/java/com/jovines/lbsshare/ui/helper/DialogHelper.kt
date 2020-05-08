@@ -1,4 +1,4 @@
-package com.jovines.lbsshare.ui
+package com.jovines.lbsshare.ui.helper
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -26,6 +26,7 @@ import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.DetailedInformationAdapter
 import com.jovines.lbsshare.adapter.NewsActiveUsersAdapter
+import com.jovines.lbsshare.adapter.PictureViewAdapter
 import com.jovines.lbsshare.adapter.ViewHolder
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.databinding.DialogMainBottomSheetDetailedMessageBinding
@@ -76,6 +77,9 @@ object DialogHelper {
             setContentView(binding.root)
             val observableInt = ObservableInt(View.GONE)
             binding.positioningDisplay = observableInt
+            val observableInt1 = ObservableInt(View.GONE)
+            binding.isPictureShow = observableInt1
+
             dialog_detail_mapView.apply {
                 map.uiSettings.apply {
                     setLogoBottomMargin(-100)
@@ -115,13 +119,20 @@ object DialogHelper {
             }
             if (messageReturn.images?.isNotBlank() == true) {
                 recycle_detailed_information.visible()
-                recycle_detailed_information.adapter = DetailedInformationAdapter(
-                    Gson().fromJson(
-                        messageReturn.images,
-                        object : TypeToken<List<String>>() {}.type
-                    )
+                val dataList = Gson().fromJson<List<String>>(
+                    messageReturn.images ?: "[]",
+                    object : TypeToken<List<String>>() {}.type
                 )
+                vp2_picture_display.adapter = PictureViewAdapter(dataList)
+
+                recycle_detailed_information.adapter = DetailedInformationAdapter(
+                    dataList,
+                    vp2_picture_display,
+                    observableInt1
+                )
+
             }
+            hide_picture.setOnClickListener { observableInt1.set(View.GONE) }
             if (messageReturn.avatar?.isNotBlank() == true)
                 Glide.with(context).load("${BASE_PICTURE_URI}/${messageReturn.avatar}")
                     .into(iv_detail_message_user)

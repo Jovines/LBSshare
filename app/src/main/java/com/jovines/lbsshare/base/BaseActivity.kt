@@ -62,8 +62,7 @@ abstract class BaseActivity : AppCompatActivity() {
     fun signOut() {
         App.user = UserBean(0, "")
         App.context.defaultSharedPreferences.edit {
-            putLong(USER_NAME, 0)
-            putString(PASSWORD, "")
+            putString(USER_NAME, "{}")
         }
         EventBus.getDefault().post(LoginStateChangeEvent(false))
     }

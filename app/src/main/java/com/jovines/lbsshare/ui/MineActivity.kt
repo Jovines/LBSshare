@@ -16,12 +16,16 @@ import kotlinx.android.synthetic.main.activity_mine.*
 
 class MineActivity : BaseViewModelActivity<MineViewModel>() {
 
+    lateinit var appViewModel: AppViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bindingImpl =
             DataBindingUtil.setContentView<ActivityMineBindingImpl>(this, R.layout.activity_mine)
         bindingImpl.user = App.user
-        bindingImpl.appViewModel = App.getAppViewModelProvider(this)[AppViewModel::class.java]
+        appViewModel = App.getAppViewModelProvider(this)[AppViewModel::class.java]
+        bindingImpl.appViewModel = appViewModel
         initActivity()
     }
 

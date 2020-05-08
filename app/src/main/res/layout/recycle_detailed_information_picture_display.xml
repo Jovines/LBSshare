@@ -19,6 +19,7 @@
         <ImageView
             android:id="@+id/details_publish_picture"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="match_parent"
             tools:ignore="ContentDescription"
             tools:src="@drawable/test" />

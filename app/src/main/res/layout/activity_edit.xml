@@ -91,28 +91,20 @@
                     tools:itemCount="5"
                     tools:listitem="@layout/recycle_edit_picture_selection_item" />
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:adjustViewBounds="true"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView20"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recycle_picture_selection"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@drawable/ic_location_information_selected" />
-
-                <TextView
-                    android:id="@+id/textView19"
+                <androidx.appcompat.widget.AppCompatCheckedTextView
+                    android:id="@+id/whether_the_location_information_contains"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:checked="true"
+                    android:drawableStart="@drawable/selector_position_information"
+                    android:layout_marginStart="20dp"
+                    android:drawablePadding="4dp"
+                    android:gravity="start|bottom"
                     android:text="显示位置信息"
-                    android:textColor="#000000"
+                    android:textColor="@color/selector_location_information_color"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-                    app:layout_constraintStart_toEndOf="@+id/imageView6" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textView20"

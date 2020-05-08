@@ -1,6 +1,7 @@
 package com.jovines.lbsshare
 
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
@@ -26,4 +27,5 @@ class AppViewModel: ViewModel() {
      * 用户描述
      */
     val description = ObservableField<String>(App.user.description)
+
 }

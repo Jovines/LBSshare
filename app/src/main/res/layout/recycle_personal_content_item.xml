@@ -82,6 +82,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/personal_picture_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

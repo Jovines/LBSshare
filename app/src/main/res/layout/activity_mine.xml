@@ -60,9 +60,10 @@
                 android:id="@+id/circleImageView2"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                app:civ_circle_background_color="#ffffff"
                 android:elevation="5dp"
                 imageUri="@{appViewModel.avatar}"
-                android:src="@drawable/user_default_avatar"
+                android:src="@drawable/user_default_avatar_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,11 +83,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/circleImageView2" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/user_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{appViewModel.description}"
+                android:description="@{appViewModel.description}"
                 app:layout_constraintEnd_toEndOf="@+id/textView8"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -98,9 +99,9 @@
                 android:drawableStart="@drawable/ic_number_of_posts_icon"
                 android:layout_marginTop="8dp"
                 android:drawablePadding="5dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView9"
-                app:layout_constraintStart_toStartOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintEnd_toEndOf="@+id/user_description"
+                app:layout_constraintStart_toStartOf="@+id/user_description"
+                app:layout_constraintTop_toBottomOf="@+id/user_description" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

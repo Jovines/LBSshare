@@ -1,8 +1,11 @@
 package com.jovines.lbsshare.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ObservableInt
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.network.Api
@@ -16,7 +19,11 @@ import kotlinx.android.synthetic.main.recycle_detailed_information_picture_displ
  * description:
  *
  */
-class DetailedInformationAdapter(val dataList: List<String>) : RecyclerView.Adapter<ViewHolder>() {
+class DetailedInformationAdapter(
+    val dataList: List<String>,
+    val viewPager2: ViewPager2,
+    val pictureShow: ObservableInt
+) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context)
             .inflate(R.layout.recycle_detailed_information_picture_display, parent, false)
@@ -34,6 +41,10 @@ class DetailedInformationAdapter(val dataList: List<String>) : RecyclerView.Adap
                 picture_count.visible()
                 val str = "+${dataList.size - 4}"
                 picture_count.text = str
+            }
+            setOnClickListener {
+                viewPager2.setCurrentItem(position,false)
+                pictureShow.set(View.VISIBLE)
             }
         }
     }

@@ -51,8 +51,12 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
                 Toast.makeText(this, "您还未输入正文", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            viewModel.publishAnArticle()
+            viewModel.publishAnArticle(whether_the_location_information_contains.isChecked)
             finish()
+        }
+
+        whether_the_location_information_contains.setOnClickListener {
+            whether_the_location_information_contains.toggle()
         }
     }
 

@@ -12,7 +12,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="password_format_error">密码格式错误，6-16位非中文字符</string>
     <string name="invalid_phone_number">无效手机号</string>
-    <string name="bad_nickname_format">格式错误，只能存在中文或者字母</string>
+    <string name="bad_nickname_format">格式错误，1-6位中文或者字母</string>
     <string name="mobile_number_has_been_registered">该手机号已被注册</string>
 
     <!-- TODO: Remove or change this placeholder text -->

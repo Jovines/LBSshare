@@ -1,6 +1,5 @@
 package com.jovines.lbsshare.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -14,11 +13,14 @@ import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.MainHighQualityUsersAdapter
 import com.jovines.lbsshare.adapter.RecentNewsAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
+import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.databinding.ActivityMainBindingImpl
 import com.jovines.lbsshare.ui.EditActivity
 import com.jovines.lbsshare.ui.MineActivity
 import com.jovines.lbsshare.ui.StartUpActivity
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
+import com.jovines.lbsshare.utils.extensions.gone
+import com.jovines.lbsshare.utils.extensions.visible
 import com.jovines.lbsshare.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.dip
@@ -52,8 +54,17 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
         compositePageTransformer.addTransformer(MarginPageTransformer(dip(10)))
         main_view_pager_recent_news.setPageTransformer(compositePageTransformer)
 
-        recycle_high_quality_account.adapter = MainHighQualityUsersAdapter(List(10) { "" })
-
+        val mainHighQualityUsersAdapter = MainHighQualityUsersAdapter(viewModel.highQualityUsers)
+        recycle_high_quality_account.adapter = mainHighQualityUsersAdapter
+        viewModel.highQualityUsers.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                mainHighQualityUsersAdapter.notifyDataSetChanged()
+                recycle_high_quality_account.visible()
+            } else {
+                recycle_high_quality_account.gone()
+            }
+        })
+        viewModel.getPremiumUsers()
         (found_toolbar.layoutParams as ConstraintLayout.LayoutParams).apply {
             found_toolbar.topPadding += getStatusBarHeight()
             height += getStatusBarHeight()
@@ -64,9 +75,36 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
             startActivity<MineActivity>()
         }
 
-        viewModel.latestNewsFromNearby.observe(this, Observer {
-            recentNewsAdapter.notifyDataSetChanged()
-        })
+        var lastTimeDataList = viewModel.latestNewsFromNearby.value
+        viewModel.latestNewsFromNearby.observe(
+            this,
+            Observer { cardList: List<CardMessageReturn>? ->
+                if (lastTimeDataList != null) {
+                    val cardListIdMap = cardList?.map { it.id }
+                    val map = lastTimeDataList?.map { it.id }
+                    //处理更改的
+                    lastTimeDataList?.filter { messageReturn ->
+                        val find = cardList?.find { it.id == messageReturn.id }
+                        if (find != null)
+                            find.avatar != messageReturn.avatar || find.description != messageReturn.description || find.nickname != messageReturn.nickname
+                        else false
+                    }?.forEach {
+                        recentNewsAdapter.notifyItemChanged(lastTimeDataList!!.indexOf(it))
+                    }
+                    //去掉消失的
+                    lastTimeDataList?.filterNot { cardListIdMap?.contains(it.id) ?: false }
+                        ?.forEach {
+                            recentNewsAdapter.notifyItemRemoved(lastTimeDataList!!.indexOf(it))
+                        }
+                    //添加新增的
+                    cardList?.filterNot { map?.contains(it.id) ?: false }?.apply {
+                        recentNewsAdapter.notifyItemRangeInserted(0, size)
+                    }
+                } else recentNewsAdapter.notifyDataSetChanged()
+                lastTimeDataList = viewModel.latestNewsFromNearby.value
+                prompt_in_loading.gone()
+            })
+        viewModel.requestLocation()
     }
 
     override fun onBackPressed() {

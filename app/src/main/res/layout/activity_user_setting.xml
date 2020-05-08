@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="appViewModel"
             type="com.jovines.lbsshare.AppViewModel" />
@@ -70,17 +71,17 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:textColor="#868686"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="16dp"
                         android:text="修改信息"
+                        android:textColor="#868686"
                         android:textSize="18sp" />
 
                 </LinearLayout>
 
 
-                <FrameLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/head_image_change"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,19 +97,38 @@
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="20dp"
                         android:text="头像"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <ImageView
+                        android:id="@+id/imageView8"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginVertical="2dp"
                         android:layout_marginEnd="20dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/ic_forward" />
+                        android:src="@drawable/ic_forward"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </FrameLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/head_portrait"
+                        imageUri="@{appViewModel.avatar}"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="16dp"
+                        app:civ_circle_background_color="#ffffff"
+                        android:src="@drawable/user_default_avatar_black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <LinearLayout
@@ -130,19 +150,21 @@
 
 
                     <EditText
+                        android:id="@+id/et_nickname_change"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:textColor="#868686"
-                        android:text="@={appViewModel.nickname}"
-                        android:textSize="20sp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginVertical="2dp"
                         android:layout_marginStart="16dp"
+                        android:layout_weight="1"
                         android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:maxLength="6"
                         android:maxLines="1"
-                        android:src="@drawable/ic_forward" />
+                        android:src="@drawable/ic_forward"
+                        android:text="@={appViewModel.nickname}"
+                        android:textColor="#868686"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
@@ -166,18 +188,20 @@
 
 
                     <EditText
+                        android:id="@+id/et_introduction_changes"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:textSize="20sp"
-                        android:textColor="#868686"
-                        android:text="@={appViewModel.description}"
-                        android:layout_marginStart="16dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginVertical="2dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/ic_forward" />
+                        android:background="@null"
+                        android:maxLength="15"
+                        android:src="@drawable/ic_forward"
+                        android:text="@={appViewModel.description}"
+                        android:textColor="#868686"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
@@ -211,10 +235,30 @@
 
                 </FrameLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
 
             </LinearLayout>
 
         </ScrollView>
+
+        <TextView
+            android:id="@+id/exit_login_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_exit_login_button"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="退出登录"
+            android:textColor="#4A69B9"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

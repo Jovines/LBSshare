@@ -2,7 +2,6 @@ package com.jovines.lbsshare.viewmodel
 
 import android.net.Uri
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import com.jovines.lbs_server.entity.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
@@ -20,18 +19,18 @@ import okhttp3.MultipartBody
  * 描述:
  *
  */
-class SettingViewModel: BaseViewModel() {
+class SettingViewModel : BaseViewModel() {
 
 
     private val userApiService: UserApiService =
         ApiGenerator.getApiService(UserApiService::class.java)
 
-    lateinit var avatar:ObservableField<String>
+    lateinit var avatar: ObservableField<String>
 
     /**
      * 改变头像
      */
-    fun changeHeadImage(uri: Uri,callBack:(UserBean)->Unit) {
+    fun changeHeadImage(uri: Uri, callBack: (UserBean) -> Unit) {
         val builder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
         builder.addFormDataPart("phone", App.user.phone.toString())
@@ -47,5 +46,25 @@ class SettingViewModel: BaseViewModel() {
                     callBack(userBean)
                 }
             })
+    }
+
+    fun updateUserInformation(
+        nickname: String? = null,
+        description: String? = null
+    ) {
+        userApiService.updateUserInformation(nickname,description).setSchedulers().
+                subscribe ({
+                    if (it.code == 1000) {
+                        if (nickname!=null){
+                            App.user.nickname = it.data.nickname
+                        }
+                        if (description != null) {
+                            App.user.description = it.data.description
+                        }
+                        App.saveUser()
+                    }
+                },{
+                    toastEvent.value = "网络错误，请检查网络"
+                }).isDisposed
     }
 }

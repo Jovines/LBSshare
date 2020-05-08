@@ -10,6 +10,8 @@ import com.amap.api.services.geocoder.GeocodeResult
 import com.amap.api.services.geocoder.GeocodeSearch
 import com.amap.api.services.geocoder.RegeocodeQuery
 import com.amap.api.services.geocoder.RegeocodeResult
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.bean.PersonalMessageDetailsBean
 import kotlinx.android.synthetic.main.recycle_personal_content_item.view.*
@@ -43,6 +45,11 @@ class PersonalMessageAdapter(val data: MutableLiveData<List<PersonalMessageDetai
                 personal_message_title.text = it.title?:""
                 personal_message_content.text = it.content?:""
                 number_of_personal_message_accesses.text = it.viewUserCount?.toString()?:""
+                personal_picture_display.adapter = PersonalPicturesAdapter(
+                    Gson().fromJson(
+                    it.images?:"[]",
+                    object : TypeToken<List<String>>() {}.type
+                ))
                 if (it.lat != null && it.lon != null && it.position.isBlank()) {
                     val search = GeocodeSearch(context)
                     search.setOnGeocodeSearchListener(object :

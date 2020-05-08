@@ -25,8 +25,12 @@ class MineViewModel: BaseViewModel() {
     fun queryMessage(){
         userApiService.queryMessage()
             .setSchedulers()
-            .subscribe {
+            .subscribe ({
                 personalPublish.value = it.data
-            }.isDisposed
+            },{
+                //网络错误等原因，所以赋值为空list并提示
+                personalPublish.value = listOf()
+                toastEvent.value = "网络错误，请检查网络链接"
+            }).isDisposed
     }
 }

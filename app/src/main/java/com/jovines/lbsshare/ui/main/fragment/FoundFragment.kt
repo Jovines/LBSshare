@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.MyLocationStyle
@@ -25,8 +24,6 @@ import kotlinx.android.synthetic.main.fragment_found.*
 class FoundFragment : Fragment() {
 
     lateinit var mainViewModel: MainViewModel
-
-    private lateinit var aMap: AMap
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +43,10 @@ class FoundFragment : Fragment() {
     }
 
     private fun initFragment() {
-        aMap = map.map
-        aMap.uiSettings.setLogoBottomMargin(-100)
-        aMap.uiSettings.isZoomControlsEnabled = false
-        aMap.uiSettings.isMyLocationButtonEnabled = true
+        mainViewModel.aMap = map.map
+        mainViewModel.aMap.uiSettings.setLogoBottomMargin(-100)
+        mainViewModel.aMap.uiSettings.isZoomControlsEnabled = false
+        mainViewModel.aMap.uiSettings.isMyLocationButtonEnabled = true
         requireActivity().doPermissionAction(
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -60,7 +57,7 @@ class FoundFragment : Fragment() {
             reason = "生活圈是基于定位功能，所以我们必须取得您的定位权限"
             doAfterGranted {
                 //设置定位蓝点的Style
-                aMap.myLocationStyle = MyLocationStyle().apply {
+                mainViewModel.aMap.myLocationStyle = MyLocationStyle().apply {
                     myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)//只定位一次。
                     val fromResource = BitmapDescriptorFactory.fromBitmap(
                         BitmapFactory.decodeResource(
@@ -73,14 +70,13 @@ class FoundFragment : Fragment() {
                     radiusFillColor(0x00000000)
                 }
                 //定位自己的位置
-                aMap.isMyLocationEnabled = true
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(12.5F))
+                mainViewModel.aMap.isMyLocationEnabled = true
+                mainViewModel.aMap.moveCamera(CameraUpdateFactory.zoomTo(12.5F))
                 mainViewModel.aMapLocation.observe(viewLifecycleOwner, Observer {
                     it?.apply {
 
                     }
                 })
-                mainViewModel.requestLocation(aMap)
             }
 
             doAfterRefused {
@@ -89,6 +85,28 @@ class FoundFragment : Fragment() {
         }
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().doPermissionAction(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE
+        ) {
+            doAfterGranted {
+                mainViewModel.updateLifeCircleNews()
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mainViewModel.disposable?.apply {
+            if (!isDisposed) dispose()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

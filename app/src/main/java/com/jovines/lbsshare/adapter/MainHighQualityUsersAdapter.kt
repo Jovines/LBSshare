@@ -2,8 +2,10 @@ package com.jovines.lbsshare.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.jovines.lbsshare.R
+import com.jovines.lbsshare.bean.PremiumUsersReturn
 
 /**
  * @author Jovines
@@ -12,7 +14,7 @@ import com.jovines.lbsshare.R
  * description:
  *
  */
-class MainHighQualityUsersAdapter(private val dataList: List<String>) :
+class MainHighQualityUsersAdapter(private val liveData: MutableLiveData<List<PremiumUsersReturn>>) :
     RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -20,8 +22,9 @@ class MainHighQualityUsersAdapter(private val dataList: List<String>) :
                 .inflate(R.layout.recycle_high_quality_users_item, parent, false)
         )
 
-    override fun getItemCount() = dataList.size
+    override fun getItemCount() = liveData.value?.size?:0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
     }
 }

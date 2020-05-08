@@ -21,18 +21,24 @@ import org.jetbrains.anko.defaultSharedPreferences
  */
 class App : Application(), ViewModelStoreOwner {
 
+
     companion object {
+        private var appViewModel:AppViewModel? = null
+
         lateinit var context: Context
             private set
         var user: UserBean = UserBean(0, "")
             set(value) {
                 field = value
+                appViewModel?.avatar?.set(value.avatar)
+                appViewModel?.description?.set (value.description)
+                appViewModel?.nickname?.set (value.nickname)
                 saveUser()
             }
 
         fun isLogin() = user.phone != 0L && user.password.isNotEmpty()
 
-        private fun saveUser() {
+        fun saveUser() {
             context.defaultSharedPreferences.edit().putString(USER_NAME, Gson().toJson(user))
                 .apply()
         }
@@ -53,7 +59,6 @@ class App : Application(), ViewModelStoreOwner {
                     "Your activity is not yet attached to the Application instance." +
                             "You can't request ViewModel before onCreate call.")
         }
-
     }
 
     override fun attachBaseContext(base: Context) {
@@ -74,6 +79,7 @@ class App : Application(), ViewModelStoreOwner {
         mFactory = ViewModelProvider
             .AndroidViewModelFactory
             .getInstance(this)
+        appViewModel = ViewModelProvider(this, getAppFactory())[AppViewModel::class.java]
     }
 
     override fun getViewModelStore(): ViewModelStore {

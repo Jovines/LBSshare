@@ -144,6 +144,8 @@ dependencies {
     //定位
     implementation 'com.amap.api:location:4.9.0'
 
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
 }
 repositories {
     mavenCentral()

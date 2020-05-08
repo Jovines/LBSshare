@@ -2,7 +2,6 @@ package com.jovines.lbsshare.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -22,17 +21,21 @@ import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.bean.CardMessageReturn
+import com.jovines.lbsshare.bean.PremiumUsersReturn
+import com.jovines.lbsshare.bean.StatusWarp
 import com.jovines.lbsshare.network.Api
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.ExecuteOnceObserver
-import com.jovines.lbsshare.utils.addImageToMultipartBodyBuilder
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import io.reactivex.Observable
+import io.reactivex.ObservableSource
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.map_user_locator.view.*
-import okhttp3.MultipartBody
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -44,6 +47,9 @@ import okhttp3.MultipartBody
  */
 
 class MainViewModel : BaseViewModel() {
+
+    lateinit var aMap: AMap
+
 
     lateinit var mWeatherSearch: WeatherSearch
 
@@ -59,9 +65,15 @@ class MainViewModel : BaseViewModel() {
 
     val latestNewsFromNearby = MutableLiveData<List<CardMessageReturn>>()
 
+
+    val highQualityUsers = MutableLiveData<List<PremiumUsersReturn>>()
+
+
     private val userApiService: UserApiService =
         ApiGenerator.getApiService(UserApiService::class.java)
 
+
+    val listMarkerOptions = mutableListOf<Pair<UserBean, MarkerOptions>>()
 
     /**
      * 请求现在的天气
@@ -89,7 +101,7 @@ class MainViewModel : BaseViewModel() {
     /**
      * 请求现在的位置
      */
-    fun requestLocation(aMap: AMap) {
+    fun requestLocation() {
         //初始化定位
         val locationClient = AMapLocationClient(App.context)
         //设置定位回调监听
@@ -98,8 +110,6 @@ class MainViewModel : BaseViewModel() {
                 //成功获得当前位置，并进行下一步请求
                 aMapLocation.value = this
                 //更新用户当前位置
-                updateLocation(latitude, longitude, aMap)
-                //更新天气
                 requestWeather()
             }
         }
@@ -113,78 +123,34 @@ class MainViewModel : BaseViewModel() {
     }
 
 
-
-    /**
-     * 更新当前用户位置
-     */
-    private fun updateLocation(lat: Double, lon: Double, aMap: AMap) {
-        userApiService.updateLocation(lon, lat)
+    fun getPremiumUsers() {
+        userApiService.getPremiumUsers()
             .setSchedulers()
-            .subscribe(ExecuteOnceObserver {
-                it?.data?.let { userBean ->
-                    App.user = userBean
-                    //当前位置更新成功，寻找附近的人,和附近最新消息
-                    findNearby(aMap)
-                    lookingForNewsNearby()
-                }
-            })
-    }
-
-    private fun lookingForNewsNearby() {
-        userApiService.findLatestNewsNearby(5000, 5)
-            .setSchedulers()
-            .subscribe(ExecuteOnceObserver {
-                latestNewsFromNearby.value = it.data
-            })
-    }
-
-
-    /**
-     * 找附近的人并将他们显示到地图上
-     */
-    private fun findNearby(aMap: AMap) {
-        userApiService.findNearby(5000)
-            .subscribeOn(Schedulers.io())
-            .flatMap { data ->
-                Observable.create<Pair<UserBean, Bitmap?>> { observer ->
-                    data.data.forEach { userBean ->
-                        if (userBean.avatar?.isNotEmpty() == true) {
-                            val submit = Glide.with(App.context)
-                                .asBitmap()
-                                .load("${Api.BASE_PICTURE_URI}/${userBean.avatar}")
-                                .submit().get()
-                            observer.onNext(Pair(userBean, submit))
-                        } else {
-                            observer.onNext(Pair(userBean, null))
-                        }
-                    }
-                }
-            }
-            .filter { it.first.lat != null && it.first.lon != null }
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                val latLong = LatLng(it.first.lat!!, it.first.lon!!)
-                val markerOption = MarkerOptions()
-                val viewConversionBitmap = viewConversionBitmap {
-                    tv_map_user_nickname.text = it.first.nickname
-                    it.second?.let {
-                        iv_map_user_portrait.setImageBitmap(it)
-                    }
-                }
-                markerOption.icon(BitmapDescriptorFactory.fromBitmap(viewConversionBitmap))
-                markerOption.position(latLong)
-                aMap.addMarker(markerOption)
-                // 定义 Marker 点击事件监听
-                val markerClickListener =
-                    AMap.OnMarkerClickListener { marker ->
-                        // marker 对象被点击时回调的接口
-                        // 返回 true 则表示接口已响应事件，否则返回false
-                        // if (marker.title == "公司") ToastHelper.ShowToast("哈哈", context)
-                        false
-                    }
-                // 绑定 Marker 被点击事件
-                aMap.setOnMarkerClickListener(markerClickListener)
+                highQualityUsers.value = it.data
             }.isDisposed
+    }
+
+    private fun addMarkerToMap(
+        bean: UserBean,
+        viewConversionBitmap: Bitmap
+    ) {
+        val latLong = LatLng(bean.lat!!, bean.lon!!)
+        val markerOption = MarkerOptions()
+        markerOption.icon(BitmapDescriptorFactory.fromBitmap(viewConversionBitmap))
+        markerOption.position(latLong)
+        aMap.addMarker(markerOption)
+        // 定义 Marker 点击事件监听
+        val markerClickListener =
+            AMap.OnMarkerClickListener { marker ->
+                // marker 对象被点击时回调的接口
+                // 返回 true 则表示接口已响应事件，否则返回false
+                // if (marker.title == "公司") ToastHelper.ShowToast("哈哈", context)
+                false
+            }
+        // 绑定 Marker 被点击事件
+        aMap.setOnMarkerClickListener(markerClickListener)
+        listMarkerOptions.add(Pair(bean, markerOption))
     }
 
     /**
@@ -205,5 +171,119 @@ class MainViewModel : BaseViewModel() {
         view.layout(0, 0, width, height)
         view.draw(canvas)
         return bitmap
+    }
+
+
+    var disposable: Disposable? = null
+
+    fun updateLifeCircleNews() {
+        disposable = Observable.concatArray(ObservableSource<Long> {
+            //一进app就安排一次事件发送
+            it.onNext(-1)
+            it.onComplete()
+        }, Observable.interval(2, TimeUnit.SECONDS))
+            .subscribeOn(Schedulers.io())
+            .subscribe {
+                //初始化定位
+                val locationClient = AMapLocationClient(App.context)
+                //设置定位回调监听
+                locationClient.setLocationListener {
+                    it?.apply {
+                        //成功获得当前位置，并进行下一步请求
+                        aMapLocation.value = this
+                        App.user.lat = latitude
+                        App.user.lon = longitude
+                        //上传位置
+                        userApiService.updateLocation(latitude, longitude)
+                            .subscribeOn(Schedulers.io()).subscribe()
+                        //寻找附近的人并更新显示
+                        findActiveUsers()
+                        searchForNewsNearby()
+                    }
+                }
+                locationClient.setLocationOption(AMapLocationClientOption().apply {
+                    locationPurpose = AMapLocationClientOption.AMapLocationPurpose.SignIn
+                    this.isOnceLocation = true
+                })
+                //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+                locationClient.stopLocation()
+                locationClient.startLocation()
+            }
+    }
+
+    private fun searchForNewsNearby() {
+        userApiService.findLatestNewsNearby()
+            .setSchedulers()
+            .subscribe(ExecuteOnceObserver {
+                latestNewsFromNearby.value = it.data
+            })
+    }
+
+    private fun findActiveUsers() {
+        userApiService.findNearby()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            //删除离开了生活圈或者信息发生变化的
+            .doOnNext { statusWarp: StatusWarp<List<UserBean>>? ->
+                val filterNot = listMarkerOptions
+                    .filterNot { pair: Pair<UserBean, MarkerOptions> ->
+                        val find = statusWarp?.data?.find { it.phone == pair.first.phone }
+                        find != null && find.avatar == pair.first.avatar && pair.first.nickname == find.nickname
+                    }
+                val list = filterNot.map { it.second }
+                list.forEach { options: MarkerOptions ->
+                    aMap.mapScreenMarkers.find { it.options == options }?.apply {
+                        remove()
+                    }
+                }
+                listMarkerOptions.removeAll(filterNot)
+            }
+            .observeOn(Schedulers.io())
+            //将消息再逐个发送出去
+            .flatMap { statusWarp: StatusWarp<List<UserBean>> ->
+                ObservableSource { observer: Observer<in UserBean> ->
+                    statusWarp.data.forEach {
+                        observer.onNext(it)
+                    }
+                    observer.onComplete()
+                }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            //挑选出符合添加要求的数据
+            .filter { bean ->
+                val find =
+                    listMarkerOptions.find { pair -> bean.phone == pair.first.phone }
+                //并将需要更新位置的更新位置
+                find?.apply {
+                    aMap.mapScreenMarkers.find { it.options == second }
+                        ?.apply {
+                            if (position.latitude != bean.lat || position.longitude != bean.lon) {
+                                position = LatLng(bean.lat!!, bean.lon!!)
+                            }
+                        }
+                }
+                bean.lat != null && bean.lon != null && find == null
+            }
+            .observeOn(Schedulers.io())
+            .map { userBean: UserBean ->
+                val submit = if (userBean.avatar?.isNotEmpty() == true) {
+                    Glide.with(App.context)
+                        .asBitmap()
+                        .load("${Api.BASE_PICTURE_URI}/${userBean.avatar}")
+                        .submit().get()
+                } else null
+                Pair(userBean, submit)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ pair ->
+                val bean = pair.first
+                val viewConversionBitmap = viewConversionBitmap {
+                    tv_map_user_nickname.text = bean.nickname
+                    pair.second?.let {
+                        iv_map_user_portrait.setImageBitmap(it)
+                    }
+                }
+                addMarkerToMap(bean, viewConversionBitmap)
+            }, {}).isDisposed
     }
 }

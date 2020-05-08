@@ -18,6 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:clipChildren="false"
         tools:context=".ui.main.MainActivity">
 
@@ -35,11 +36,12 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_profile"
+                imageUri="@{appViewModel.avatar}"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                imageUri="@{appViewModel.avatar}"
-                android:src="@drawable/user_default_avatar"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                android:src="@drawable/user_default_avatar_black"
+                app:civ_circle_background_color="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
@@ -139,10 +141,46 @@
             android:layout_height="150dp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="30dp"
+            android:animateLayoutChanges="true"
             android:clipChildren="false"
             app:layout_constraintBottom_toBottomOf="@+id/main_view_pager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/prompt_in_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            android:elevation="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/found_toolbar">
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/materialProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="附近生活圈消息加载中..."
+                app:layout_constraintEnd_toEndOf="@+id/materialProgressBar"
+                app:layout_constraintStart_toStartOf="@+id/materialProgressBar"
+                app:layout_constraintTop_toBottomOf="@+id/materialProgressBar" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

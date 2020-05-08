@@ -2,12 +2,11 @@ package com.jovines.lbsshare.network
 
 import com.jovines.lbs_server.entity.UserBean
 import com.jovines.lbsshare.App
-import com.jovines.lbsshare.bean.CardMessageReturn
-import com.jovines.lbsshare.bean.LifecircleMessageItem
-import com.jovines.lbsshare.bean.PersonalMessageDetailsBean
-import com.jovines.lbsshare.bean.StatusWarp
+import com.jovines.lbsshare.bean.*
 import com.jovines.lbsshare.config.DEFAULT_LATITUDE
 import com.jovines.lbsshare.config.DEFAULT_LONGITUDE
+import com.jovines.lbsshare.config.MESSAGE_QUERY_TIME
+import com.jovines.lbsshare.config.SEARCH_SCOPE
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -49,7 +48,8 @@ interface UserApiService {
     @FormUrlEncoded
     @POST(Api.FIND_NEARBY_URI)
     fun findNearby(
-        @Field("range") range: Int,
+        @Field("range") range: Int = SEARCH_SCOPE,
+        @Field("time") time: Int = MESSAGE_QUERY_TIME,
         @Field("lat") lat: Double = App.user.lat ?: DEFAULT_LATITUDE,
         @Field("lon") lon: Double = App.user.lon ?: DEFAULT_LONGITUDE,
         @Field("phone") phone: Long = App.user.phone
@@ -62,8 +62,8 @@ interface UserApiService {
     @FormUrlEncoded
     @POST(Api.UPDATE_LOCATION_URI)
     fun updateLocation(
-        @Field("lon") lon: Double,
         @Field("lat") lat: Double,
+        @Field("lon") lon: Double,
         @Field("phone") phone: Long = App.user.phone,
         @Field("password") password: String = App.user.password
     ): Observable<StatusWarp<UserBean>>
@@ -96,8 +96,8 @@ interface UserApiService {
     @FormUrlEncoded
     @POST(Api.FIND_NEARBY_MESSAGES)
     fun findLatestNewsNearby(
-        @Field("range") range: Int,
-        @Field("time") time: Int,
+        @Field("range") range: Int = SEARCH_SCOPE,
+        @Field("time") time: Int = MESSAGE_QUERY_TIME,
         @Field("lon") lon: Double = App.user.lon ?: 0.0,
         @Field("phone") phone: Long = App.user.phone,
         @Field("lat") lat: Double = App.user.lat ?: 0.0
@@ -131,12 +131,24 @@ interface UserApiService {
     ): Observable<StatusWarp<List<UserBean>>>
 
 
-
     @FormUrlEncoded
     @POST(Api.QUERY_MESSAGE)
     fun queryMessage(
         @Field("password") password: String = App.user.password,
         @Field("phone") phone: Long = App.user.phone
     ): Observable<StatusWarp<List<PersonalMessageDetailsBean>>>
+
+
+    @FormUrlEncoded
+    @POST(Api.UPDATE_USER_INFORMATION)
+    fun updateUserInformation(
+        @Field("nickname") nickname: String? = null,
+        @Field("description") description: String? = null,
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<UserBean>>
+
+    @GET(Api.GET_PREMIUM_USERS)
+    fun getPremiumUsers(): Observable<StatusWarp<List<PremiumUsersReturn>>>
 
 }

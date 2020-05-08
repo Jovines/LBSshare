@@ -47,10 +47,6 @@ class LoginViewModel : BaseViewModel() {
 
             }, onExecuteOnceNext = {
                 if (it.code == 1000) {
-                    App.context.defaultSharedPreferences.edit {
-                        putLong(USER_NAME, phone)
-                        putString(PASSWORD, password)
-                    }
                     App.user = it.data
                     EventBus.getDefault().post(LoginStateChangeEvent(true))
                     successCallBack.invoke()
@@ -78,10 +74,6 @@ class LoginViewModel : BaseViewModel() {
             .subscribe(ExecuteOnceObserver(
                 onExecuteOnceNext = {
                     if (it.code == 1000) {
-                        App.context.defaultSharedPreferences.edit {
-                            putLong(USER_NAME, phone)
-                            putString(PASSWORD, password)
-                        }
                         App.user = it.data
                         EventBus.getDefault().post(LoginStateChangeEvent(true))
                         successCallBack.invoke()
@@ -112,7 +104,7 @@ class LoginViewModel : BaseViewModel() {
      * 检查昵称是否正确
      */
     fun checkNickname(nickname: String): Boolean {
-        val matcher = Pattern.compile("[\\u2E80-\\u9FFF\\w]{1,12}").matcher(nickname)
+        val matcher = Pattern.compile("[\\u2E80-\\u9FFF\\w]{1,6}").matcher(nickname)
         return matcher.matches()
     }
 }

@@ -5,6 +5,7 @@
     android:layout_height="@dimen/detailed_information_attention_personnel_height"
     android:src="@drawable/user_default_avatar_black"
     app:civ_border_color="#ffffff"
-    app:civ_border_width="1dp">
+    app:civ_border_width="1dp"
+    app:civ_circle_background_color="#ffffff">
 
 </de.hdodenhof.circleimageview.CircleImageView>

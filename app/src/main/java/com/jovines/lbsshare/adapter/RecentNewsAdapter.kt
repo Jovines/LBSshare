@@ -12,7 +12,7 @@ import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
-import com.jovines.lbsshare.ui.DialogHelper.foundDetailDialog
+import com.jovines.lbsshare.ui.helper.DialogHelper.foundDetailDialog
 import com.jovines.lbsshare.utils.LatLonUtil.getDistance
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import kotlinx.android.synthetic.main.viewpager_latest_news_item.view.*
@@ -41,6 +41,7 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                     Glide.with(holder.itemView.context)
                         .load("${BASE_PICTURE_URI}/${messageReturn.avatar}")
                         .into(circleImageView)
+                else circleImageView.setImageResource(R.drawable.user_default_avatar_black)
                 tv_user_name.text = messageReturn.nickname
                 tv_user_description.text = messageReturn.description
                 tv_article_title.text = messageReturn.title

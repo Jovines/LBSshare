@@ -63,15 +63,15 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
             register_nickname_content.error = getString(R.string.bad_nickname_format)
             return
         }
-        val password = et_register_password.editableText.toString()
-        if (!viewModel.checkPassword(password)) {
-            password_content.error = getString(R.string.password_format_error)
-            return
-        }
         val phone = et_register_phone.editableText.toString()
         if (!viewModel.checkPhone(phone)) {
             cell_phone_number_content.error = getString(R.string.invalid_phone_number)
             et_register_password.editableText.clear()
+            return
+        }
+        val password = et_register_password.editableText.toString()
+        if (!viewModel.checkPassword(password)) {
+            password_content.error = getString(R.string.password_format_error)
             return
         }
         materialDialog.show()

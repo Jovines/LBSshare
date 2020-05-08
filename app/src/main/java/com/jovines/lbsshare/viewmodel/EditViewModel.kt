@@ -28,11 +28,13 @@ class EditViewModel : BaseViewModel() {
     private val userApiService: UserApiService =
         ApiGenerator.getApiService(UserApiService::class.java)
 
-    fun publishAnArticle() {
+    fun publishAnArticle(isUploadLocation: Boolean = true) {
         val builder = MultipartBody.Builder()
         builder.addFormDataPart("phone", App.user.phone.toString())
-        builder.addFormDataPart("lat", App.user.lat.toString())
-        builder.addFormDataPart("lon", App.user.lon.toString())
+        if (isUploadLocation) {
+            builder.addFormDataPart("lat", App.user.lat.toString())
+            builder.addFormDataPart("lon", App.user.lon.toString())
+        }
         builder.addFormDataPart("password", App.user.password)
         builder.addFormDataPart("title", title.get() ?: "")
         builder.addFormDataPart("content", content.get() ?: "")

@@ -10,31 +10,36 @@ package com.jovines.lbsshare.network
 
 object Api {
 
-    const val BASE_URL = "http://192.168.0.106:9899"
+    const val BASE_URL = "http://192.168.0.106:9899/"
 
-    const val LAND_URL = "/user/login"
+    const val LAND_URL = "user/login"
 
-    const val REGISTER_URL = "/user/register"
+    const val REGISTER_URL = "user/register"
 
-    const val CHANGE_AVATAR_URL = "/user/changeAvatar"
+    const val CHANGE_AVATAR_URL = "user/changeAvatar"
 
-    const val BASE_PICTURE_URI = "$BASE_URL/image"
+    const val BASE_PICTURE_URI = "${BASE_URL}image"
 
-    const val FIND_NEARBY_URI = "/user/findNearby"
+    const val FIND_NEARBY_URI = "user/findNearby"
 
-    const val UPDATE_LOCATION_URI = "/user/updateLocation"
+    const val UPDATE_LOCATION_URI = "user/updateLocation"
 
-    const val QUERY_SOMEONE_MESSAGE = "/lifecirclemessageitem/checkPersonMessage"
 
-    const val FIND_NEARBY_MESSAGES = "/lifecirclemessageitem/findLatestNewsNearby"
+    const val GET_PREMIUM_USERS = "user/getPremiumUsers"
 
-    const val POST_A_MESSAGE = "/lifecirclemessageitem/postAMessage"
 
-    const val ADD_TIME_VISITED = "/lifecirclemessageitem/addTimeVisited"
+    const val UPDATE_USER_INFORMATION = "user/updateUserInformation"
 
-    const val GET_NEWS_ACTIVE_USERS = "/lifecirclemessageitem/getNewsActiveUsers"
+    const val QUERY_SOMEONE_MESSAGE = "lifecirclemessageitem/checkPersonMessage"
 
-    const val QUERY_MESSAGE = "/lifecirclemessageitem/queryMessage"
+    const val FIND_NEARBY_MESSAGES = "lifecirclemessageitem/findLatestNewsNearby"
 
+    const val POST_A_MESSAGE = "lifecirclemessageitem/postAMessage"
+
+    const val ADD_TIME_VISITED = "lifecirclemessageitem/addTimeVisited"
+
+    const val GET_NEWS_ACTIVE_USERS = "lifecirclemessageitem/getNewsActiveUsers"
+
+    const val QUERY_MESSAGE = "lifecirclemessageitem/queryMessage"
 
 }

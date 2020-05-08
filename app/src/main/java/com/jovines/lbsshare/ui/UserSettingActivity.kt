@@ -2,6 +2,7 @@ package com.jovines.lbsshare.ui
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.AppViewModel
@@ -34,6 +35,20 @@ class UserSettingActivity : BaseViewModelActivity<SettingViewModel>() {
             intent.addCategory("android.intent.category.DEFAULT")
             startActivityForResult(intent, EditActivity.PICTURE_SELECTION)
         }
+        et_nickname_change.addTextChangedListener {
+            viewModel.updateUserInformation(appViewModel.nickname.get())
+        }
+        et_introduction_changes.addTextChangedListener {
+            viewModel.updateUserInformation(description = appViewModel.description.get())
+        }
+        personal_back_button.setOnClickListener { finish() }
+        exit_login_button.setOnClickListener {
+            signOut()
+            startActivity(Intent(this, StartUpActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            })
+            finish()
+        }
     }
 
 
@@ -44,6 +59,7 @@ class UserSettingActivity : BaseViewModelActivity<SettingViewModel>() {
                 data?.data?.let {
                     viewModel.changeHeadImage(it) { userBean ->
                         appViewModel.avatar.set(userBean.avatar)
+                        App.user.avatar = userBean.avatar
                     }
                 }
             }
