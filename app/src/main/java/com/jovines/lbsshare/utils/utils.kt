@@ -50,7 +50,7 @@ fun getUriPath(uri: Uri?): String? {
 
 fun MultipartBody.Builder.addImageToMultipartBodyBuilder(parameterName: String, imageUris: List<Uri>) {
     imageUris.forEach {
-        val fdd = File(getUriPath(it) ?: "")
+        val fdd = File(BitmapUtil.compressImage(getUriPath(it)) ?: "")
         val pfd: ParcelFileDescriptor? = App.context.contentResolver.openFileDescriptor(it, "r")
         if (pfd != null) {
             val inputStream = FileInputStream(pfd.fileDescriptor)

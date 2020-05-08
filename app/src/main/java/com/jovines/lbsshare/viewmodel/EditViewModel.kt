@@ -1,6 +1,7 @@
 package com.jovines.lbsshare.viewmodel
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.databinding.ObservableField
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
@@ -40,12 +41,14 @@ class EditViewModel : BaseViewModel() {
         builder.addFormDataPart("content", content.get() ?: "")
         builder.addImageToMultipartBodyBuilder("images", imageUriList)
         userApiService.postAMessage(builder.build().parts).setSchedulers()
-            .subscribe {
+            .subscribe( {
                 if (it.code == 1000) {
                     toastEvent.value = "发布成功"
                 } else {
-                    toastEvent.value = "位置原因，发布失败"
+                    toastEvent.value = "未知原因，发布失败"
                 }
-            }.isDisposed
+            },{
+                toastEvent.value = "图片过大，请重新选择"
+            }).isDisposed
     }
 }

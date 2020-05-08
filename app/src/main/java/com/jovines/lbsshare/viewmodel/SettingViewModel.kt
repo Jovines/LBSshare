@@ -39,7 +39,7 @@ class SettingViewModel : BaseViewModel() {
         userApiService.changeAvatar(builder.build().parts)
             .setSchedulers()
             .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
-                print("")
+                toastEvent.value = "图片过大，请重新选择"
             }) {
                 it?.data?.let { userBean ->
                     App.user = userBean
@@ -64,7 +64,7 @@ class SettingViewModel : BaseViewModel() {
                         App.saveUser()
                     }
                 },{
-                    toastEvent.value = "网络错误，请检查网络"
+                    toastEvent.value = "暂时无法提供服务"
                 }).isDisposed
     }
 }
