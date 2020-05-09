@@ -13,6 +13,7 @@ import androidx.databinding.ObservableInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import com.afollestad.materialdialogs.MaterialDialog
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.CameraPosition
@@ -33,13 +34,13 @@ import com.jovines.lbsshare.databinding.DialogMainBottomSheetDetailedMessageBind
 import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
-import com.jovines.lbsshare.utils.LatLonUtil.getDistance
+import com.jovines.lbsshare.utils.LatLonUtil
 import com.jovines.lbsshare.utils.extensions.gone
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import com.jovines.lbsshare.utils.extensions.visible
+import com.jovines.lbsshare.utils.kmDecimalFormatString
 import kotlinx.android.synthetic.main.dialog_main_bottom_sheet_detailed_message.*
 import org.jetbrains.anko.dip
-import java.text.DecimalFormat
 
 
 /**
@@ -88,15 +89,6 @@ object DialogHelper {
                     isZoomControlsEnabled = false
                     isZoomGesturesEnabled = false
                 }
-            }
-            dialog_detail_recycler_view.adapter = object : RecyclerView.Adapter<ViewHolder>() {
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.recycle_detail_message, parent, false)
-                )
-
-                override fun getItemCount() = 5
-                override fun onBindViewHolder(holder: ViewHolder, position: Int) {}
             }
             dialog_detail_recycler_view.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -148,16 +140,14 @@ object DialogHelper {
                     dialog_detail_recycler_view.adapter = NewsActiveUsersAdapter(it.data)
                 }
             }
-            val dis = getDistance(
+            val dis = LatLonUtil.getDistanceTwoM(
                 App.user.lon!!,
                 App.user.lat!!,
                 messageReturn.lon!!,
                 messageReturn.lat!!
-            ).toInt()
+            )
             //设置这条消息距离当前用户多少米
-            details_distance.text = if (dis < 1000) "${dis}m"
-            else
-                DecimalFormat("#.#E0").format(dis).replace(Regex("E.+"), "km")
+            details_distance.text = kmDecimalFormatString(dis.toInt())
             //如果该消息有位置信息
             if (messageReturn.lat != null && messageReturn.lon != null) {
                 observableInt.set(View.VISIBLE)
@@ -197,4 +187,8 @@ object DialogHelper {
         return dialog
     }
 
+    fun articleRelease(context: Context): MaterialDialog = MaterialDialog.Builder(context)
+        .progress(true, 100)
+        .content("文章发布中...")
+        .cancelable(false).build()
 }

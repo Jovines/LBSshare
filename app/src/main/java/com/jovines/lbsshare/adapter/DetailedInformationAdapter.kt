@@ -20,9 +20,9 @@ import kotlinx.android.synthetic.main.recycle_detailed_information_picture_displ
  *
  */
 class DetailedInformationAdapter(
-    val dataList: List<String>,
-    val viewPager2: ViewPager2,
-    val pictureShow: ObservableInt
+    private val dataList: List<String>,
+    private val viewPager2: ViewPager2,
+    private val pictureShow: ObservableInt
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context)

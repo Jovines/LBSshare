@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
             android:layout_height="match_parent"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/test" />
+            tools:ignore="ContentDescription" />
 
         <View
             android:id="@+id/details_publish_picture_mask"

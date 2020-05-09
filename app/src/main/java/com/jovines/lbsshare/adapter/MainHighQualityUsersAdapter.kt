@@ -1,11 +1,15 @@
 package com.jovines.lbsshare.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.bean.PremiumUsersReturn
+import com.jovines.lbsshare.bindingadapter.UserAdapter
+import kotlinx.android.synthetic.main.recycle_high_quality_users_item.view.*
+import java.util.*
 
 /**
  * @author Jovines
@@ -22,9 +26,18 @@ class MainHighQualityUsersAdapter(private val liveData: MutableLiveData<List<Pre
                 .inflate(R.layout.recycle_high_quality_users_item, parent, false)
         )
 
-    override fun getItemCount() = liveData.value?.size?:0
+    override fun getItemCount() = liveData.value?.size ?: 0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.itemView.apply {
+            liveData.value?.get(position)?.let {
+                UserAdapter.getImageUri(high_quality_user_image, it.avatar)
+                high_quality_user_name.text = it.nickname
+                new_high_quality_user_logo.visibility =
+                    if (it.jointime.time > Calendar.getInstance()
+                            .apply { add(Calendar.DAY_OF_YEAR, -10) }.timeInMillis
+                    ) View.VISIBLE else View.GONE
+            }
+        }
     }
 }

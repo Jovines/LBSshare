@@ -35,7 +35,6 @@
         android:id="@+id/choose_a_picture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/test" />
+        android:scaleType="centerCrop"/>
 
 </androidx.cardview.widget.CardView>

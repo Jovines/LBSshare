@@ -11,7 +11,7 @@ package com.jovines.lbsshare.config
 const val DEFAULT_LONGITUDE = 116.40
 const val DEFAULT_LATITUDE = 39.90
 
-const val MESSAGE_QUERY_TIME = 5
+const val MESSAGE_QUERY_TIME = 24
 
-const val SEARCH_SCOPE = 5000
+const val SEARCH_SCOPE = 500000000
 

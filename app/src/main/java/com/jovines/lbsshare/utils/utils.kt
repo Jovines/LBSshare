@@ -3,15 +3,16 @@ package com.jovines.lbsshare.utils
 import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
-import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import com.jovines.lbsshare.App
+import com.jovines.lbsshare.App.Companion.context
+import com.nanchen.compresshelper.CompressHelper
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import java.io.FileInputStream
+import java.text.DecimalFormat
 
 /**
  * @author Jovines
@@ -48,15 +49,29 @@ fun getUriPath(uri: Uri?): String? {
     return data
 }
 
-fun MultipartBody.Builder.addImageToMultipartBodyBuilder(parameterName: String, imageUris: List<Uri>) {
+fun MultipartBody.Builder.addImageToMultipartBodyBuilder(
+    parameterName: String,
+    imageUris: List<Uri>
+) {
     imageUris.forEach {
-        val fdd = File(BitmapUtil.compressImage(getUriPath(it)) ?: "")
-        val pfd: ParcelFileDescriptor? = App.context.contentResolver.openFileDescriptor(it, "r")
-        if (pfd != null) {
-            val inputStream = FileInputStream(pfd.fileDescriptor)
-            val fileBody: RequestBody =
-                inputStream.readBytes().toRequestBody("image/*".toMediaTypeOrNull())
-            addFormDataPart(parameterName, fdd.name, fileBody)
-        }
+        val fdd = CompressHelper.getDefault(context).compressToFile(File(getUriPath(it) ?: ""))
+        val fileBody: RequestBody = fdd.readBytes().toRequestBody("image/*".toMediaTypeOrNull())
+        addFormDataPart(parameterName, fdd.name, fileBody)
+    }
+}
+
+fun kmDecimalFormatString(number: Int): String {
+    return when (number) {
+        in 0L..999L -> DecimalFormat("0m").format(number)
+        in 1000L..9999L -> DecimalFormat("0.#E0").format(number).replace(Regex("E.+"), "km")
+        in 10000L..99999L -> DecimalFormat("00.#E0").format(number).replace(Regex("E.+"), "km")
+        in 100000L..999999L -> DecimalFormat("000.#E0").format(number).replace(Regex("E.+"), "km")
+        in 1000000L..9999999L -> DecimalFormat("0000.#E0").format(number)
+            .replace(Regex("E.+"), "km")
+        in 10000000L..99999999L -> DecimalFormat("00000.#E0").format(number)
+            .replace(Regex("E.+"), "km")
+        in 100000000L..999999999L -> DecimalFormat("000000.#E0").format(number)
+            .replace(Regex("E.+"), "km")
+        else -> ""
     }
 }

@@ -13,10 +13,12 @@ import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.ui.helper.DialogHelper.foundDetailDialog
-import com.jovines.lbsshare.utils.LatLonUtil.getDistance
+import com.jovines.lbsshare.utils.LatLonUtil.getDistanceTwoKm
+import com.jovines.lbsshare.utils.LatLonUtil.getDistanceTwoM
 import com.jovines.lbsshare.utils.extensions.setSchedulers
+import com.jovines.lbsshare.utils.kmDecimalFormatString
 import kotlinx.android.synthetic.main.viewpager_latest_news_item.view.*
-import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 /**
  * @author Jovines
@@ -48,15 +50,13 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                 tv_article_content.text = messageReturn.content
                 if (App.user.lon != null && App.user.lat != null && messageReturn.lon != null && messageReturn.lat != null) {
                     tv_article_distance.visibility = View.VISIBLE
-                    val dis = getDistance(
+                    val dis = getDistanceTwoM(
                         App.user.lon!!,
                         App.user.lat!!,
                         messageReturn.lon!!,
                         messageReturn.lat!!
-                    ).toInt()
-                    tv_article_distance.text = if (dis < 1000) "${dis}m"
-                    else
-                        DecimalFormat("#.#E0").format(dis).replace(Regex("E.+"), "km")
+                    )
+                    tv_article_distance.text = kmDecimalFormatString(dis.roundToInt())
                 } else tv_article_distance.visibility = View.GONE
                 setOnClickListener {
                     foundDetailDialog(context, messageReturn).show()

@@ -71,7 +71,7 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
         }
         val password = et_register_password.editableText.toString()
         if (!viewModel.checkPassword(password)) {
-            password_content.error = getString(R.string.password_format_error)
+            et_register_password.error = getString(R.string.password_format_error)
             return
         }
         materialDialog.show()

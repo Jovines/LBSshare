@@ -135,6 +135,17 @@
             tools:itemCount="5"
             tools:listitem="@layout/recycle_high_quality_users_item" />
 
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:background="#F0F0F0"
+            android:elevation="6dp"
+            android:paddingHorizontal="10dp"
+            android:src="@drawable/ic_more_premium_user_buttons"
+            app:layout_constraintBottom_toBottomOf="@+id/recycle_high_quality_account"
+            app:layout_constraintEnd_toEndOf="@+id/recycle_high_quality_account"
+            app:layout_constraintTop_toTopOf="@+id/recycle_high_quality_account" />
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/main_view_pager_recent_news"
             android:layout_width="match_parent"
@@ -156,7 +167,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/found_toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/found_toolbar"
+            tools:visibility="gone">
 
             <me.zhanghai.android.materialprogressbar.MaterialProgressBar
                 android:id="@+id/materialProgressBar"

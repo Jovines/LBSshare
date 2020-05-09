@@ -22,10 +22,22 @@ android {
         }
     }
 
+
+    signingConfigs {
+        config {
+            storeFile file(lbs_store)
+            keyAlias sign.RELEASE_KEY_ALIAS
+            keyPassword sign.RELEASE_KEY_PASSWORD
+            storePassword sign.RELEASE_STORE_PASSWORD
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 
@@ -44,14 +56,6 @@ android {
     }
 
 
-    signingConfigs {
-        config {
-            storeFile file(LBSShareStore)
-            keyAlias sign.RELEASE_KEY_ALIAS
-            keyPassword sign.RELEASE_KEY_PASSWORD
-            storePassword sign.RELEASE_STORE_PASSWORD
-        }
-    }
 
 }
 
@@ -102,7 +106,7 @@ dependencies {
     api deps.rxjava.rxkotlin
     api deps.gson.runtime
 
-    api('com.squareup.retrofit2:converter-simplexml:2.7.2') {
+    api('com.squareup.retrofit2:converter-simplexml:2.8.1') {
         exclude group: 'xpp3', module: 'xpp3'
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
@@ -144,8 +148,11 @@ dependencies {
     //定位
     implementation 'com.amap.api:location:4.9.0'
 
+    //相册
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
+    //图片压缩
+    implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
 }
 repositories {
     mavenCentral()

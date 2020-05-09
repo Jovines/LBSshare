@@ -22,8 +22,7 @@
             android:id="@+id/iv_personal_pictures"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/test" />
+            android:scaleType="centerCrop"/>
 
     </androidx.cardview.widget.CardView>
 
