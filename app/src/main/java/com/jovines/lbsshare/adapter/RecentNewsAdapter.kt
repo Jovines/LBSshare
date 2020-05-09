@@ -15,6 +15,7 @@ import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.ui.helper.DialogHelper.foundDetailDialog
 import com.jovines.lbsshare.utils.LatLonUtil.getDistanceTwoKm
 import com.jovines.lbsshare.utils.LatLonUtil.getDistanceTwoM
+import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import com.jovines.lbsshare.utils.kmDecimalFormatString
 import kotlinx.android.synthetic.main.viewpager_latest_news_item.view.*
@@ -63,6 +64,7 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                     messageReturn.id?.apply {
                         ApiGenerator.getApiService(UserApiService::class.java)
                             .addTimeVisited(this)
+                            .errorHandler()
                             .setSchedulers()
                             .subscribe()
                     }

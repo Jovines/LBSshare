@@ -1,19 +1,16 @@
 package com.jovines.lbsshare.viewmodel
 
-import androidx.core.content.edit
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
-import com.jovines.lbsshare.config.PASSWORD
-import com.jovines.lbsshare.config.USER_NAME
 import com.jovines.lbsshare.event.LoginStateChangeEvent
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.ExecuteOnceObserver
+import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.defaultSharedPreferences
 import java.util.regex.Pattern
 
 class LoginViewModel : BaseViewModel() {
@@ -43,8 +40,9 @@ class LoginViewModel : BaseViewModel() {
                 Thread.sleep(if (l > 0) l else 0)
             }
             .observeOn(AndroidSchedulers.mainThread())
+            .errorHandler()
             .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
-
+                failedCallback(-1)
             }, onExecuteOnceNext = {
                 if (it.code == 1000) {
                     App.user = it.data
@@ -71,6 +69,7 @@ class LoginViewModel : BaseViewModel() {
                 Thread.sleep(if (l > 0) l else 0)
             }
             .observeOn(AndroidSchedulers.mainThread())
+            .errorHandler()
             .subscribe(ExecuteOnceObserver(
                 onExecuteOnceNext = {
                     if (it.code == 1000) {
@@ -80,6 +79,9 @@ class LoginViewModel : BaseViewModel() {
                     } else {
                         failedCallback(it.code)
                     }
+                },
+                onExecuteOnceError = {
+                    failedCallback(-1)
                 }
             ))
     }

@@ -3,11 +3,13 @@ package com.jovines.lbsshare.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.bean.PremiumUsersReturn
 import com.jovines.lbsshare.bindingadapter.UserAdapter
+import com.jovines.lbsshare.ui.helper.DialogHelper
 import kotlinx.android.synthetic.main.recycle_high_quality_users_item.view.*
 import java.util.*
 
@@ -37,6 +39,14 @@ class MainHighQualityUsersAdapter(private val liveData: MutableLiveData<List<Pre
                     if (it.jointime.time > Calendar.getInstance()
                             .apply { add(Calendar.DAY_OF_YEAR, -10) }.timeInMillis
                     ) View.VISIBLE else View.GONE
+                setOnClickListener { view ->
+                    val get = it.messages?.get(0)
+                    if (get != null) {
+                        DialogHelper.foundDetailDialog(context, get).show()
+                    } else {
+                        Toast.makeText(context, "该推荐用户还未发布过消息", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

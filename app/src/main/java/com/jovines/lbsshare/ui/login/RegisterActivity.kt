@@ -9,8 +9,8 @@ import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.ui.main.MainActivity
 import com.jovines.lbsshare.viewmodel.LoginViewModel
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
 
@@ -83,9 +83,9 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
                 1001 -> {
                     cell_phone_number_content.error =
                         getString(R.string.mobile_number_has_been_registered)
-                    materialDialog.dismiss()
                 }
             }
+            materialDialog.dismiss()
         })
     }
 

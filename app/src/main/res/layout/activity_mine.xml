@@ -21,15 +21,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".ui.MineActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:fitsSystemWindows="true"
+            android:layout_height="300dp"
             android:background="@drawable/shape_mine_backgroud"
-            android:layout_height="300dp">
+            android:fitsSystemWindows="true">
 
 
             <TextView
@@ -58,12 +58,13 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleImageView2"
+                imageUri="@{appViewModel.avatar}"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                app:civ_circle_background_color="#ffffff"
                 android:elevation="5dp"
-                imageUri="@{appViewModel.avatar}"
+                android:scaleType="centerCrop"
                 android:src="@drawable/user_default_avatar_black"
+                app:civ_circle_background_color="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,8 +97,8 @@
                 android:id="@+id/number_of_messages_sent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_number_of_posts_icon"
                 android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/ic_number_of_posts_icon"
                 android:drawablePadding="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/user_description"
                 app:layout_constraintStart_toStartOf="@+id/user_description"
@@ -108,15 +109,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recy_personal_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="5"
                 tools:listitem="@layout/recycle_personal_content_item" />
 

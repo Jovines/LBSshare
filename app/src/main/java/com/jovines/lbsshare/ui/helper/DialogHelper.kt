@@ -35,6 +35,7 @@ import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.LatLonUtil
+import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.gone
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import com.jovines.lbsshare.utils.extensions.visible
@@ -135,7 +136,8 @@ object DialogHelper {
             messageReturn.id?.let {
                 ApiGenerator.getApiService(UserApiService::class.java).getNewsActiveUsers(
                     it
-                ).setSchedulers().subscribe {
+                ).setSchedulers()
+                    .errorHandler().subscribe {
                     if (it?.data?.isEmpty() == true) dialog_detail_recycler_view.gone()
                     dialog_detail_recycler_view.adapter = NewsActiveUsersAdapter(it.data)
                 }

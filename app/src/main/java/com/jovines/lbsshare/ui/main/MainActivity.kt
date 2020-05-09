@@ -1,6 +1,7 @@
 package com.jovines.lbsshare.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -63,6 +64,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
             } else {
                 recycle_high_quality_account.gone()
             }
+            more_quality_users.visibility = if (it.size > 5) View.VISIBLE else View.GONE
         })
         viewModel.getPremiumUsers()
         (found_toolbar.layoutParams as ConstraintLayout.LayoutParams).apply {

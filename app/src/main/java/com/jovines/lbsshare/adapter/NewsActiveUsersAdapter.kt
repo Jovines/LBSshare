@@ -50,7 +50,7 @@ class NewsActiveUsersAdapter(private val dataList: List<UserBean>) :
             }
         } else {
             (holder.itemView as TextView).apply {
-                val str = if (dataList.size>5) "+${dataList.size - 5} Friends was here"
+                val str = if (dataList.size>1) "+${dataList.size} Friends was here"
                 else "was here"
                 text = str
             }

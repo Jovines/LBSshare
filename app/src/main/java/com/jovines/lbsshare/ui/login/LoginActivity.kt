@@ -12,6 +12,7 @@ import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.ui.main.MainActivity
 import com.jovines.lbsshare.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.toast
 
 class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
 
@@ -52,7 +53,6 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
                 } else if (it == 1002) {
                     login_password.editableText.clear()
                     password_content.error = "密码输入错误"
-
                 }
                 materialDialog.dismiss()
             })

@@ -5,6 +5,7 @@ import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.bean.PersonalMessageDetailsBean
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
+import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 
 /**
@@ -25,6 +26,7 @@ class MineViewModel: BaseViewModel() {
     fun queryMessage(){
         userApiService.queryMessage()
             .setSchedulers()
+            .errorHandler()
             .subscribe ({
                 personalPublish.value = it.data
             },{

@@ -9,6 +9,7 @@ import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.ExecuteOnceObserver
 import com.jovines.lbsshare.utils.addImageToMultipartBodyBuilder
+import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import okhttp3.MultipartBody
 
@@ -38,6 +39,7 @@ class SettingViewModel : BaseViewModel() {
         builder.addImageToMultipartBodyBuilder("image", listOf(uri))
         userApiService.changeAvatar(builder.build().parts)
             .setSchedulers()
+            .errorHandler()
             .subscribe(ExecuteOnceObserver(onExecuteOnceError = {
                 toastEvent.value = "图片过大，请重新选择"
             }) {
@@ -52,8 +54,9 @@ class SettingViewModel : BaseViewModel() {
         nickname: String? = null,
         description: String? = null
     ) {
-        userApiService.updateUserInformation(nickname,description).setSchedulers().
-                subscribe ({
+        userApiService.updateUserInformation(nickname,description).setSchedulers()
+            .errorHandler()
+            .subscribe ({
                     if (it.code == 1000) {
                         if (nickname!=null){
                             App.user.nickname = it.data.nickname

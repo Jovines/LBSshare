@@ -12,6 +12,7 @@
         android:id="@+id/circleImageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:scaleType="centerCrop"
         app:civ_circle_background_color="#ffffff"
         android:src="@drawable/user_default_avatar_black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,6 +104,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:elevation="1dp"
+        android:visibility="gone"
         android:background="@drawable/shape_little_red_dot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

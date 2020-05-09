@@ -1,6 +1,8 @@
 package com.jovines.lbsshare.utils.extensions
 
 import com.jovines.lbsshare.bean.StatusWarp
+import com.jovines.lbsshare.network.errorHandler.DefaultErrorHandler
+import com.jovines.lbsshare.network.errorHandler.ErrorHandler
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -46,4 +48,7 @@ fun <T> Observable<T>.safeSubscribeBy(
 //): Observable<StatusWarp<T>> = doOnNext {
 //        when()
 //}
+
+fun <T> Observable<T>.errorHandler(errorHandler: ErrorHandler = DefaultErrorHandler) = doOnError { errorHandler.handle(it) }
+
 

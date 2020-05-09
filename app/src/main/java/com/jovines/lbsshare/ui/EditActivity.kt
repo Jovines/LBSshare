@@ -9,6 +9,7 @@ import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.EditPictureSelectionAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.databinding.ActivityEditBindingImpl
+import com.jovines.lbsshare.ui.login.afterTextChanged
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
 import com.jovines.lbsshare.viewmodel.EditViewModel
 import kotlinx.android.synthetic.main.activity_edit.*
@@ -51,7 +52,15 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
                 Toast.makeText(this, "您还未输入正文", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            viewModel.publishAnArticle(this,whether_the_location_information_contains.isChecked)
+            viewModel.publishAnArticle(this, whether_the_location_information_contains.isChecked)
+        }
+
+        unpublish.setOnClickListener { finish() }
+
+        et_text.afterTextChanged {
+            if (viewModel.content.get()?.length ?: 0 == 200) {
+                viewModel.toastEvent.value = "字数已经到达上限"
+            }
         }
 
         whether_the_location_information_contains.setOnClickListener {

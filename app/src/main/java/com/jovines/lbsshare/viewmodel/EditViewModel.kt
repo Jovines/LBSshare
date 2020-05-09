@@ -9,8 +9,9 @@ import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.ui.helper.DialogHelper.articleRelease
 import com.jovines.lbsshare.utils.addImageToMultipartBodyBuilder
-import com.jovines.lbsshare.utils.extensions.setSchedulers
+import com.jovines.lbsshare.utils.extensions.errorHandler
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MultipartBody
 
@@ -61,7 +62,9 @@ class EditViewModel : BaseViewModel() {
                 }
             }
             .subscribe {
-                userApiService.postAMessage(it).setSchedulers()
+                userApiService.postAMessage(it)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .errorHandler()
                     .subscribe({ statusWarp ->
                         if (statusWarp.code == 1000) {
                             toastEvent.value = "发布成功"

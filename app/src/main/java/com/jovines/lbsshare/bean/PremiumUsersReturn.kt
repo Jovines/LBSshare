@@ -15,4 +15,5 @@ data class PremiumUsersReturn(val id: Long,
                               val description: String,
                               val avatar: String,
                               val lon: Double,
-                              val lat: Double)
+                              val lat: Double,
+                              var messages: List<CardMessageReturn>? = null)
