@@ -39,9 +39,9 @@ class MainHighQualityUsersAdapter(private val liveData: MutableLiveData<List<Pre
                     if (it.jointime.time > Calendar.getInstance()
                             .apply { add(Calendar.DAY_OF_YEAR, -10) }.timeInMillis
                     ) View.VISIBLE else View.GONE
-                setOnClickListener { view ->
+                setOnClickListener { _ ->
                     if (it.messages != null && it.messages!!.isNotEmpty()) {
-                        val get = it.messages!!.get(0)
+                        val get = it.messages!![0]
                         DialogHelper.foundDetailDialog(context, get).show()
                     } else {
                         Toast.makeText(context, "该推荐用户还未发布过消息", Toast.LENGTH_SHORT).show()
