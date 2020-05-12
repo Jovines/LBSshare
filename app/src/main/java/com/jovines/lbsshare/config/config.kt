@@ -13,5 +13,5 @@ const val DEFAULT_LATITUDE = 39.90
 
 const val MESSAGE_QUERY_TIME = 24
 
-const val SEARCH_SCOPE = 500000000
+const val SEARCH_SCOPE = 5000
 

@@ -17,7 +17,7 @@ import java.util.*
  * @author Jovines
  * @create 2020-04-30 11:16 AM
  *
- * description:
+ * description: 
  *
  */
 class MainHighQualityUsersAdapter(private val liveData: MutableLiveData<List<PremiumUsersReturn>>) :
