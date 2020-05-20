@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import com.google.gson.Gson
-import com.jovines.lbs_server.entity.UserBean
+import com.jovines.lbsshare.bean.UserBean
 import com.jovines.lbsshare.config.USER_NAME
 import org.jetbrains.anko.defaultSharedPreferences
 

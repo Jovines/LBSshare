@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="com.jovines.lbs_server.entity.UserBean" />
+            type="com.jovines.lbsshare.bean.UserBean" />
 
         <variable
             name="viewModel"

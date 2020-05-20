@@ -2,7 +2,7 @@ package com.jovines.lbsshare.viewmodel
 
 import android.net.Uri
 import androidx.databinding.ObservableField
-import com.jovines.lbs_server.entity.UserBean
+import com.jovines.lbsshare.bean.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.network.ApiGenerator

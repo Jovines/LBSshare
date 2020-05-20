@@ -16,7 +16,7 @@ import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MarkerOptions
 import com.amap.api.services.weather.*
 import com.bumptech.glide.Glide
-import com.jovines.lbs_server.entity.UserBean
+import com.jovines.lbsshare.bean.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel

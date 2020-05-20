@@ -1,6 +1,6 @@
 package com.jovines.lbsshare.network
 
-import com.jovines.lbs_server.entity.UserBean
+import com.jovines.lbsshare.bean.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.bean.*
 import com.jovines.lbsshare.config.DEFAULT_LATITUDE

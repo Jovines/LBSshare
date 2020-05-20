@@ -9,9 +9,8 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
-import com.jovines.lbs_server.entity.UserBean
+import com.jovines.lbsshare.bean.UserBean
 import com.jovines.lbsshare.App
-import com.jovines.lbsshare.config.PASSWORD
 import com.jovines.lbsshare.config.USER_NAME
 import com.jovines.lbsshare.event.LoginEvent
 import com.jovines.lbsshare.event.LoginStateChangeEvent

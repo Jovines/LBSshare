@@ -1,4 +1,4 @@
-package com.jovines.lbs_server.entity
+package com.jovines.lbsshare.bean
 
 import java.io.Serializable
 
