@@ -22,179 +22,202 @@
         android:clipChildren="false"
         tools:context=".ui.main.MainActivity">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/found_toolbar"
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/found_toolbar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="?actionBarSize"-->
+        <!--            android:animateLayoutChanges="true"-->
+        <!--            android:background="@color/toolbar_background"-->
+        <!--            android:elevation="8dp"-->
+        <!--            android:paddingHorizontal="15dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--            <de.hdodenhof.circleimageview.CircleImageView-->
+        <!--                android:id="@+id/user_profile"-->
+        <!--                imageUri="@{appViewModel.avatar}"-->
+        <!--                android:layout_width="35dp"-->
+        <!--                android:layout_height="35dp"-->
+        <!--                android:scaleType="centerCrop"-->
+        <!--                android:src="@drawable/user_default_avatar_black"-->
+        <!--                app:civ_circle_background_color="#ffffff"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="@+id/linearLayout" />-->
+
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/linearLayout"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:gravity="center"-->
+        <!--                android:orientation="vertical"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--                <TextView-->
+        <!--                    android:id="@+id/textView"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:text="@{mainViewModel.placeData}"-->
+        <!--                    android:textColor="#000000"-->
+        <!--                    android:textSize="@dimen/toolbar_title_text_size"-->
+        <!--                    android:textStyle="bold"-->
+        <!--                    app:layout_constraintBottom_toTopOf="@+id/textView5"-->
+        <!--                    app:layout_constraintStart_toStartOf="@+id/textView5"-->
+        <!--                    app:layout_constraintTop_toTopOf="parent"-->
+        <!--                    tools:text="重庆" />-->
+
+        <!--                <TextView-->
+        <!--                    android:id="@+id/textView5"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:text="@{mainViewModel.weatherData}"-->
+        <!--                    android:textColor="#000000"-->
+        <!--                    android:textSize="10sp"-->
+        <!--                    app:layout_constraintBottom_toBottomOf="@+id/user_profile"-->
+        <!--                    app:layout_constraintStart_toEndOf="@+id/user_profile"-->
+        <!--                    tools:ignore="SmallSp"-->
+        <!--                    tools:text="晴 16℃" />-->
+
+
+        <!--            </LinearLayout>-->
+
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/iv_edit"-->
+        <!--                android:layout_width="@dimen/find_toolbar_image_width"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:adjustViewBounds="true"-->
+        <!--                android:src="@drawable/ic_publication"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+        <!--        <Button-->
+        <!--            android:id="@+id/main_button"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="退出登陆"-->
+        <!--            android:visibility="gone"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        <fragment-->
+        <!--            android:id="@+id/main_view_pager"-->
+        <!--            android:name="com.jovines.lbsshare.ui.main.fragment.FoundFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/recycle_high_quality_account"-->
+        <!--            tools:ignore="FragmentTagUsage" />-->
+
+
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/recycle_high_quality_account"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/high_quality_user_height"-->
+        <!--            android:background="#F0F0F0"-->
+        <!--            android:elevation="6dp"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/found_toolbar"-->
+        <!--            tools:itemCount="5"-->
+        <!--            tools:listitem="@layout/recycle_high_quality_users_item" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/more_quality_users"-->
+        <!--            android:layout_width="40dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:background="#F0F0F0"-->
+        <!--            android:elevation="6dp"-->
+        <!--            android:paddingHorizontal="10dp"-->
+        <!--            android:src="@drawable/ic_more_premium_user_buttons"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/recycle_high_quality_account"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/recycle_high_quality_account"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/recycle_high_quality_account" />-->
+
+        <!--        <androidx.viewpager2.widget.ViewPager2-->
+        <!--            android:id="@+id/main_view_pager_recent_news"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="150dp"-->
+        <!--            android:layout_marginHorizontal="30dp"-->
+        <!--            android:layout_marginBottom="30dp"-->
+        <!--            android:animateLayoutChanges="true"-->
+        <!--            android:clipChildren="false"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/main_view_pager"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/prompt_in_loading"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:background="#ffffff"-->
+        <!--            android:elevation="6dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/found_toolbar"-->
+        <!--            tools:visibility="gone">-->
+
+        <!--            <me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
+        <!--                android:id="@+id/materialProgressBar"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintHorizontal_bias="0.498"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent"-->
+        <!--                app:layout_constraintVertical_bias="0.4" />-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginTop="16dp"-->
+        <!--                android:text="附近生活圈消息加载中..."-->
+        <!--                app:layout_constraintEnd_toEndOf="@+id/materialProgressBar"-->
+        <!--                app:layout_constraintStart_toStartOf="@+id/materialProgressBar"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/materialProgressBar" />-->
+
+
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/main_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:animateLayoutChanges="true"
-            android:background="@color/toolbar_background"
-            android:elevation="8dp"
-            android:paddingHorizontal="15dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_profile"
-                imageUri="@{appViewModel.avatar}"
-                android:layout_width="35dp"
-                android:scaleType="centerCrop"
-                android:layout_height="35dp"
-                android:src="@drawable/user_default_avatar_black"
-                app:civ_circle_background_color="#ffffff"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/linearLayout" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{mainViewModel.placeData}"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/toolbar_title_text_size"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView5"
-                    app:layout_constraintStart_toStartOf="@+id/textView5"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="重庆" />
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{mainViewModel.weatherData}"
-                    android:textColor="#000000"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_profile"
-                    app:layout_constraintStart_toEndOf="@+id/user_profile"
-                    tools:ignore="SmallSp"
-                    tools:text="晴 16℃" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-            </LinearLayout>
-
-
-            <ImageView
-                android:id="@+id/iv_edit"
-                android:layout_width="@dimen/find_toolbar_image_width"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_publication"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <Button
-            android:id="@+id/main_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="退出登陆"
-            android:visibility="gone"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/main_bottom_navigation_view_backgroud"
+            app:itemIconTint="@color/selector_location_information_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <fragment
-            android:id="@+id/main_view_pager"
-            android:name="com.jovines.lbsshare.ui.main.fragment.FoundFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycle_high_quality_account"
-            tools:ignore="FragmentTagUsage" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycle_high_quality_account"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/high_quality_user_height"
-            android:background="#F0F0F0"
-            android:elevation="6dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/found_toolbar"
-            tools:itemCount="5"
-            tools:listitem="@layout/recycle_high_quality_users_item" />
-
-        <ImageView
-            android:id="@+id/more_quality_users"
-            android:layout_width="40dp"
-            android:layout_height="0dp"
-            android:background="#F0F0F0"
-            android:elevation="6dp"
-            android:paddingHorizontal="10dp"
-            android:src="@drawable/ic_more_premium_user_buttons"
-            app:layout_constraintBottom_toBottomOf="@+id/recycle_high_quality_account"
-            app:layout_constraintEnd_toEndOf="@+id/recycle_high_quality_account"
-            app:layout_constraintTop_toTopOf="@+id/recycle_high_quality_account" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main_view_pager_recent_news"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginBottom="30dp"
-            android:animateLayoutChanges="true"
-            android:clipChildren="false"
-            app:layout_constraintBottom_toBottomOf="@+id/main_view_pager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/prompt_in_loading"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#ffffff"
-            android:elevation="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/found_toolbar"
-            tools:visibility="gone">
-
-            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-                android:id="@+id/materialProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="附近生活圈消息加载中..."
-                app:layout_constraintEnd_toEndOf="@+id/materialProgressBar"
-                app:layout_constraintStart_toStartOf="@+id/materialProgressBar"
-                app:layout_constraintTop_toBottomOf="@+id/materialProgressBar" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:menu="@menu/bottom_nav_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

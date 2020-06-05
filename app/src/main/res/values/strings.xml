@@ -19,4 +19,30 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="photos">PHOTOS</string>
     <string name="no_track_of_life">暂无生活轨迹</string>
+
+    <string name="title_home">我的</string>
+    <string name="title_story">友圈</string>
+    <string name="title_notifications">发现</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!--    mineFragment-->
+    <string name="minefragment_tv_text_my_notes">我 的 文 章</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- 设置 Preferences -->
+    <string name="signature_title">反馈</string>
+    <string name="reply_title">Default reply action</string>
+    <string name="activity_setting_feedback">点击反馈</string>
+    <string name="activity_setting_notice">请输入您的反馈内容</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="found_tiltle">发现</string>
 </resources>

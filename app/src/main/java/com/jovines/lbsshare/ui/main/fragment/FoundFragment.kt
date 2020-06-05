@@ -39,7 +39,7 @@ class FoundFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         map.onCreate(savedInstanceState)
-        initFragment()
+//        initFragment()
     }
 
     private fun initFragment() {
@@ -88,17 +88,17 @@ class FoundFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        requireActivity().doPermissionAction(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE
-        ) {
-            doAfterGranted {
-                mainViewModel.updateLifeCircleNews()
-            }
-        }
+//        requireActivity().doPermissionAction(
+//            Manifest.permission.ACCESS_COARSE_LOCATION,
+//            Manifest.permission.ACCESS_FINE_LOCATION,
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_PHONE_STATE
+//        ) {
+//            doAfterGranted {
+//                mainViewModel.updateLifeCircleNews()
+//            }
+//        }
     }
 
     override fun onStop() {
