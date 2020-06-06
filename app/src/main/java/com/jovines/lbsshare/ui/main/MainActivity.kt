@@ -77,7 +77,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
         }
         main_viewpager.adapter = MainViewPagerFragmentAdapter(this)
 
-        main_viewpager.
+//        main_viewpager.
 //        viewModel.getPremiumUsers()
 //        (found_toolbar.layoutParams as ConstraintLayout.LayoutParams).apply {
 //            found_toolbar.topPadding += getStatusBarHeight()
