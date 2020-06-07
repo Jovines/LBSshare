@@ -213,7 +213,7 @@ class MainViewModel : BaseViewModel() {
             .flatMap {
                 Observable.merge(
 //                    上传位置
-                    userApiService.updateLocation(it.latitude, it.longitude),
+                    userApiService.updateLocation(),
 //                    寻找附近的人并更新显示
                     findActiveUsers()
 //                    searchForNewsNearby()

@@ -15,12 +15,15 @@ import com.jovines.lbsshare.adapter.RecentNewsAdapter
 import com.jovines.lbsshare.base.BaseViewModelFragment
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.databinding.FragmentFriendBinding
+import com.jovines.lbsshare.event.PrivateMessageChanges
 import com.jovines.lbsshare.event.ViewPagerPositionEvent
 import com.jovines.lbsshare.ui.EditActivity
 import com.jovines.lbsshare.utils.extensions.doPermissionAction
 import com.jovines.lbsshare.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_friend.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
 
 class FriendFragment : BaseViewModelFragment<MainViewModel>() {
@@ -114,6 +117,11 @@ class FriendFragment : BaseViewModelFragment<MainViewModel>() {
 //            }
 //        }
 //        swipe_refresh.isRefreshing = true
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun sendAMessageYourself(changes: PrivateMessageChanges) {
+        viewModel.searchForNewsNearby()
     }
 
     override val viewModelClass = MainViewModel::class.java

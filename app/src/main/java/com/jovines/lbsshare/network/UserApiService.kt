@@ -4,8 +4,6 @@ import com.jovines.lbs_server.entity.Comment
 import com.jovines.lbs_server.entity.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.bean.*
-import com.jovines.lbsshare.config.DEFAULT_LATITUDE
-import com.jovines.lbsshare.config.DEFAULT_LONGITUDE
 import com.jovines.lbsshare.config.MESSAGE_QUERY_TIME
 import com.jovines.lbsshare.config.SEARCH_SCOPE
 import io.reactivex.Observable
@@ -51,8 +49,6 @@ interface UserApiService {
     fun findNearby(
         @Field("range") range: Int = SEARCH_SCOPE,
         @Field("time") time: Int = MESSAGE_QUERY_TIME,
-        @Field("lat") lat: Double = App.user.lat ?: DEFAULT_LATITUDE,
-        @Field("lon") lon: Double = App.user.lon ?: DEFAULT_LONGITUDE,
         @Field("phone") phone: Long = App.user.phone
     ): Observable<StatusWarp<List<UserBean>>>
 
@@ -63,8 +59,6 @@ interface UserApiService {
     @FormUrlEncoded
     @POST(Api.UPDATE_LOCATION_URI)
     fun updateLocation(
-        @Field("lat") lat: Double,
-        @Field("lon") lon: Double,
         @Field("phone") phone: Long = App.user.phone,
         @Field("password") password: String = App.user.password
     ): Observable<StatusWarp<UserBean>>
@@ -99,9 +93,7 @@ interface UserApiService {
     fun findLatestNewsNearby(
         @Field("range") range: Int = SEARCH_SCOPE,
         @Field("time") time: Int = MESSAGE_QUERY_TIME,
-        @Field("lon") lon: Double = App.user.lon ?: 0.0,
-        @Field("phone") phone: Long = App.user.phone,
-        @Field("lat") lat: Double = App.user.lat ?: 0.0
+        @Field("phone") phone: Long = App.user.phone
     ): Observable<StatusWarp<List<CardMessageReturn>>>
 
 
