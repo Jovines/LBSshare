@@ -19,5 +19,6 @@ data class CardMessageReturn (
     var lon: Double? = null,
     var lat: Double? = null,
     var images: String? = null,
-    var checkCount: Int? = null
+    var checkCount: Int? = null,
+    var commentCount: Int
 ): Serializable

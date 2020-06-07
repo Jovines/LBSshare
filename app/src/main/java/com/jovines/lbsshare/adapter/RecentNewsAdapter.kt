@@ -45,6 +45,7 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                 tv_user_name.text = messageReturn.nickname
                 tv_article_title.text = messageReturn.title
                 tv_time.text = messageReturn.time?.substringAfter("-")
+                tv_comment_num.setText(messageReturn.commentCount.toString())
                 number_of_personal_message_accesses.text =
                     (messageReturn.checkCount ?: 0).toString()
                 tv_article_content.text = messageReturn.content

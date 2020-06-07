@@ -104,6 +104,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_comment_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:drawableStart="@drawable/ic_baseline_comment"
+            android:drawablePadding="5dp"
+            android:text="0"
+            app:layout_constraintEnd_toStartOf="@+id/number_of_personal_message_accesses"
+            app:layout_constraintTop_toTopOf="@+id/number_of_personal_message_accesses"
+            app:layout_constraintBottom_toBottomOf="@+id/number_of_personal_message_accesses"/>
+
         <TextView
             android:id="@+id/number_of_personal_message_accesses"
             android:layout_width="wrap_content"
