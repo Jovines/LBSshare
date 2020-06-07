@@ -9,12 +9,15 @@ buildscript {
     }
     repositories {
         // 以下两行代码相当于有了 google() jcenter() mavenCentral()，使用国内的阿里镜像
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
-        
+//        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+//        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+
+        google()
+        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -25,9 +28,11 @@ buildscript {
 allprojects {
     repositories {
         // 以下两行代码相当于有了 google() jcenter() mavenCentral()，使用国内的阿里镜像
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+//        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+//        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
 
+        google()
+        jcenter()
         maven { url 'https://jitpack.io' }
     }
 }

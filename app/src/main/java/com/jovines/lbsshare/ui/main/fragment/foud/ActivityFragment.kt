@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayoutMediator
 import com.jovines.lbsshare.R
-import com.jovines.lbsshare.adapter.ActivityAdapter
 import com.jovines.lbsshare.adapter.ActivityDetailsAdapter
 import com.jovines.lbsshare.adapter.GlideImageLoader
 import com.jovines.lbsshare.base.BaseFragment
@@ -16,7 +14,11 @@ import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_vp_discount.*
 
-class DiscountFragment : BaseFragment() {
+/**
+ * 活动页面，包括最新和最热两个方面
+ */
+
+class ActivityFragment : BaseFragment() {
 
 
     companion object {
@@ -47,7 +49,7 @@ class DiscountFragment : BaseFragment() {
             setBannerAnimation(Transformer.DepthPage)
             //先模拟数据
             setImages(
-                listOf<String>(
+                listOf(
                     "https://pic4.zhimg.com/v2-14a66ba1f82f784a19e55d6b8b6d59e5_1200x500.jpg"
                     ,
                     "https://pic2.zhimg.com/80/v2-b476507f26b533c0029753f7e5d681bd_hd.png"
@@ -60,7 +62,7 @@ class DiscountFragment : BaseFragment() {
             setIndicatorGravity(BannerConfig.CENTER)
             start()
         }
-        recy_offer_page.adapter = ActivityDetailsAdapter(viewModel.eventsList)
+        rv_activity_page.adapter = ActivityDetailsAdapter(viewModel.eventsList)
     }
 
 }

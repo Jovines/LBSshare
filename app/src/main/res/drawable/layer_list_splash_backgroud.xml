@@ -3,14 +3,18 @@
     <item>
         <shape
             android:shape="rectangle">
-            <solid android:color="#2d3d9e" />
+            <solid android:color="@color/colorAccent" />
         </shape>
     </item>
+
+<!--    <item>-->
+<!--        -->
+<!--    </item>-->
 
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/logo_splash_small" />
+            android:src="@drawable/ic_launcher_round" />
     </item>
 
 </layer-list>

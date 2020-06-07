@@ -59,6 +59,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
                 R.id.navigation_notifications -> main_viewpager.setCurrentItem(1, false)
                 R.id.navigation_mine -> main_viewpager.setCurrentItem(2, false)
             }
+            item.setChecked(true)
             false
         }
         main_viewpager.adapter = MainViewPagerFragmentAdapter(this)
