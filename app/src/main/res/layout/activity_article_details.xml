@@ -1,61 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.ArticleDetailsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="positioningDisplay"
-            type="androidx.databinding.ObservableInt" />
 
         <variable
             name="isPictureShow"
             type="androidx.databinding.ObservableInt" />
 
+        <variable
+            name="messageReturn"
+            type="com.jovines.lbsshare.bean.CardMessageReturn" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/shape_foud_detail_message_backgroud"
-        android:elevation="5dp"
-        android:paddingHorizontal="20dp"
-        android:paddingBottom="10dp">
+        android:layout_height="match_parent"
+        android:elevation="5dp">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/shape_notification_title"
+            android:fitsSystemWindows="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/details_recycling_label"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_expand_more_black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_detail_message_user"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="12dp"
+                imageUri="@{messageReturn.avatar}"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="24dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/user_default_avatar_black"
                 app:civ_circle_background_color="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/details_recycling_label" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/detailed_user_name"
@@ -63,6 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
+                android:text="@{messageReturn.nickname}"
+                android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_detail_message_user"
@@ -73,31 +65,52 @@
                 android:id="@+id/user_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{messageReturn.description}"
+                android:textColor="#ffffff"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/detailed_user_name"
                 app:layout_constraintTop_toBottomOf="@+id/detailed_user_name"
                 tools:text="欢迎报考重庆邮电大学" />
 
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="@{messageReturn.time}"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/user_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/detailed_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/detailed_user_name"
+                tools:text="2020-08-09 22:22" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <com.jovines.lbsshare.widget.MaxHeightNestedScrollView
+        <ScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/details_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@{messageReturn.title}"
                     android:layout_marginTop="16dp"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -108,8 +121,11 @@
                     android:id="@+id/details_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:text="@{messageReturn.content}"
                     android:layout_marginTop="2dp"
+                    android:layout_marginEnd="16dp"
                     android:gravity="start|top"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/details_title"
                     app:layout_constraintTop_toBottomOf="@+id/details_title"
                     tools:text="这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文这里是正文。" />
@@ -118,7 +134,9 @@
                     android:id="@+id/recycle_detailed_information"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="2dp"
+                    android:layout_marginEnd="16dp"
                     android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -132,10 +150,12 @@
                     android:id="@+id/dialog_detail_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detailed_information_attention_personnel_height"
-                    android:layout_marginStart="1dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/details_content"
                     app:layout_constraintTop_toBottomOf="@+id/details_content"
                     tools:itemCount="5"
@@ -143,18 +163,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.jovines.lbsshare.widget.MaxHeightNestedScrollView>
+        </ScrollView>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:elevation="1dp"
-            android:paddingTop="30dp"
             android:visibility="@{isPictureShow}"
-            app:layout_constraintBottom_toTopOf="@+id/dialog_detail_mapView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp2_picture_display"
@@ -163,71 +183,6 @@
                 android:background="#99000000" />
 
         </FrameLayout>
-
-        <ImageView
-            android:id="@+id/hide_picture"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:paddingStart="12dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="0dp"
-            android:src="@drawable/ic_cancel_button"
-            android:visibility="@{isPictureShow}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/details_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:drawableStart="@drawable/ic_distance"
-            android:drawablePadding="10dp"
-            android:gravity="bottom"
-            android:visibility="@{positioningDisplay}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
-            tools:text="22m" />
-
-        <TextView
-            android:id="@+id/user_name_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:visibility="@{positioningDisplay}"
-            app:layout_constraintBaseline_toBaselineOf="@id/details_distance"
-            app:layout_constraintStart_toEndOf="@+id/details_distance" />
-
-        <com.amap.api.maps.MapView
-            android:id="@+id/dialog_detail_mapView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:visibility="@{positioningDisplay}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_distance"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:background="@drawable/shape_white_gradient_above"
-            android:visibility="@{positioningDisplay}"
-            app:layout_constraintEnd_toEndOf="@+id/dialog_detail_mapView"
-            app:layout_constraintStart_toStartOf="@+id/dialog_detail_mapView"
-            app:layout_constraintTop_toTopOf="@+id/dialog_detail_mapView" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:background="@drawable/shape_white_gradient_bottom"
-            android:visibility="@{positioningDisplay}"
-            app:layout_constraintBottom_toBottomOf="@+id/dialog_detail_mapView"
-            app:layout_constraintEnd_toEndOf="@+id/dialog_detail_mapView"
-            app:layout_constraintStart_toStartOf="@+id/dialog_detail_mapView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

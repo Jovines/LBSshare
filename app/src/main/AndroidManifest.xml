@@ -26,6 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
+        <activity android:name=".ui.ArticleDetailsActivity"></activity>
         <activity
             android:name=".ui.UserSettingActivity"
             android:windowSoftInputMode="adjustPan" />

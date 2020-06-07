@@ -1,11 +1,13 @@
 package com.jovines.lbsshare.bean
 
+import java.io.Serializable
+
 /**
  * @author Jovines
  * create 2020-05-01 10:37 下午
  * description:
  */
-data class CardMessageReturn(
+data class CardMessageReturn (
     var id: Long? = null,
     var user: Long? = null,
     var title: String? = null,
@@ -18,4 +20,4 @@ data class CardMessageReturn(
     var lat: Double? = null,
     var images: String? = null,
     var checkCount: Int? = null
-)
+): Serializable

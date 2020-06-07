@@ -28,7 +28,6 @@ import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.DetailedInformationAdapter
 import com.jovines.lbsshare.adapter.NewsActiveUsersAdapter
 import com.jovines.lbsshare.adapter.PictureViewAdapter
-import com.jovines.lbsshare.adapter.ViewHolder
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.databinding.DialogMainBottomSheetDetailedMessageBinding
 import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
@@ -41,6 +40,14 @@ import com.jovines.lbsshare.utils.extensions.setSchedulers
 import com.jovines.lbsshare.utils.extensions.visible
 import com.jovines.lbsshare.utils.kmDecimalFormatString
 import kotlinx.android.synthetic.main.dialog_main_bottom_sheet_detailed_message.*
+import kotlinx.android.synthetic.main.activity_article_details.detailed_user_name
+import kotlinx.android.synthetic.main.activity_article_details.details_content
+import kotlinx.android.synthetic.main.activity_article_details.details_title
+import kotlinx.android.synthetic.main.activity_article_details.dialog_detail_recycler_view
+import kotlinx.android.synthetic.main.activity_article_details.iv_detail_message_user
+import kotlinx.android.synthetic.main.activity_article_details.recycle_detailed_information
+import kotlinx.android.synthetic.main.activity_article_details.user_description
+import kotlinx.android.synthetic.main.activity_article_details.vp2_picture_display
 import org.jetbrains.anko.dip
 
 

@@ -1,5 +1,6 @@
 package com.jovines.lbsshare.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +13,7 @@ import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.network.Api.BASE_PICTURE_URI
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
-import com.jovines.lbsshare.ui.helper.DialogHelper.foundDetailDialog
+import com.jovines.lbsshare.ui.ArticleDetailsActivity
 import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import kotlinx.android.synthetic.main.viewpager_latest_news_item.view.*
@@ -44,7 +45,8 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                 tv_user_name.text = messageReturn.nickname
                 tv_article_title.text = messageReturn.title
                 tv_time.text = messageReturn.time?.substringAfter("-")
-                number_of_personal_message_accesses.text = (messageReturn.checkCount?:0).toString()
+                number_of_personal_message_accesses.text =
+                    (messageReturn.checkCount ?: 0).toString()
                 tv_article_content.text = messageReturn.content
                 personal_picture_display.adapter = PersonalPicturesAdapter(
                     Gson().fromJson(
@@ -53,7 +55,14 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                     )
                 )
                 setOnClickListener {
-                    foundDetailDialog(context, messageReturn).show()
+                    context.startActivity(
+                        Intent(
+                            context,
+                            ArticleDetailsActivity::class.java
+                        ).apply {
+                            this.putExtra(ArticleDetailsActivity.DETAILED_DATA, messageReturn)
+                        })
+//                    foundDetailDialog(context, messageReturn).show()
                     messageReturn.id?.apply {
                         ApiGenerator.getApiService(UserApiService::class.java)
                             .addTimeVisited(this)
