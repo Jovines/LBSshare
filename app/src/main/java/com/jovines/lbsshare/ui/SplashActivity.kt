@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseActivity
+import com.jovines.lbsshare.ui.login.LoginActivity
 import com.jovines.lbsshare.ui.main.MainActivity
 
 class SplashActivity : BaseActivity() {
@@ -14,7 +15,7 @@ class SplashActivity : BaseActivity() {
         if (App.isLogin()) {
             startActivity<MainActivity>()
         } else {
-            startActivity<StartUpActivity>()
+            startActivity<LoginActivity>()
         }
         finish()
     }

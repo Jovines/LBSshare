@@ -9,6 +9,7 @@ import com.jovines.lbsshare.AppViewModel
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.databinding.ActivityUserSettingBindingImpl
+import com.jovines.lbsshare.ui.login.LoginActivity
 import com.jovines.lbsshare.viewmodel.SettingViewModel
 import kotlinx.android.synthetic.main.activity_user_setting.*
 
@@ -44,7 +45,7 @@ class UserSettingActivity : BaseViewModelActivity<SettingViewModel>() {
         personal_back_button.setOnClickListener { finish() }
         exit_login_button.setOnClickListener {
             signOut()
-            startActivity(Intent(this, StartUpActivity::class.java).apply {
+            startActivity(Intent(this, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             })
             finish()

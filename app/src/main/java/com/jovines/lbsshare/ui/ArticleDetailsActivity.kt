@@ -104,18 +104,25 @@ class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() 
         btn_send_comment.setOnClickListener {
             val msg = et_comment.text.toString()
             if (msg.isNotBlank()) {
-                viewModel.addComment(msg, messageReturn.id ?: 0, { code ->
+                viewModel.addComment(msg, messageReturn.id ?: 0) { code ->
                     if (code != 1000) {
                         toast("添加评论失败！")
                     } else {
                         messageReturn.id?.let { it1 -> viewModel.queryComments(it1) }
                         et_comment.setText("")
                     }
-                })
+                }
             }
         }
 
 
+    }
+
+    override fun onBackPressed() {
+        if (viewModel.isPictureShow.get() == View.VISIBLE) {
+            viewModel.isPictureShow.set(View.GONE)
+        }else
+        super.onBackPressed()
     }
 
     override val viewModelClass: Class<ArticleDetailsViewModel>

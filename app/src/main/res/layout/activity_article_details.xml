@@ -166,6 +166,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_artical_comment"
                     android:paddingStart="8dp"
+                    android:overScrollMode="never"
                     app:layout_constraintStart_toStartOf="@+id/dialog_detail_recycler_view"
                     app:layout_constraintEnd_toEndOf="@+id/dialog_detail_recycler_view"
                     app:layout_constraintTop_toBottomOf="@+id/recycle_detailed_information"
@@ -180,25 +181,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:elevation="1dp"
-            android:visibility="@{isPictureShow}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp2_picture_display"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#99000000" />
-
-        </FrameLayout>
         
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_send_comment"
@@ -238,6 +220,24 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="1dp"
+            android:visibility="@{isPictureShow}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp2_picture_display"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#99000000" />
+
+        </FrameLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

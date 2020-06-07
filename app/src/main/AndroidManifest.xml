@@ -28,7 +28,7 @@
         tools:ignore="UnusedAttribute">
         <activity
             android:name=".ui.ArticleDetailsActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.UserSettingActivity"
             android:windowSoftInputMode="adjustPan" />

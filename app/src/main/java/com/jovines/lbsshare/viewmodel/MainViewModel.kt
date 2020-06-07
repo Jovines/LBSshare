@@ -35,7 +35,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.map_user_locator.view.*
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -178,12 +177,14 @@ class MainViewModel : BaseViewModel() {
     var disposable: Disposable? = null
 
     fun updateLifeCircleNews() {
-        disposable = Observable.concatArray(ObservableSource<Long> {
-            //一进app就安排一次事件发送
-            it.onNext(-1)
-            it.onComplete()
-        },
-            Observable.just(2))
+        disposable = Observable.concatArray(
+            ObservableSource<Long> {
+                //一进app就安排一次事件发送
+                it.onNext(-1)
+                it.onComplete()
+            },
+            Observable.just(2)
+        )
 //            Observable.interval(2, TimeUnit.SECONDS))
             .subscribeOn(Schedulers.io())
             .flatMap { //初始化定位
@@ -211,11 +212,11 @@ class MainViewModel : BaseViewModel() {
             .observeOn(Schedulers.io())
             .flatMap {
                 Observable.merge(
-                    //上传位置
+//                    上传位置
                     userApiService.updateLocation(it.latitude, it.longitude),
-                    //寻找附近的人并更新显示
-                    findActiveUsers(),
-                    searchForNewsNearby()
+//                    寻找附近的人并更新显示
+                    findActiveUsers()
+//                    searchForNewsNearby()
                 )
             }
             .observeOn(AndroidSchedulers.mainThread())
@@ -224,10 +225,14 @@ class MainViewModel : BaseViewModel() {
             }, {})
     }
 
-    private fun searchForNewsNearby() = userApiService.findLatestNewsNearby()
+    fun searchForNewsNearby() = userApiService.findLatestNewsNearby()
         .setSchedulers()
-        .doOnNext {
+//        .doOnNext {
+//            latestNewsFromNearby.value = it.data
+//        }
+        .subscribe {
             latestNewsFromNearby.value = it.data
+
         }
 
 

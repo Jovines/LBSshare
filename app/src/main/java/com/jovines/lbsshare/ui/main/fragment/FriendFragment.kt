@@ -52,17 +52,18 @@ class FriendFragment : BaseViewModelFragment<MainViewModel>() {
         circleImageView.setOnClickListener { EventBus.getDefault().post(ViewPagerPositionEvent(1)) }
 
         swipe_refresh.setOnRefreshListener {
-            doPermissionAction(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE
-            ) {
-                doAfterGranted {
-                    viewModel.updateLifeCircleNews()
-                }
-            }
+//            doPermissionAction(
+//                Manifest.permission.ACCESS_COARSE_LOCATION,
+//                Manifest.permission.ACCESS_FINE_LOCATION,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                Manifest.permission.READ_EXTERNAL_STORAGE,
+//                Manifest.permission.READ_PHONE_STATE
+//            ) {
+//                doAfterGranted {
+//                    viewModel.updateLifeCircleNews()
+//                }
+//            }
+            viewModel.searchForNewsNearby()
         }
 
         var lastTimeDataList = viewModel.latestNewsFromNearby.value
@@ -70,47 +71,49 @@ class FriendFragment : BaseViewModelFragment<MainViewModel>() {
             viewLifecycleOwner,
             Observer { cardList: List<CardMessageReturn>? ->
                 swipe_refresh.isRefreshing = false
-                if (lastTimeDataList != null) {
-                    val cardListIdMap = cardList?.map { it.id }
-                    val map = lastTimeDataList?.map { it.id }
-                    //处理更改的
-                    lastTimeDataList?.filter { messageReturn ->
-                        val find = cardList?.find { it.id == messageReturn.id }
-                        if (find != null)
-                            find.avatar != messageReturn.avatar || find.description != messageReturn.description || find.nickname != messageReturn.nickname
-                        else false
-                    }?.forEach {
-                        recentNewsAdapter.notifyItemChanged(lastTimeDataList!!.indexOf(it))
-                    }
-                    //去掉消失的
-                    lastTimeDataList?.filterNot { cardListIdMap?.contains(it.id) ?: false }
-                        ?.forEach {
-                            recentNewsAdapter.notifyItemRemoved(lastTimeDataList!!.indexOf(it))
-                        }
-                    //添加新增的
-                    cardList?.filterNot { map?.contains(it.id) ?: false }?.apply {
-                        recentNewsAdapter.notifyItemRangeInserted(0, size)
-                    }
-                } else recentNewsAdapter.notifyDataSetChanged()
+//                if (lastTimeDataList != null) {
+//                    val cardListIdMap = cardList?.map { it.id }
+//                    val map = lastTimeDataList?.map { it.id }
+//                    //处理更改的
+//                    lastTimeDataList?.filter { messageReturn ->
+//                        val find = cardList?.find { it.id == messageReturn.id }
+//                        if (find != null)
+//                            find.avatar != messageReturn.avatar || find.description != messageReturn.description || find.nickname != messageReturn.nickname
+//                        else false
+//                    }?.forEach {
+//                        recentNewsAdapter.notifyItemChanged(lastTimeDataList!!.indexOf(it))
+//                    }
+//                    //去掉消失的
+//                    lastTimeDataList?.filterNot { cardListIdMap?.contains(it.id) ?: false }
+//                        ?.forEach {
+//                            recentNewsAdapter.notifyItemRemoved(lastTimeDataList!!.indexOf(it))
+//                        }
+//                    //添加新增的
+//                    cardList?.filterNot { map?.contains(it.id) ?: false }?.apply {
+//                        recentNewsAdapter.notifyItemRangeInserted(0, size)
+//                    }
+//                } else
+                    recentNewsAdapter.notifyDataSetChanged()
                 lastTimeDataList = viewModel.latestNewsFromNearby.value
             })
-        viewModel.requestLocation()
+//        viewModel.requestLocation()
+        viewModel.searchForNewsNearby()
     }
 
     override fun onStart() {
         super.onStart()
-        doPermissionAction(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE
-        ) {
-            doAfterGranted {
-                viewModel.updateLifeCircleNews()
-            }
-        }
-        swipe_refresh.isRefreshing = true
+//        doPermissionAction(
+//            Manifest.permission.ACCESS_COARSE_LOCATION,
+//            Manifest.permission.ACCESS_FINE_LOCATION,
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_PHONE_STATE
+//        ) {
+//            doAfterGranted {
+//                viewModel.updateLifeCircleNews()
+//            }
+//        }
+//        swipe_refresh.isRefreshing = true
     }
 
     override val viewModelClass = MainViewModel::class.java

@@ -37,6 +37,8 @@ class CommentAdapter(val datas: LiveData<List<Comment>>) : RecyclerView.Adapter<
         if (position == datas.value?.size?:0 -1) {
             holder.itemView.visibility = View.INVISIBLE
             return
+        }else{
+            holder.itemView.visibility = View.VISIBLE
         }
         val bean = datas.value?.get(position)
         if (bean != null) {
