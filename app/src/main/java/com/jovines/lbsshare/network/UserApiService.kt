@@ -1,5 +1,6 @@
 package com.jovines.lbsshare.network
 
+import com.jovines.lbs_server.entity.Comment
 import com.jovines.lbs_server.entity.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.bean.*
@@ -168,4 +169,37 @@ interface UserApiService {
 
     @GET(Api.GET_UNEXPIRED_EVENTS)
     fun getUnexpiredEvents(): Observable<StatusWarp<List<ActivityBean>>>
+
+    @FormUrlEncoded
+    @POST(Api.DELETE_COMMENT)
+    fun deleteComment(
+        @Field("commentId") commentId: Long,
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<String>>
+
+    @FormUrlEncoded
+    @POST(Api.QUERY_COMMENT)
+    fun queryComment(
+        @Field("messageId") msgtId: Long,
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<List<Comment>>>
+
+    @FormUrlEncoded
+    @POST(Api.ADD_COMMENT)
+    fun addComment(
+        @Field("content" ) content: String,
+        @Field("messageId") msgtId: Long,
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<String>>
+
+
+
+
+
+
+
+
 }

@@ -48,4 +48,13 @@ object Api {
 
 
     const val GET_UNEXPIRED_EVENTS = "activity/getUnexpiredEvents"
+
+
+    const val DELETE_COMMENT = "comment/delete"
+
+    const val ADD_COMMENT = "comment/addComment"
+
+    const val QUERY_COMMENT = "comment/queryCommentsByMessageId"
+
+
 }
