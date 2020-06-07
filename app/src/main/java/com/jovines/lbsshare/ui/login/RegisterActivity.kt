@@ -77,6 +77,9 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
         materialDialog.show()
         viewModel.register(nickname, phone.toLong(), password, successCallBack = {
             startActivity<MainActivity>()
+            if (materialDialog != null && materialDialog.isShowing) {
+                materialDialog.dismiss()
+            }
             finish()
         }, failedCallback = {
             when (it) {

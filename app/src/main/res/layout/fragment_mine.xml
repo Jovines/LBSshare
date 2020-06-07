@@ -138,9 +138,7 @@
                 android:id="@+id/number_of_messages_sent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
                 android:drawableStart="@drawable/ic_number_of_posts_icon"
-                android:drawablePadding="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

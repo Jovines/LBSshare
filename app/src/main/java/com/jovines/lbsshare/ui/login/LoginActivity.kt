@@ -45,6 +45,9 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
             }
             materialDialog.show()
             viewModel.land(password, phone.toLong(), successCallBack = {
+                if (materialDialog != null && materialDialog.isShowing) {
+                    materialDialog.dismiss()
+                }
                 startActivity<MainActivity>()
                 finish()
             }, failedCallback = {

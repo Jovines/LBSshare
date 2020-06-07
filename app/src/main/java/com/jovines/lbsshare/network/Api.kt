@@ -10,7 +10,7 @@ package com.jovines.lbsshare.network
 
 object Api {
 
-    const val BASE_URL = "http://192.168.1.103:9899/"
+    const val BASE_URL = "http://139.196.143.240:9894/"
 
     const val LAND_URL = "user/login"
 
@@ -55,6 +55,8 @@ object Api {
     const val ADD_COMMENT = "comment/addComment"
 
     const val QUERY_COMMENT = "comment/queryCommentsByMessageId"
+
+    const val GET_BANNER = "banner/getBanner"
 
 
 }

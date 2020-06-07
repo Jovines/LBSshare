@@ -1,8 +1,10 @@
 package com.jovines.lbsshare.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.bean.ActivityBean
+import com.jovines.lbsshare.bean.BannerBean
 import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
@@ -19,6 +21,7 @@ class FoundViewModel : BaseViewModel() {
 
 
     val eventsList = MutableLiveData<List<ActivityBean>>()
+
 
     private val service: UserApiService = ApiGenerator.getApiService(UserApiService::class.java)
 
@@ -39,5 +42,15 @@ class FoundViewModel : BaseViewModel() {
             .subscribe {
                 eventsList.value = it.data
             }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getBannerPics(action: (List<BannerBean>) -> Unit) {
+        service.getBannerPic()
+            .setSchedulers()
+            .errorHandler()
+            .subscribe({
+                action(it.data)
+            },{})
     }
 }

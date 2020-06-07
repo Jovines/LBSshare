@@ -195,7 +195,8 @@ interface UserApiService {
         @Field("phone") phone: Long = App.user.phone
     ): Observable<StatusWarp<String>>
 
-
+    @GET(Api.GET_BANNER)
+    fun getBannerPic(): Observable<StatusWarp<List<BannerBean>>>
 
 
 
