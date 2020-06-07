@@ -58,7 +58,7 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
         unpublish.setOnClickListener { finish() }
 
         et_text.afterTextChanged {
-            if (viewModel.content.get()?.length ?: 0 == 200) {
+            if (viewModel.content.get()?.length ?: 0 == 1000) {
                 viewModel.toastEvent.value = "字数已经到达上限"
             }
         }

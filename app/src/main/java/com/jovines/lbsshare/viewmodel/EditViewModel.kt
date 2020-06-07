@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.databinding.ObservableField
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
+import com.jovines.lbsshare.event.PrivateMessageChanges
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.ui.helper.DialogHelper.articleRelease
@@ -14,6 +15,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MultipartBody
+import org.greenrobot.eventbus.EventBus
 
 /**
  * @author jon
@@ -68,6 +70,7 @@ class EditViewModel : BaseViewModel() {
                     .subscribe({ statusWarp ->
                         if (statusWarp.code == 1000) {
                             toastEvent.value = "发布成功"
+                            EventBus.getDefault().post(PrivateMessageChanges())
                             activity.finish()
                         } else {
                             toastEvent.value = "未知原因，发布失败"

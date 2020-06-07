@@ -11,11 +11,14 @@ import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.PersonalMessageAdapter
 import com.jovines.lbsshare.base.BaseViewModelFragment
 import com.jovines.lbsshare.databinding.FragmentMineBinding
+import com.jovines.lbsshare.event.PrivateMessageChanges
 import com.jovines.lbsshare.ui.UserSettingActivity
 import com.jovines.lbsshare.utils.extensions.gone
 import com.jovines.lbsshare.utils.extensions.visible
 import com.jovines.lbsshare.viewmodel.MineViewModel
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
 
 class MineFragment : BaseViewModelFragment<MineViewModel>() {
@@ -53,6 +56,11 @@ class MineFragment : BaseViewModelFragment<MineViewModel>() {
             number_of_messages_sent.text = it.size.toString()
             if (it.isEmpty()) no_track_of_life.visible() else no_track_of_life.gone()
         })
+        viewModel.queryMessage()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun sendAMessageYourself(changes: PrivateMessageChanges) {
         viewModel.queryMessage()
     }
 

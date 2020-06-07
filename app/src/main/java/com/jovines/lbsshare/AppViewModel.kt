@@ -21,7 +21,7 @@ class AppViewModel: ViewModel() {
     /**
      * 昵称
      */
-    val nickname = ObservableField<String>(App.user.nickname)
+    val nickname = ObservableField(App.user.nickname)
 
     /**
      * 用户描述

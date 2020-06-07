@@ -152,6 +152,10 @@ dependencies {
 
     //图片压缩
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
+
+    //banner
+    implementation 'com.youth.banner:banner:1.4.10'
+
 }
 repositories {
     mavenCentral()

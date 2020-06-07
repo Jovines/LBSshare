@@ -11,14 +11,11 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-//        Thread {
-//            Thread.sleep(2000)
         if (App.isLogin()) {
             startActivity<MainActivity>()
         } else {
             startActivity<StartUpActivity>()
         }
         finish()
-//        }.start()
     }
 }

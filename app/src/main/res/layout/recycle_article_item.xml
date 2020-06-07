@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/container_iv_item_pic"
+        android:layout_width="340dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="19dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="12dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_item_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        tools:text="CardView 会自动留出空间供阴影显示，而5.0之后的版本中没有预留空间." />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:alpha="0.7"
+        android:textSize="11dp"
+        android:textStyle="bold"
+        tools:text="2019年11月20日（星期三） (GMT-5)" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="15dp"
+        android:alpha="0.4"
+        android:background="#dfdfdf" />
+</LinearLayout>

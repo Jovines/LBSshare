@@ -10,7 +10,7 @@ package com.jovines.lbsshare.network
 
 object Api {
 
-    const val BASE_URL = "http://139.196.143.240:9899/"
+    const val BASE_URL = "http://192.168.123.107:9899/"
 
     const val LAND_URL = "user/login"
 
@@ -42,4 +42,10 @@ object Api {
 
     const val QUERY_MESSAGE = "lifecirclemessageitem/queryMessage"
 
+    const val DELETE_MESSAGE = "lifecirclemessageitem/deleteMessage"
+
+    const val GET_QUALITY_USER_NEWS = "lifecirclemessageitem/getQualityUserNews"
+
+
+    const val GET_UNEXPIRED_EVENTS = "activity/getUnexpiredEvents"
 }

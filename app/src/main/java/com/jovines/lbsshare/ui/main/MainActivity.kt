@@ -1,32 +1,18 @@
 package com.jovines.lbsshare.ui.main
 
 import android.os.Bundle
-import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
-import com.amap.api.services.weather.WeatherSearch
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.AppViewModel
 import com.jovines.lbsshare.R
-import com.jovines.lbsshare.adapter.MainHighQualityUsersAdapter
 import com.jovines.lbsshare.adapter.MainViewPagerFragmentAdapter
-import com.jovines.lbsshare.adapter.RecentNewsAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
-import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.databinding.ActivityMainBindingImpl
-import com.jovines.lbsshare.ui.EditActivity
-import com.jovines.lbsshare.ui.MineActivity
-import com.jovines.lbsshare.ui.StartUpActivity
-import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
-import com.jovines.lbsshare.utils.extensions.gone
-import com.jovines.lbsshare.utils.extensions.visible
+import com.jovines.lbsshare.event.ViewPagerPositionEvent
 import com.jovines.lbsshare.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.dip
-import org.jetbrains.anko.topPadding
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class MainActivity : BaseViewModelActivity<MainViewModel>() {
@@ -69,21 +55,16 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
 //        })
         nav_view.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_story -> main_viewpager.setCurrentItem(0,false)
-                R.id.navigation_notifications -> main_viewpager.setCurrentItem(1,false)
-                R.id.navigation_mine -> main_viewpager.setCurrentItem(2,false)
+                R.id.navigation_story -> main_viewpager.setCurrentItem(0, false)
+                R.id.navigation_notifications -> main_viewpager.setCurrentItem(1, false)
+                R.id.navigation_mine -> main_viewpager.setCurrentItem(2, false)
             }
             false
         }
         main_viewpager.adapter = MainViewPagerFragmentAdapter(this)
-
-//        main_viewpager.
+        main_viewpager.isUserInputEnabled = false
 //        viewModel.getPremiumUsers()
-//        (found_toolbar.layoutParams as ConstraintLayout.LayoutParams).apply {
-//            found_toolbar.topPadding += getStatusBarHeight()
-//            height += getStatusBarHeight()
-//        }
-//        iv_edit.setOnClickListener { startActivity<EditActivity>() }
+
 //
 //        user_profile.setOnClickListener {
 //            startActivity<MineActivity>()
@@ -124,5 +105,10 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
 
     override fun onBackPressed() {
         moveTaskToBack(true)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun acceptViewPagerPosition(viewPagerPositionEvent: ViewPagerPositionEvent) {
+        main_viewpager.setCurrentItem(2, false)
     }
 }

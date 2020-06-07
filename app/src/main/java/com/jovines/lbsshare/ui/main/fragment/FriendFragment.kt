@@ -5,15 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jovines.lbsshare.App
+import com.jovines.lbsshare.AppViewModel
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.RecentNewsAdapter
 import com.jovines.lbsshare.base.BaseViewModelFragment
 import com.jovines.lbsshare.bean.CardMessageReturn
+import com.jovines.lbsshare.databinding.FragmentFriendBinding
+import com.jovines.lbsshare.event.ViewPagerPositionEvent
+import com.jovines.lbsshare.ui.EditActivity
 import com.jovines.lbsshare.utils.extensions.doPermissionAction
 import com.jovines.lbsshare.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_friend.*
+import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.support.v4.startActivity
 
 class FriendFragment : BaseViewModelFragment<MainViewModel>() {
 
@@ -21,8 +29,14 @@ class FriendFragment : BaseViewModelFragment<MainViewModel>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend, container, false)
+        return DataBindingUtil.inflate<FragmentFriendBinding>(
+            inflater,
+            R.layout.fragment_friend,
+            container,
+            false
+        ).apply {
+            appViewModel = App.getAppViewModelProvider(this@FriendFragment)[AppViewModel::class.java]
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,10 +47,29 @@ class FriendFragment : BaseViewModelFragment<MainViewModel>() {
         friend_rec.adapter = recentNewsAdapter
         friend_rec.layoutManager = LinearLayoutManager(requireContext())
 
+        iv_edit.setOnClickListener { startActivity<EditActivity>() }
+
+        circleImageView.setOnClickListener { EventBus.getDefault().post(ViewPagerPositionEvent(1)) }
+
+        swipe_refresh.setOnRefreshListener {
+            doPermissionAction(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE
+            ) {
+                doAfterGranted {
+                    viewModel.updateLifeCircleNews()
+                }
+            }
+        }
+
         var lastTimeDataList = viewModel.latestNewsFromNearby.value
         viewModel.latestNewsFromNearby.observe(
             viewLifecycleOwner,
             Observer { cardList: List<CardMessageReturn>? ->
+                swipe_refresh.isRefreshing = false
                 if (lastTimeDataList != null) {
                     val cardListIdMap = cardList?.map { it.id }
                     val map = lastTimeDataList?.map { it.id }
@@ -66,7 +99,7 @@ class FriendFragment : BaseViewModelFragment<MainViewModel>() {
 
     override fun onStart() {
         super.onStart()
-        this.doPermissionAction(
+        doPermissionAction(
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -77,14 +110,7 @@ class FriendFragment : BaseViewModelFragment<MainViewModel>() {
                 viewModel.updateLifeCircleNews()
             }
         }
-    }
-
-
-    override fun onStop() {
-        super.onStop()
-        viewModel.disposable?.apply {
-            if (!isDisposed) dispose()
-        }
+        swipe_refresh.isRefreshing = true
     }
 
     override val viewModelClass = MainViewModel::class.java

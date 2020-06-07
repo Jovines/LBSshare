@@ -182,7 +182,9 @@ class MainViewModel : BaseViewModel() {
             //一进app就安排一次事件发送
             it.onNext(-1)
             it.onComplete()
-        }, Observable.interval(2, TimeUnit.SECONDS))
+        },
+            Observable.just(2))
+//            Observable.interval(2, TimeUnit.SECONDS))
             .subscribeOn(Schedulers.io())
             .flatMap { //初始化定位
                 Observable.create<AMapLocation> { emitter ->
@@ -292,7 +294,6 @@ class MainViewModel : BaseViewModel() {
                     iv_map_user_portrait.setImageBitmap(it)
                 }
             }
-            addMarkerToMap(bean, viewConversionBitmap)
-
+//            addMarkerToMap(bean, viewConversionBitmap)
         }
 }

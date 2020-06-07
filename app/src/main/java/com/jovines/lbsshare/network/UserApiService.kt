@@ -132,6 +132,15 @@ interface UserApiService {
 
 
     @FormUrlEncoded
+    @POST(Api.DELETE_MESSAGE)
+    fun deleteMessage(
+        @Field("messageId") messageId: Long,
+        @Field("password") password: String = App.user.password,
+        @Field("phone") phone: Long = App.user.phone
+    ): Observable<StatusWarp<String>>
+
+
+    @FormUrlEncoded
     @POST(Api.QUERY_MESSAGE)
     fun queryMessage(
         @Field("password") password: String = App.user.password,
@@ -148,7 +157,15 @@ interface UserApiService {
         @Field("phone") phone: Long = App.user.phone
     ): Observable<StatusWarp<UserBean>>
 
+
     @GET(Api.GET_PREMIUM_USERS)
     fun getPremiumUsers(): Observable<StatusWarp<List<PremiumUsersReturn>>>
 
+
+    @GET(Api.GET_QUALITY_USER_NEWS)
+    fun getQualityUserNews(): Observable<StatusWarp<List<CardMessageReturn>>>
+
+
+    @GET(Api.GET_UNEXPIRED_EVENTS)
+    fun getUnexpiredEvents(): Observable<StatusWarp<List<ActivityBean>>>
 }

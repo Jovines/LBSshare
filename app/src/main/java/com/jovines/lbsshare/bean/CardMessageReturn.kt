@@ -16,5 +16,6 @@ data class CardMessageReturn(
     var avatar: String? = null,
     var lon: Double? = null,
     var lat: Double? = null,
-    var images: String? = null
+    var images: String? = null,
+    var checkCount: Int? = null
 )

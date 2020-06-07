@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">生活圈</string>
+    <string name="app_name">小窝</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
