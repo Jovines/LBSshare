@@ -33,16 +33,15 @@ class ArticleFragment : BaseFragment() {
         val articleRecyclerAdapter = ArticleRecyclerAdapter(viewModel.qualityUserArticles)
         rv_list_article.adapter = articleRecyclerAdapter
         sl_article.setOnRefreshListener {
-            upData(articleRecyclerAdapter)
+            viewModel.getQualityUserArticles {
+                sl_article.isRefreshing = false
+                articleRecyclerAdapter.notifyDataSetChanged()
+            }
         }
-        upData(articleRecyclerAdapter)
-        sl_article.isRefreshing = true
-    }
-
-    private fun upData(adapter:ArticleRecyclerAdapter){
-        viewModel.getQualityUserArticles(){
+        viewModel.getQualityUserArticles {
             sl_article.isRefreshing = false
-            adapter.notifyDataSetChanged()
+            articleRecyclerAdapter.notifyDataSetChanged()
         }
+        sl_article.isRefreshing = true
     }
 }

@@ -7,5 +7,4 @@ package com.jovines.lbsshare.bean
 data class BannerBean(
     val id: Long,
     val frontcover: String
-) {
-}
+)

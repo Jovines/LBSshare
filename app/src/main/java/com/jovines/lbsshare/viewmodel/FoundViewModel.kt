@@ -25,23 +25,21 @@ class FoundViewModel : BaseViewModel() {
 
     private val service: UserApiService = ApiGenerator.getApiService(UserApiService::class.java)
 
-    fun getQualityUserArticles(action: () -> Unit = {}) {
-        val subscribe = service.getQualityUserNews()
-            .setSchedulers()
-            .errorHandler()
-            .subscribe {
-                qualityUserArticles.value = it.data
-                action()
-            }
-    }
+    fun getQualityUserArticles(action: () -> Unit = {}) = service.getQualityUserNews()
+        .setSchedulers()
+        .errorHandler()
+        .subscribe( {
+            qualityUserArticles.value = it.data
+            action()
+        },{})
 
     fun getSpecificEvents(action: () -> Unit) {
         val subscribe = service.getUnexpiredEvents()
             .setSchedulers()
             .errorHandler()
-            .subscribe {
+            .subscribe( {
                 eventsList.value = it.data
-            }
+            },{})
     }
 
     @SuppressLint("CheckResult")
@@ -51,6 +49,6 @@ class FoundViewModel : BaseViewModel() {
             .errorHandler()
             .subscribe({
                 action(it.data)
-            },{})
+            }, {})
     }
 }

@@ -1,6 +1,5 @@
 package com.jovines.lbsshare.utils.extensions
 
-import com.jovines.lbsshare.bean.StatusWarp
 import com.jovines.lbsshare.network.errorHandler.DefaultErrorHandler
 import com.jovines.lbsshare.network.errorHandler.ErrorHandler
 import io.reactivex.Observable

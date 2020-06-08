@@ -23,7 +23,4 @@ internal class MyBanner : Banner {
     ) : super(context, attrs, defStyle)
 
 
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return super.dispatchTouchEvent(ev)
-    }
 }

@@ -10,7 +10,6 @@ import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.ui.main.MainActivity
 import com.jovines.lbsshare.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_register.*
-import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
 

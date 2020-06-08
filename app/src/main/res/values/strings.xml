@@ -1,48 +1,27 @@
 <resources>
     <string name="app_name">小窝</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
     <string name="action_sign_in">登录</string>
     <string name="action_register">注册</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="password_format_error">密码格式错误，6-16位非中文字符</string>
     <string name="invalid_phone_number">无效手机号</string>
     <string name="bad_nickname_format">格式错误，1-6位中文或者字母</string>
     <string name="mobile_number_has_been_registered">该手机号已被注册</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="photos">PHOTOS</string>
     <string name="no_track_of_life">暂无生活轨迹</string>
 
     <string name="title_home">我的</string>
     <string name="title_story">友圈</string>
     <string name="title_notifications">发现</string>
-    <string name="title_activity_settings">SettingsActivity</string>
 
     <!--    mineFragment-->
-    <string name="minefragment_tv_text_my_notes">我 的 文 章</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
     <!-- 设置 Preferences -->
-    <string name="signature_title">反馈</string>
-    <string name="reply_title">Default reply action</string>
-    <string name="activity_setting_feedback">点击反馈</string>
-    <string name="activity_setting_notice">请输入您的反馈内容</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="found_tiltle">发现</string>
 </resources>

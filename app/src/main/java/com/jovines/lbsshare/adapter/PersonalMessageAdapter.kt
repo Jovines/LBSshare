@@ -88,9 +88,9 @@ class PersonalMessageAdapter(val data: MutableLiveData<List<PersonalMessageDetai
                                 ApiGenerator.getApiService(UserApiService::class.java)
                                     .deleteMessage(it1)
                                     .setSchedulers()
-                                    .subscribe {
+                                    .subscribe( {
                                         EventBus.getDefault().post(PrivateMessageChanges())
-                                    }
+                                    },{})
                             }
                         }
                         .negativeText("取消").show()

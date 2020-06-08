@@ -12,7 +12,6 @@ import com.jovines.lbsshare.AppViewModel
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.RecentNewsAdapter
 import com.jovines.lbsshare.base.BaseViewModelFragment
-import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.databinding.FragmentFriendBinding
 import com.jovines.lbsshare.event.PrivateMessageChanges
 import com.jovines.lbsshare.event.ViewPagerPositionEvent
@@ -23,7 +22,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 
 class FriendFragment : BaseViewModelFragment<MainViewModel>() {
 

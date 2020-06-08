@@ -88,10 +88,10 @@ class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() 
             ApiGenerator.getApiService(UserApiService::class.java).getNewsActiveUsers(
                 it
             ).setSchedulers()
-                .errorHandler().subscribe {
+                .errorHandler().subscribe( {
                     if (it?.data?.isEmpty() == true) dialog_detail_recycler_view.gone()
                     dialog_detail_recycler_view.adapter = NewsActiveUsersAdapter(it.data)
-                }
+                },{})
         }
 
         rv_artical_comment.adapter = adapter

@@ -2,7 +2,6 @@ package com.jovines.lbsshare.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.ComputableLiveData
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.jovines.lbsshare.R

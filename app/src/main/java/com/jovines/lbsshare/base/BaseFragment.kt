@@ -21,10 +21,10 @@ open class BaseFragment : Fragment() {
      * 这里可以开启生命周期的Log，你可以重写这个值并给值为true，
      * 也可以直接赋值为true（赋值的话请在init{}里面赋值或者在super.onCreate(savedInstanceState)调用之前赋值）
      */
-    open protected var isOpenLifeCycleLog = false
+    protected open var isOpenLifeCycleLog = false
 
     //当然，你要定义自己的TAG方便在Log里面找也可以重写这个
-    open protected var TAG: String = this::class.java.simpleName
+    protected open var TAG: String = this::class.java.simpleName
 
     private var isStarted = false
 

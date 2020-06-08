@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.github.chrisbanes.photoview.PhotoView
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.network.Api
 

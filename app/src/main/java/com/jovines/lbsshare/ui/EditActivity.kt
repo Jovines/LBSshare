@@ -10,7 +10,6 @@ import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.EditPictureSelectionAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.databinding.ActivityEditBindingImpl
-import com.jovines.lbsshare.ui.login.afterTextChanged
 import com.jovines.lbsshare.utils.extensions.doPermissionAction
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
 import com.jovines.lbsshare.viewmodel.EditViewModel

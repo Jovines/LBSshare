@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.adapter.DiscoveryViewPagerAdapter
+import com.jovines.lbsshare.base.BaseFragment
 import com.jovines.lbsshare.databinding.FragmentFoundBindingImpl
 import com.jovines.lbsshare.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_found.*
 
 
-class FoundFragment : Fragment() {
+class FoundFragment : BaseFragment() {
 
     lateinit var mainViewModel: MainViewModel
 

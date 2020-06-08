@@ -59,7 +59,7 @@ class ArticleRecyclerAdapter(private val liveData: MutableLiveData<List<CardMess
                             .addTimeVisited(this)
                             .errorHandler()
                             .setSchedulers()
-                            .subscribe()
+                            .subscribe({},{})
                     }
                 }
             }

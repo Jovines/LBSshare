@@ -32,7 +32,6 @@
         <activity
             android:name=".ui.UserSettingActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.MineActivity" />
         <activity android:name=".ui.EditActivity" />
         <activity
             android:name=".ui.SplashActivity"
@@ -44,7 +43,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.login.RegisterActivity" />
-        <activity android:name=".ui.StartUpActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.main.MainActivity">
 

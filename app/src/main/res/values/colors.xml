@@ -3,10 +3,8 @@
     <color name="colorPrimary">#00000000</color>
     <color name="colorPrimaryDark">#00000000</color>
     <color name="colorAccent">#669999</color>
-    <color name="colorAccent1">#CC669999</color>
 
 
     <color name="login_button_not_activated">#9FA0A8</color>
     <color name="login_button_activated">#669999</color>
-    <color name="toolbar_background">#B8BAD6</color>
 </resources>

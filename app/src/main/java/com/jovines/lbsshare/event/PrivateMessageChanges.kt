@@ -1,5 +1,3 @@
 package com.jovines.lbsshare.event
 
-class PrivateMessageChanges {
-
-}
+class PrivateMessageChanges

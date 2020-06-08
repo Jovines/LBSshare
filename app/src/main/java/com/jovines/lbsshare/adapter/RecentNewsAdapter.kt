@@ -1,9 +1,7 @@
 package com.jovines.lbsshare.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -71,7 +69,7 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                             .addTimeVisited(this)
                             .errorHandler()
                             .setSchedulers()
-                            .subscribe()
+                            .subscribe({}, {})
                     }
                 }
             }

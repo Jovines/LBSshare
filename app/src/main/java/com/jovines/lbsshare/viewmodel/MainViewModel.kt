@@ -230,10 +230,10 @@ class MainViewModel : BaseViewModel() {
 //        .doOnNext {
 //            latestNewsFromNearby.value = it.data
 //        }
-        .subscribe {
+        .subscribe( {
             latestNewsFromNearby.value = it.data
 
-        }
+        },{})
 
 
     private fun findActiveUsers() = userApiService.findNearby()

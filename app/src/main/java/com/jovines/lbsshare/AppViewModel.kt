@@ -1,7 +1,6 @@
 package com.jovines.lbsshare
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**

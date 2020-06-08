@@ -1,5 +1,3 @@
 package com.jovines.lbsshare.event
 
-class ViewPagerPositionEvent(i: Int) {
-
-}
+class ViewPagerPositionEvent(i: Int)
