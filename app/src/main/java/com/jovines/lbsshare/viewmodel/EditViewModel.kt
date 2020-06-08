@@ -1,8 +1,8 @@
 package com.jovines.lbsshare.viewmodel
 
-import android.app.Activity
 import android.net.Uri
 import androidx.databinding.ObservableField
+import androidx.fragment.app.FragmentActivity
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.event.PrivateMessageChanges
@@ -36,8 +36,7 @@ class EditViewModel : BaseViewModel() {
         ApiGenerator.getApiService(UserApiService::class.java)
 
     fun publishAnArticle(
-        activity: Activity,
-        isUploadLocation: Boolean = true
+        activity: FragmentActivity
     ) {
         val dialog = articleRelease(activity)
         dialog.show()
@@ -45,10 +44,6 @@ class EditViewModel : BaseViewModel() {
         Observable.create<List<MultipartBody.Part>> {
             val builder = MultipartBody.Builder()
             builder.addFormDataPart("phone", App.user.phone.toString())
-            if (isUploadLocation) {
-                builder.addFormDataPart("lat", App.user.lat.toString())
-                builder.addFormDataPart("lon", App.user.lon.toString())
-            }
             builder.addFormDataPart("password", App.user.password)
             builder.addFormDataPart("title", title.get() ?: "")
             builder.addFormDataPart("content", content.get() ?: "")

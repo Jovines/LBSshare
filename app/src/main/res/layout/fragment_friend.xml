@@ -17,12 +17,12 @@
         tools:context=".ui.main.fragment.FriendFragment">
 
         <View
+            android:id="@+id/view_friends_everyone_top"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:id="@+id/view_friends_everyone_top"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/shape_notification_title"
             android:fitsSystemWindows="true"
-            android:background="@drawable/shape_notification_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView7"
@@ -42,8 +42,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
-            android:layout_width="40dp"
             imageUri="@{appViewModel.avatar}"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/user_default_avatar"
@@ -68,8 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                tools:listitem="@layout/viewpager_latest_news_item"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/viewpager_latest_news_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -77,9 +77,9 @@
             android:id="@+id/iv_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_black_24dp"
-            android:layout_marginBottom="25dp"
             android:layout_marginEnd="25dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/ic_add_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -68,7 +68,7 @@
                     android:background="@null"
                     android:gravity="start|top"
                     android:hint="正文写在这～"
-                    android:maxLength="200"
+                    android:maxLength="1000"
                     android:minHeight="100dp"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="8dp"
@@ -93,20 +93,6 @@
                     tools:itemCount="5"
                     tools:listitem="@layout/recycle_edit_picture_selection_item" />
 
-                <androidx.appcompat.widget.AppCompatCheckedTextView
-                    android:id="@+id/whether_the_location_information_contains"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:checked="true"
-                    android:drawableStart="@drawable/selector_position_information"
-                    android:drawablePadding="4dp"
-                    android:gravity="start|bottom"
-                    android:text="显示位置信息"
-                    android:textColor="@color/selector_location_information_color"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/unpublish"

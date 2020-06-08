@@ -1,7 +1,9 @@
 package com.jovines.lbsshare.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -45,7 +47,7 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                 tv_user_name.text = messageReturn.nickname
                 tv_article_title.text = messageReturn.title
                 tv_time.text = messageReturn.time?.substringAfter("-")
-                tv_comment_num.setText(messageReturn.commentCount.toString())
+                tv_comment_num.text = messageReturn.commentCount.toString()
                 number_of_personal_message_accesses.text =
                     (messageReturn.checkCount ?: 0).toString()
                 tv_article_content.text = messageReturn.content

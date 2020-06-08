@@ -1,5 +1,6 @@
 package com.jovines.lbsshare.ui
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -10,6 +11,7 @@ import com.jovines.lbsshare.adapter.EditPictureSelectionAdapter
 import com.jovines.lbsshare.base.BaseViewModelActivity
 import com.jovines.lbsshare.databinding.ActivityEditBindingImpl
 import com.jovines.lbsshare.ui.login.afterTextChanged
+import com.jovines.lbsshare.utils.extensions.doPermissionAction
 import com.jovines.lbsshare.utils.extensions.getStatusBarHeight
 import com.jovines.lbsshare.viewmodel.EditViewModel
 import kotlinx.android.synthetic.main.activity_edit.*
@@ -52,7 +54,22 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
                 Toast.makeText(this, "您还未输入正文", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            viewModel.publishAnArticle(this, whether_the_location_information_contains.isChecked)
+            if (viewModel.imageUriList.isNotEmpty())
+                doPermissionAction(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) {
+                    reason = "发送图片必须需要内存权限"
+                    doAfterGranted {
+                        viewModel.publishAnArticle(this@EditActivity)
+                    }
+
+                    doAfterRefused {
+                        Toast.makeText(this@EditActivity, "没有储存权限，无法发表", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            else
+                viewModel.publishAnArticle(this@EditActivity)
         }
 
         unpublish.setOnClickListener { finish() }
@@ -63,9 +80,6 @@ class EditActivity : BaseViewModelActivity<EditViewModel>() {
             }
         }
 
-        whether_the_location_information_contains.setOnClickListener {
-            whether_the_location_information_contains.toggle()
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
