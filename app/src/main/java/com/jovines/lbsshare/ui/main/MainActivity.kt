@@ -37,9 +37,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>() {
             item.isChecked = true
             false
         }
-        main_viewpager.adapter = MainViewPagerFragmentAdapter(this)
-//        main_viewpager.isUserInputEnabled = false
-//        main_viewpager.setOnTouchListener { v, event -> false }
+        main_viewpager.adapter = MainViewPagerFragmentAdapter(supportFragmentManager)
     }
 
     override fun onBackPressed() {

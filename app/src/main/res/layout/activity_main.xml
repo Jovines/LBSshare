@@ -22,7 +22,7 @@
         android:clipChildren="false"
         tools:context=".ui.main.MainActivity">
 
-        <androidx.viewpager2.widget.ViewPager2
+        <com.game.smallnest.component.NeverScrollViewPager
             android:id="@+id/main_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
