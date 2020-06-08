@@ -1,6 +1,6 @@
 package com.jovines.lbsshare.network
 
-import com.jovines.lbs_server.entity.Comment
+import com.jovines.lbs_server.entity.CommentBean
 import com.jovines.lbs_server.entity.UserBean
 import com.jovines.lbsshare.App
 import com.jovines.lbsshare.bean.*
@@ -176,7 +176,7 @@ interface UserApiService {
         @Field("messageId") msgtId: Long,
         @Field("password") password: String = App.user.password,
         @Field("phone") phone: Long = App.user.phone
-    ): Observable<StatusWarp<List<Comment>>>
+    ): Observable<StatusWarp<List<CommentBean>>>
 
     @FormUrlEncoded
     @POST(Api.ADD_COMMENT)

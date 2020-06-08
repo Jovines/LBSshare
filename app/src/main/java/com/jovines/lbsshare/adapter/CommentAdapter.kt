@@ -3,12 +3,10 @@ package com.jovines.lbsshare.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.jovines.lbs_server.entity.Comment
+import com.jovines.lbs_server.entity.CommentBean
 import com.jovines.lbsshare.R
 import com.jovines.lbsshare.bindingadapter.UserAdapter
 import com.jovines.lbsshare.network.ApiGenerator
@@ -16,13 +14,12 @@ import com.jovines.lbsshare.network.UserApiService
 import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import kotlinx.android.synthetic.main.item_article_comment.view.*
-import kotlinx.android.synthetic.main.viewpager_latest_news_item.view.*
 
 /**
  * Created by chenyang
  * on 20-6-7
  */
-class CommentAdapter(val datas: LiveData<List<Comment>>) : RecyclerView.Adapter<ViewHolder>() {
+class CommentAdapter(val datas: LiveData<List<CommentBean>>) : RecyclerView.Adapter<ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

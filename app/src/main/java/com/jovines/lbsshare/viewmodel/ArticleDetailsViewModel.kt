@@ -4,11 +4,10 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
-import com.jovines.lbs_server.entity.Comment
+import com.jovines.lbs_server.entity.CommentBean
 import com.jovines.lbsshare.base.viewmodel.BaseViewModel
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
-import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 
 /**
@@ -22,7 +21,8 @@ class ArticleDetailsViewModel: BaseViewModel(){
 
     val service = ApiGenerator.getApiService(UserApiService::class.java)
 
-    val comments = MutableLiveData<List<Comment>>(listOf())
+    val comments = MutableLiveData<List<CommentBean>>(listOf())
+
 
     fun addComment(content: String, msgId: Long,action:(code: Int)->Unit){
         service.addComment(content = content, msgtId = msgId)

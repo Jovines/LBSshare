@@ -1,6 +1,7 @@
 package com.jovines.lbsshare.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -9,10 +10,12 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jovines.lbsshare.R
+import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.bean.PersonalMessageDetailsBean
 import com.jovines.lbsshare.event.PrivateMessageChanges
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
+import com.jovines.lbsshare.ui.ArticleDetailsActivity
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import kotlinx.android.synthetic.main.recycle_personal_content_item.view.*
 import org.greenrobot.eventbus.EventBus
@@ -55,6 +58,26 @@ class PersonalMessageAdapter(val data: MutableLiveData<List<PersonalMessageDetai
                         object : TypeToken<List<String>>() {}.type
                     )
                 )
+
+                setOnClickListener {
+                    val tmp = CardMessageReturn(
+                        images = messageDetailsBean.images,
+                        commentCount = 0,
+                        id = messageDetailsBean.id,
+                        user = messageDetailsBean.user,
+                        content = messageDetailsBean.content,
+                        title = messageDetailsBean.title,
+                        time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(messageDetailsBean.time)
+
+                    )
+                    context.startActivity(
+                        Intent(
+                            context,
+                            ArticleDetailsActivity::class.java
+                        ).apply {
+                            this.putExtra(ArticleDetailsActivity.DETAILED_DATA, tmp)
+                        })
+                }
                 setOnLongClickListener {
                     MaterialDialog.Builder(context)
                         .title("是否删除该动态？")
