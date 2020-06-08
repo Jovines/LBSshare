@@ -22,7 +22,7 @@ class ArticleDetailsViewModel: BaseViewModel(){
 
     val service = ApiGenerator.getApiService(UserApiService::class.java)
 
-    val comments = MutableLiveData<List<Comment>>()
+    val comments = MutableLiveData<List<Comment>>(listOf())
 
     fun addComment(content: String, msgId: Long,action:(code: Int)->Unit){
         service.addComment(content = content, msgtId = msgId)

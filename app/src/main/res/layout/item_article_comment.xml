@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,7 +10,7 @@
         android:id="@+id/iv_article_comment_avator"
         android:layout_width="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_home"
+        android:src="@drawable/user_default_avatar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15sp"
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="我是用户名"
+        tools:text="我是用户名"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
         android:textSize="16sp"
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="#000000"
-        android:text="我是评论的内容"
+        tools:text="我是评论的内容"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +59,7 @@
         android:layout_marginTop="15dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_article_comment_content"
         app:layout_constraintEnd_toEndOf="@+id/tv_artical_comment_delete"
-        android:text="2020-6-5 15:38:02"
+        tools:text="2020-6-5 15:38:02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
