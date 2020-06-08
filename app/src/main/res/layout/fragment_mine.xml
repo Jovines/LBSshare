@@ -139,18 +139,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_number_of_posts_icon"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="223" />
 
-            <!--        <com.google.android.material.tabs.TabLayout-->
-            <!--            android:id="@+id/mine_tab_layout"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content" />-->
-
-            <!--        <androidx.viewpager.widget.ViewPager-->
-            <!--            android:id="@+id/mine_view_pager"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="match_parent" />-->
             <TextView
                 android:id="@+id/tv_my_notes"
                 android:layout_width="wrap_content"
