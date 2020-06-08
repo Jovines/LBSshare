@@ -96,6 +96,7 @@ class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() 
 
         rv_artical_comment.adapter = adapter
         viewModel.comments.observe(this, Observer {
+            tv_no_comment.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             adapter.notifyDataSetChanged()
         })
         messageReturn.id?.let { viewModel.queryComments(it) }
@@ -121,8 +122,8 @@ class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() 
     override fun onBackPressed() {
         if (viewModel.isPictureShow.get() == View.VISIBLE) {
             viewModel.isPictureShow.set(View.GONE)
-        }else
-        super.onBackPressed()
+        } else
+            super.onBackPressed()
     }
 
     override val viewModelClass: Class<ArticleDetailsViewModel>

@@ -55,20 +55,7 @@ class ActivityFragment : BaseFragment() {
                 setImages(tmp)
                 start()
             }
-//            //先模拟数据
-//            setImages(
-//                listOf(
-//                    "https://pic4.zhimg.com/v2-14a66ba1f82f784a19e55d6b8b6d59e5_1200x500.jpg"
-//                    ,
-//                    "https://pic2.zhimg.com/80/v2-b476507f26b533c0029753f7e5d681bd_hd.png"
-//                    ,
-//                    "https://pic3.zhimg.com/80/v2-49b142b4e32d484b9e47527acaafe0fa_hd.jpg"
-//                    ,
-//                    "https://pic3.zhimg.com/80/e806d9a78ccf50a6ac4409932a70c67d_hd.jpg"
-//                )
-//            )
             setIndicatorGravity(BannerConfig.CENTER)
-            start()
         }
         rv_activity_page.adapter = ActivityDetailsAdapter(viewModel.eventsList)
     }

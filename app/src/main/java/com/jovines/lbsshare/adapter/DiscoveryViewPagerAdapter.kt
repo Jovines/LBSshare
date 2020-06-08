@@ -1,15 +1,22 @@
 package com.jovines.lbsshare.adapter
 
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.jovines.lbsshare.ui.main.fragment.foud.ArticleFragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jovines.lbsshare.ui.main.fragment.foud.ActivityFragment
+import com.jovines.lbsshare.ui.main.fragment.foud.ArticleFragment
 
-class DiscoveryViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    override fun getItemCount() = 2
+class DiscoveryViewPagerAdapter(fm: FragmentManager) :
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun createFragment(position: Int) = when (position) {
+    override fun getItem(position: Int) = when (position) {
         0 -> ArticleFragment()
         else -> ActivityFragment()
+    }
+
+    override fun getCount() = 2
+
+    override fun getPageTitle(position: Int) = when (position) {
+        0 -> "精品文章"
+        else -> "活动"
     }
 }
