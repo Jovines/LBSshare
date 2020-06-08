@@ -28,7 +28,7 @@ class DottedLineView : View {
     ) : super(context, attrs, defStyleAttr)
 
     private val paint = Paint().apply {
-        color = 0xff000000.toInt()
+        color = 0xff669999.toInt()
         strokeWidth = dip(1).toFloat()
     }
 
@@ -37,9 +37,10 @@ class DottedLineView : View {
 
     override fun onDraw(canvas: Canvas) {
         var drawHeight = 0F
-        while (drawHeight<height) {
-            canvas.drawLine(width/2f, drawHeight,width/2f,drawHeight+ lineLength,paint)
-            drawHeight+= (lineLength+interval)
+        while (drawHeight < height) {
+//            canvas.drawLine(width / 2f, drawHeight, width / 2f, drawHeight + lineLength, paint)
+            canvas.drawCircle(width / 2f, drawHeight + lineLength / 2, dip(2f).toFloat(), paint)
+            drawHeight += (lineLength + interval)
         }
     }
 }
