@@ -55,6 +55,7 @@ class RecentNewsAdapter(private val liveData: MutableLiveData<List<CardMessageRe
                         object : TypeToken<List<String>>() {}.type
                     )
                 )
+                personal_picture_display.setOnTouchListener { v, event -> false }
                 setOnClickListener {
                     context.startActivity(
                         Intent(

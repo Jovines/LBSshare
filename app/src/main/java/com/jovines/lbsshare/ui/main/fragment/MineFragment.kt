@@ -50,7 +50,7 @@ class MineFragment : BaseViewModelFragment<MineViewModel>() {
     private fun initActivity() {
         val personalMessageAdapter = PersonalMessageAdapter(viewModel.personalPublish)
         recy_personal_message.adapter = personalMessageAdapter
-        set_button.setOnClickListener { startActivity<UserSettingActivity>() }
+        linearLayout.setOnClickListener { startActivity<UserSettingActivity>() }
         viewModel.personalPublish.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             personalMessageAdapter.notifyDataSetChanged()
             number_of_messages_sent.text = it.size.toString()
