@@ -15,7 +15,7 @@ import com.jovines.lbsshare.bean.PersonalMessageDetailsBean
 import com.jovines.lbsshare.event.PrivateMessageChanges
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
-import com.jovines.lbsshare.ui.ArticleDetailsActivity
+import com.jovines.lbsshare.ui.detail.ArticleDetailsActivity
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import kotlinx.android.synthetic.main.recycle_personal_content_item.view.*
 import org.greenrobot.eventbus.EventBus

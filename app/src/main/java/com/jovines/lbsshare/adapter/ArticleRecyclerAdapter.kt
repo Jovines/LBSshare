@@ -12,7 +12,7 @@ import com.jovines.lbsshare.bean.CardMessageReturn
 import com.jovines.lbsshare.bindingadapter.UserAdapter
 import com.jovines.lbsshare.network.ApiGenerator
 import com.jovines.lbsshare.network.UserApiService
-import com.jovines.lbsshare.ui.ArticleDetailsActivity
+import com.jovines.lbsshare.ui.detail.ArticleDetailsActivity
 import com.jovines.lbsshare.utils.extensions.errorHandler
 import com.jovines.lbsshare.utils.extensions.gone
 import com.jovines.lbsshare.utils.extensions.setSchedulers

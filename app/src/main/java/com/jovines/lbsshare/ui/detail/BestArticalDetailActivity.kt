@@ -1,4 +1,4 @@
-package com.jovines.lbsshare.ui
+package com.jovines.lbsshare.ui.detail
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -24,11 +24,12 @@ import com.jovines.lbsshare.utils.extensions.gone
 import com.jovines.lbsshare.utils.extensions.setSchedulers
 import com.jovines.lbsshare.utils.extensions.visible
 import com.jovines.lbsshare.viewmodel.ArticleDetailsViewModel
-import kotlinx.android.synthetic.main.activity_article_details.*
+import kotlinx.android.synthetic.main.activity_best_artical_detail.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.toast
 
-class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() {
+
+class BestArticalDetailActivity : BaseViewModelActivity<ArticleDetailsViewModel>() {
 
 
     companion object {
@@ -54,9 +55,9 @@ class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() 
     private fun initActivity() {
         val messageReturn = intent.getSerializableExtra(DETAILED_DATA) as CardMessageReturn
         binding.messageReturn = messageReturn
-        dialog_detail_recycler_view.layoutManager =
+        rv_best_artical_dialog_detail.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        dialog_detail_recycler_view.addItemDecoration(object : RecyclerView.ItemDecoration() {
+        rv_best_artical_dialog_detail.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
                 view: View,
@@ -69,16 +70,16 @@ class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() 
         })
 
         if (messageReturn.images?.isNotBlank() == true) {
-            recycle_detailed_information.visible()
+            rv_best_artical__detailed_information.visible()
             val dataList = Gson().fromJson<List<String>>(
                 messageReturn.images ?: "[]",
                 object : TypeToken<List<String>>() {}.type
             )
-            vp2_picture_display.adapter = PictureViewAdapter(dataList)
+            vp2_best_artical_picture_display.adapter = PictureViewAdapter(dataList)
 
-            recycle_detailed_information.adapter = DetailedInformationAdapter(
+            rv_best_artical__detailed_information.adapter = DetailedInformationAdapter(
                 dataList,
-                vp2_picture_display,
+                vp2_best_artical_picture_display,
                 viewModel.isPictureShow
             )
         }
@@ -88,29 +89,29 @@ class ArticleDetailsActivity : BaseViewModelActivity<ArticleDetailsViewModel>() 
             ApiGenerator.getApiService(UserApiService::class.java).getNewsActiveUsers(
                 it
             ).setSchedulers()
-                .errorHandler().subscribe( {
-                    if (it?.data?.isEmpty() == true) dialog_detail_recycler_view.gone()
-                    dialog_detail_recycler_view.adapter = NewsActiveUsersAdapter(it.data)
-                },{})
+                .errorHandler().subscribe {
+                    if (it?.data?.isEmpty() == true) rv_best_artical_dialog_detail.gone()
+                    rv_best_artical_dialog_detail.adapter = NewsActiveUsersAdapter(it.data)
+                }
         }
 
-        rv_artical_comment.adapter = adapter
+        rv_best_artical_comment.adapter = adapter
         viewModel.comments.observe(this, Observer {
-            tv_no_comment.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            tv_best_artical_no_comment.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             adapter.notifyDataSetChanged()
         })
         messageReturn.id?.let { viewModel.queryComments(it) }
 
 
-        btn_send_comment.setOnClickListener {
-            val msg = et_comment.text.toString()
+        btn_best_artical_send_comment.setOnClickListener {
+            val msg = et_best_artical_comment.text.toString()
             if (msg.isNotBlank()) {
                 viewModel.addComment(msg, messageReturn.id ?: 0) { code ->
                     if (code != 1000) {
                         toast("添加评论失败！")
                     } else {
                         messageReturn.id?.let { it1 -> viewModel.queryComments(it1) }
-                        et_comment.setText("")
+                        et_best_artical_comment.setText("")
                     }
                 }
             }
